@@ -1,0 +1,173 @@
+#*
+This template will return the supported OAuth client configuration values for
+both the OpenID Connect Discovery and Authorization Server Metadata Specifications
+when a request is issued to either the .well-known/openid-configuration (Discovery) or the
+.well-known/oauth-authorization-server (Metadata) endpoints.
+
+For more information regarding the OpenID Connection Discovery Specification
+see: 'https://openid.net/specs/openid-connect-discovery-1_0.html'.
+
+For more information regarding the Authorization Server Metadata Specfication
+see: 'https://www.rfc-editor.org/rfc/rfc8414'.
+
+You can customize the amount of configuration information displayed by modifying this template.
+As well, you can use conditional statements to return different responses based on Velocity variables.
+
+Velocity variables (identified by the $ character) are generated at runtime by the server and are
+very helpful in customizing this template.The following Velocity variables can be used.
+
+$info - a key value map containing all of the available values. For commonly used examples, see below.
+
+An example of how to remove scopes.
+  #set($scopes= $info.get('scopes_supported'))
+  #set($res = $scopes.remove(1))
+  #set($res = $scopes.remove('address'))
+
+An example of how to add scopes.
+  #set($scopes=$info.get('scopes_supported'))
+  #set($res=$scopes.add('customscope'))
+  "scopes_supported": $utils.toJsonArray($scopes)
+
+An example to enumerate the available providers.
+  $info.get('type') - possible values: "oauth", "openid-connect"
+
+$utils - utility method to display JSON String arrays. Usage:
+  $utils.toJsonArray($info.get('response_types_supported'))
+
+$HttpServletRequest  - request object
+
+An example to get a Query String parameter called test
+  $HttpServletRequest.getParameter('test')
+
+$HttpServletResponse - response object
+
+How to set a custom header
+  $HttpServletResponse.setHeader("X-Frame-Options", "DENY")
+
+Keys available for use with the $info variable:
+
+  "issuer"
+  "authorization_endpoint"
+  "token_endpoint"
+  "revocation_endpoint"
+  "userinfo_endpoint"
+  "introspection_endpoint"
+  "end_session_endpoint"
+  "jwks_uri"
+  "registration_endpoint"
+  "ping_revoked_sris_endpoint"
+  "ping_session_management_sris_endpoint"
+  "ping_session_management_users_endpoint"
+  "ping_end_session_endpoint"
+  "backchannel_logout_supported"
+  "backchannel_logout_session_supported"
+  "frontchannel_logout_supported"
+  "frontchannel_logout_session_supported"
+  "device_authorization_endpoint"
+  "scopes_supported"
+  "dynamic_scopes_supported"
+  "claims_supported"
+  "response_types_supported"
+  "response_modes_supported"
+  "grant_types_supported"
+  "subject_types_supported"
+  "id_token_signing_alg_values_supported"
+  "token_endpoint_auth_methods_supported"
+  "token_endpoint_auth_signing_alg_values_supported"
+  "claim_types_supported"
+  "claims_parameter_supported"
+  "request_parameter_supported"
+  "request_uri_parameter_supported"
+  "request_object_signing_alg_values_supported"
+  "request_object_encryption_alg_values_supported"
+  "request_object_encryption_enc_values_supported"
+  "id_token_encryption_alg_values_supported"
+  "id_token_encryption_enc_values_supported"
+  "exclusive_scopes_supported"
+  "dynamic_exclusive_scopes_supported"
+  "pushed_authorization_request_endpoint"
+  "require_pushed_authorization_requests"
+  "backchannel_authentication_endpoint"
+  "backchannel_token_delivery_modes_supported"
+  "backchannel_authentication_request_signing_alg_values_supported"
+  "backchannel_user_code_parameter_supported"
+  "code_challenge_methods_supported"
+  "authorization_response_iss_parameter_supported"
+  "introspection_signing_alg_values_supported"
+  "introspection_encryption_alg_values_supported"
+  "introspection_encryption_enc_values_supported"
+  "authorization_signing_alg_values_supported"
+  "authorization_encryption_alg_values_supported"
+  "authorization_encryption_enc_values_supported"
+  "dpop_signing_alg_values_supported"
+*#
+{
+  "issuer": "$info.get('issuer')",
+  "authorization_endpoint": "$info.get('authorization_endpoint')",
+  "token_endpoint": "$info.get('token_endpoint')",
+  "revocation_endpoint": "$info.get('revocation_endpoint')",
+#if($info.get('type') == "openid-connect")
+  "userinfo_endpoint": "$info.get('userinfo_endpoint')",
+#end
+  "introspection_endpoint": "$info.get('introspection_endpoint')",
+  "end_session_endpoint": "$info.get('end_session_endpoint')",
+  "jwks_uri": "$info.get('jwks_uri')",
+  "registration_endpoint": "$info.get('registration_endpoint')",
+  "ping_revoked_sris_endpoint": "$info.get('ping_revoked_sris_endpoint')",
+  "ping_session_management_sris_endpoint": "$info.get('ping_session_management_sris_endpoint')",
+  "ping_session_management_users_endpoint": "$info.get('ping_session_management_users_endpoint')",
+  "ping_end_session_endpoint": "$info.get('ping_end_session_endpoint')",
+#if($info.get('type') == "openid-connect")
+  "backchannel_logout_supported": $info.get('backchannel_logout_supported'),
+  "backchannel_logout_session_supported": $info.get('backchannel_logout_session_supported'),
+  "frontchannel_logout_supported": $info.get('frontchannel_logout_supported'),
+  "frontchannel_logout_session_supported": $info.get('frontchannel_logout_session_supported'),
+#end
+  "device_authorization_endpoint": "$info.get('device_authorization_endpoint')",
+  "scopes_supported": $utils.toJsonArray($info.get('scopes_supported')),
+#if($info.get('type') == "openid-connect")
+#if($info.get('claims_supported'))
+  "claims_supported": $utils.toJsonArray($info.get('claims_supported')),
+#end
+#end
+  "response_types_supported": $utils.toJsonArray($info.get('response_types_supported')),
+  "response_modes_supported": $utils.toJsonArray($info.get('response_modes_supported')),
+  "grant_types_supported": $utils.toJsonArray($info.get('grant_types_supported')),
+#if($info.get('type') == "openid-connect")
+  "subject_types_supported": $utils.toJsonArray($info.get('subject_types_supported')),
+  "id_token_signing_alg_values_supported": $utils.toJsonArray($info.get('id_token_signing_alg_values_supported')),
+#end
+  "token_endpoint_auth_methods_supported": $utils.toJsonArray($info.get('token_endpoint_auth_methods_supported')),
+  "token_endpoint_auth_signing_alg_values_supported":  $utils.toJsonArray($info.get('token_endpoint_auth_signing_alg_values_supported')),
+#if($info.get('type') == "openid-connect")
+  "claim_types_supported": $utils.toJsonArray($info.get('claim_types_supported')),
+  "claims_parameter_supported": $info.get('claims_parameter_supported'),
+#end
+  "request_parameter_supported": $info.get('request_parameter_supported'),
+  "request_uri_parameter_supported": $info.get('request_uri_parameter_supported'),
+  "authorization_response_iss_parameter_supported": $info.get('authorization_response_iss_parameter_supported'),
+  "request_object_signing_alg_values_supported": $utils.toJsonArray($info.get('request_object_signing_alg_values_supported')),
+  "request_object_encryption_alg_values_supported": $utils.toJsonArray($info.get('request_object_encryption_alg_values_supported')),
+  "request_object_encryption_enc_values_supported": $utils.toJsonArray($info.get('request_object_encryption_enc_values_supported')),
+#if($info.get('type') == "openid-connect")
+  "id_token_encryption_alg_values_supported": $utils.toJsonArray($info.get('id_token_encryption_alg_values_supported')),
+  "id_token_encryption_enc_values_supported": $utils.toJsonArray($info.get('id_token_encryption_enc_values_supported')),
+#end
+  "introspection_signing_alg_values_supported": $utils.toJsonArray($info.get('introspection_signing_alg_values_supported')),
+  "introspection_encryption_alg_values_supported": $utils.toJsonArray($info.get('introspection_encryption_alg_values_supported')),
+  "introspection_encryption_enc_values_supported": $utils.toJsonArray($info.get('introspection_encryption_enc_values_supported')),
+  "authorization_signing_alg_values_supported": $utils.toJsonArray($info.get('authorization_signing_alg_values_supported')),
+  "authorization_encryption_alg_values_supported": $utils.toJsonArray($info.get('authorization_encryption_alg_values_supported')),
+  "authorization_encryption_enc_values_supported": $utils.toJsonArray($info.get('authorization_encryption_enc_values_supported')),
+#if($info.get('pushed_authorization_request_endpoint'))
+  "pushed_authorization_request_endpoint": "$info.get('pushed_authorization_request_endpoint')",
+  "require_pushed_authorization_requests": $info.get('require_pushed_authorization_requests'),
+#end
+  "authorization_details_types_supported": $utils.toJsonArray($info.get('authorization_details_types_supported')),
+  "backchannel_authentication_endpoint": "$info.get('backchannel_authentication_endpoint')",
+  "backchannel_token_delivery_modes_supported": $utils.toJsonArray($info.get('backchannel_token_delivery_modes_supported')),
+  "backchannel_authentication_request_signing_alg_values_supported": $utils.toJsonArray($info.get('backchannel_authentication_request_signing_alg_values_supported')),
+  "backchannel_user_code_parameter_supported": $info.get('backchannel_user_code_parameter_supported'),
+  "code_challenge_methods_supported": $utils.toJsonArray($info.get('code_challenge_methods_supported')),
+  "dpop_signing_alg_values_supported": $utils.toJsonArray($info.get('dpop_signing_alg_values_supported'))
+}

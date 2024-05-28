@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<c:config xmlns:c="http://www.sourceid.org/2004/05/config">
+    <!-- The expiry period for logout tokens, in minutes. -->
+    <c:item name="LogoutTokenExpiryMins">5</c:item>
+</c:config>

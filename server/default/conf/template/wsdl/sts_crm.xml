@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:trust="http://docs.oasis-open.org/ws-sx/ws-trust/200512"
+                  xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+                  xmlns:tns="http://schemas.pingidentity.com/ws/securitytokenservice"
+                  xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy"
+                  xmlns:wsa10="http://www.w3.org/2005/08/addressing"
+                  xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/"
+                  xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl"
+                  xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd"
+                  name="SecurityTokenService"
+                  targetNamespace="http://schemas.pingidentity.com/ws/securitytokenservice"
+                  xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    <wsdl:types>
+        <xsd:schema targetNamespace="http://schemas.pingidentity.com/ws/securitytokenservice/Imports">
+            <xsd:import namespace="http://docs.oasis-open.org/ws-sx/ws-trust/200512"
+                        schemaLocation="{1}xsd=ws-trust-1.3.xsd"/>
+            <xsd:import namespace="http://schemas.xmlsoap.org/ws/2005/02/trust"
+                        schemaLocation="{1}xsd=ws-trust-2005.xsd"/>
+        </xsd:schema>
+    </wsdl:types>
+    <wsdl:message name="IWSTrust13Async_Trust13IssueAsync_InputMessage">
+        <wsdl:part name="request"
+                   element="trust:RequestSecurityToken"
+                   xmlns:t="http://schemas.xmlsoap.org/ws/2005/02/trust"/>
+    </wsdl:message>
+    <wsdl:message name="IWSTrust13Async_Trust13IssueAsync_OutputMessage">
+        <wsdl:part name="TrustFeb2005IssueAsyncResult"
+                   element="trust:RequestSecurityTokenResponseCollection"
+                   xmlns:t="http://schemas.xmlsoap.org/ws/2005/02/trust"/>
+    </wsdl:message>
+    <wsdl:portType name="IWSTrust13Async">
+        <wsdl:operation name="Trust13IssueAsync">
+            <wsdl:input wsaw:Action="http://docs.oasis-open.org/ws-sx/ws-trust/200512/RST/Issue"
+                        message="tns:IWSTrust13Async_Trust13IssueAsync_InputMessage"/>
+            <wsdl:output wsaw:Action="http://docs.oasis-open.org/ws-sx/ws-trust/200512/RSTRC/IssueFinal"
+                         message="tns:IWSTrust13Async_Trust13IssueAsync_OutputMessage"/>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:binding name="UserNameWSTrustBinding_IWSTrust13Async" type="tns:IWSTrust13Async">
+        <soap12:binding transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="Trust13IssueAsync">
+            <soap12:operation soapAction="http://schemas.xmlsoap.org/ws/2005/02/trust/RST/Issue" style="document"/>
+            <wsdl:input>
+                <soap12:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap12:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:service name="SecurityTokenService">
+        <wsdl:port name="UserNameWSTrustBinding_IWSTrust13Async"
+                   binding="tns:UserNameWSTrustBinding_IWSTrust13Async">
+            <soap12:address location="{0}"/>
+            <wsa10:EndpointReference>
+                <wsa10:Address>{0}</wsa10:Address>
+            </wsa10:EndpointReference>
+        </wsdl:port>
+    </wsdl:service>
+</wsdl:definitions>

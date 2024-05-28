@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:config xmlns:con="http://www.sourceid.org/2004/05/config">
+
+    <!-- The slot to use for OCS protection. Set this value to the number 
+         of the slot you want to use. Leave blank to use the default slot. -->
+    <con:item name="slot"></con:item>
+
+</con:config>

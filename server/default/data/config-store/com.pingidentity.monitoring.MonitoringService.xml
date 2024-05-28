@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:config xmlns:con="http://www.sourceid.org/2004/05/config">
+    <!--
+        The window, in seconds, to report statistics
+    -->
+    <con:item name="StatisticsWindowSecs">300</con:item>
+
+    <!--
+        Comma separated list of percentiles to report on with the heartbeat endpoint.
+    -->
+    <con:item name="StatisticsPercentilesList">90</con:item>
+
+    <!--
+        Determines whether PingFederate tracks metrics related to IdP adapters.
+    -->
+    <con:item name="EnableAdapterMetrics">true</con:item>
+
+    <!--
+        Determines whether PingFederate tracks metrics related to IdP connections.
+    -->
+    <con:item name="EnableConnectionMetrics">true</con:item>
+
+    <!--
+        A map containing MBean attributes that are made available for inclusion in the heartbeat page templates.
+        The key in the map is the variable name that can be referenced in the Velocity template.
+        The value is the name of the MBean concatenated with the attribute name, separated with the pipe (|)
+        character.
+    -->
+    <con:map name="HeartbeatMBeanAttributes">
+        <con:item name="engine.jetty.queued.thread.pool.utilized.threads">org.eclipse.jetty.util.thread:type=queuedthreadpool,id=0|utilizedThreads</con:item>
+        <con:item name="engine.jetty.queued.thread.pool.max.available.threads">org.eclipse.jetty.util.thread:type=queuedthreadpool,id=0|maxAvailableThreads</con:item>
+        <con:item name="engine.jetty.queued.thread.pool.utilization.rate">org.eclipse.jetty.util.thread:type=queuedthreadpool,id=0|utilizationRate</con:item>
+        <con:item name="engine.jetty.queued.thread.pool.queue.size">org.eclipse.jetty.util.thread:type=queuedthreadpool,id=0|queueSize</con:item>
+        <con:item name="admin.jetty.queued.thread.pool.utilized.threads">org.eclipse.jetty.util.thread:type=queuedthreadpool,id=1|utilizedThreads</con:item>
+        <con:item name="admin.jetty.queued.thread.pool.max.available.threads">org.eclipse.jetty.util.thread:type=queuedthreadpool,id=1|maxAvailableThreads</con:item>
+        <con:item name="admin.jetty.queued.thread.pool.utilization.rate">org.eclipse.jetty.util.thread:type=queuedthreadpool,id=1|utilizationRate</con:item>
+        <con:item name="admin.jetty.queued.thread.pool.queue.size">org.eclipse.jetty.util.thread:type=queuedthreadpool,id=1|queueSize</con:item>
+    </con:map>
+
+    <!--
+      Configuration for Thread Pool Exhaustion Monitoring. A configurable action will be taken when the metric exceeds a
+      configurable value Threshold for a configurable number of sequential samples taken at the specified interval.
+      After the action is taken, there will be a configurable quiet period where no additional thread dumps and or
+      notification emails are generated.
+
+      MBeanName: The name of the MBean used to monitor for thread exhaustion.
+      MBeanAttribute: The MBean attribute used to monitor for thread exhaustion.
+      Operator: The comparison operator used to decide if the threshold was breached. Supported
+                values are 'GreaterThan' and 'LessThan'.
+      Threshold: The value that the MBean attribute is compared with to decide if the threshold was breached.
+      SampleIntervalSeconds: The interval between checks.
+      Samples: The number of consecutive samples breaching the threshold to trigger a thread exhaustion notification.
+      QuietPeriodMinutes The minimum amount of time before another thread exhaustion notification can be triggered.
+    -->
+    <con:map name="ThreadPoolExhaustionConfiguration">
+        <con:item name="MBeanName">org.eclipse.jetty.util.thread:type=queuedthreadpool,id=0</con:item>
+        <con:item name="MBeanAttribute">queueSize</con:item>
+        <con:item name="Operator">GreaterThan</con:item>
+        <con:item name="Threshold">100</con:item>
+        <con:item name="SampleIntervalSeconds">15</con:item>
+        <con:item name="Samples">2</con:item>
+        <con:item name="QuietPeriodMinutes">15</con:item>
+    </con:map>
+</con:config>

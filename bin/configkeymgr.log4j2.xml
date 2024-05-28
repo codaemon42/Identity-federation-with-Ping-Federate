@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration>
+    <Appenders>
+        <RollingFile name="FILE" fileName="${sys:pingfederate.log.dir}/configkeymgr.log"
+                     filePattern="${sys:pingfederate.log.dir}/configkeymgr.log.%i">
+            <PatternLayout>
+                <pattern>%d %-5p [%c] %m%n</pattern>
+            </PatternLayout>
+            <Policies>
+                <SizeBasedTriggeringPolicy size="10000 KB" />
+            </Policies>
+            <DefaultRolloverStrategy max="1" />
+        </RollingFile>
+    </Appenders>
+
+    <Loggers>
+        <Root level="INFO">
+            <AppenderRef ref="FILE" />
+        </Root>
+    </Loggers>
+</Configuration>

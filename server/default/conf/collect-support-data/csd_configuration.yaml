@@ -1,0 +1,87 @@
+arguments:
+  - id: productType
+    type: string
+    defaultValue: PingFederate
+    configuration:
+      longIdentifier: productType
+      description: "The Ping Product to collect data for"
+  - id: serverRootArg
+    type: string
+    configuration:
+      shortIdentifier: R
+      longIdentifier: serverRoot
+      isRequired: false
+      maxOccurrences: 1
+      description: "Path to the PingFederate installation"
+  - id: numHeartbeatSamples
+    type: integer
+    defaultValue: 1
+    configuration:
+      longIdentifier: numHeartbeatSamples
+      description: "Number of Heartbeat samples to take"
+  - id: intervalBetweenSamples
+    type: integer
+    defaultValue: 1
+    configuration:
+      longIdentifier: intervalBetweenSamples
+      description: "Interval between Heartbeat calls in seconds"
+
+collectors:
+  - id: pf_base_data
+    type: BASELINE
+    zipParentPath: PF_DATA
+    configuration:
+      root: ${argument:serverRootArg}
+  - id: pf_certificate_data
+    type: PF_CERTIFICATE
+    zipParentPath: PF_DATA
+    configuration:
+      root: ${argument:serverRootArg}
+  - id: pf_cluster_data
+    type: PF_CLUSTER
+    zipParentPath: PF_DATA
+    configuration:
+      root: ${argument:serverRootArg}
+  - id: pf_file_data
+    type: FILE_DATA
+    zipParentPath: PF_DATA
+    configuration:
+      root: ${argument:serverRootArg}
+  - id: pf_heartbeat_data
+    type: PF_HEARTBEAT
+    zipParentPath: PF_DATA
+    configuration:
+      root: ${argument:serverRootArg}
+      numSamples: ${argument:numHeartbeatSamples}
+      intervalBetweenSamples: ${argument:intervalBetweenSamples}
+  - id: pf_ssl_data
+    type: PF_SSL
+    zipParentPath: PF_DATA
+    configuration:
+      root: ${argument:serverRootArg}
+  - id: pf_version_data
+    type: PF_VERSION
+    zipParentPath: PF_DATA
+    configuration:
+      root: ${argument:serverRootArg}
+  - id: jps_jvm_args
+    type: PROCESS
+    zipParentPath: JAVA
+    configuration:
+      command: JPS
+      args: "-v"
+  - id: jps
+    type: PROCESS
+    zipParentPath: JAVA
+    configuration:
+      command: JPS
+      args: #no args
+  - id: file_list
+    type: FILE_LIST
+    zipParentPath: DIRECTORY_LISTINGS
+
+properties:
+  - id: fipsModeProperties
+    fileLocation: "bin/run.properties"
+    keyName: "pf.hsm.mode"
+    keyValue: "BCFIPS"

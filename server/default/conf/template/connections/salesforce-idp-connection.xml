@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<md:EntityDescriptor entityID="" urn:name="" urn:baseUrl="https://locahost:9031" urn:LogLevel="STANDARD" urn:isActive="false" xmlns:md="urn:oasis:names:tc:SAML:2.0:metadata" xmlns:urn="urn:sourceid.org:saml2:metadata-extension:v2">
+  <md:Extensions>
+    <urn:EntityExtension>
+      <urn:DigitialSignatureAliases includeX509inXmlSig="false"/>
+      <urn:Encryption>
+        <urn:EncryptionPolicy SLOEncryptSubjectNameID="false" EncryptSubjectNameID="false" EncryptAssertion="false" KeyTransportAlgorithm="http://www.w3.org/2001/04/xmlenc#rsa-1_5" EncryptionAlgorithm="http://www.w3.org/2001/04/xmlenc#aes128-cbc"/>
+        <urn:DecryptionPolicy SLOSubjectNameIDEncrypted="false" AttributeEncrypted="false" SubjectNameIDEncrypted="false" AssertionEncrypted="false"/>
+      </urn:Encryption>
+      <urn:Dependencies>
+        <urn:SigningKeyPairReference/>
+        <urn:DsigVerificationCert/>
+        <urn:SecondaryDsigVerificationCert/>
+        <urn:DecryptionKeyPairReference/>
+        <urn:EncryptionCert/>
+        <urn:SoapAuth>
+          <soap:Incoming xmlns:soap="http://www.sourceid.org/2004/04/soapauth"/>
+          <soap:Outgoing xmlns:soap="http://www.sourceid.org/2004/04/soapauth"/>
+        </urn:SoapAuth>
+      </urn:Dependencies>
+    </urn:EntityExtension>
+  </md:Extensions>
+  <md:IDPSSODescriptor WantAuthnRequestsSigned="false" protocolSupportEnumeration="urn:oasis:names:tc:SAML:2.0:protocol">
+    <md:Extensions>
+      <urn:RoleExtension ArtifactTimeoutSeconds="60">
+        <urn:IncomingBindings SOAP="false" Redirect="false" POST="true" Artifact="false"/>
+        <urn:EnabledProfiles SPInitiatedSLO="false" SPInitiatedSSO="false" IDPInitiatedSLO="false" IDPInitiatedSSO="true"/>
+        <urn:IDP AssertionsSigned="false">
+          <urn:AccountLinkingAndMapping IncludeAdditionalAttributes="false" Type="mapping"/>
+          <urn:ErrPageMsg>Please contact your system administrator for assistance regarding this error.</urn:ErrPageMsg>
+        </urn:IDP>
+      </urn:RoleExtension>
+    </md:Extensions>
+    <md:SingleSignOnService Location="NONE" Binding="NONE-SCHEMA-WORKAROUND"/>
+  </md:IDPSSODescriptor>
+  <md:ContactPerson contactType="administrative">
+    <md:Company>salesforce</md:Company>
+  </md:ContactPerson>
+</md:EntityDescriptor>

@@ -1,0 +1,55 @@
+<wsp:Policy wsu:Id="kerberos" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl">
+    <wsp:ExactlyOne>
+        <wsp:All>
+            <sp:TransportBinding xmlns:sp="http://docs.oasis-open.org/ws-sx/ws-securitypolicy/200702">
+                <wsp:Policy>
+                    <sp:TransportToken>
+                        <wsp:Policy>
+                            <sp:HttpsToken RequireClientCertificate="false"/>
+                        </wsp:Policy>
+                    </sp:TransportToken>
+                    <sp:AlgorithmSuite>
+                        <wsp:Policy>
+                            <sp:Basic128 />
+                        </wsp:Policy>
+                    </sp:AlgorithmSuite>
+                    <sp:Layout>
+                        <wsp:Policy>
+                            <sp:Strict />
+                        </wsp:Policy>
+                    </sp:Layout>
+                    <sp:IncludeTimestamp />
+                </wsp:Policy>
+            </sp:TransportBinding>
+            <sp:EndorsingSupportingTokens xmlns:sp="http://docs.oasis-open.org/ws-sx/ws-securitypolicy/200702">
+                <wsp:Policy>
+                    <sp:KerberosToken sp:IncludeToken="http://docs.oasis-open.org/ws-sx/ws-securitypolicy/200702/IncludeToken/Once">
+                        <wsp:Policy>
+                            <sp:WssGssKerberosV5ApReqToken11 />
+                        </wsp:Policy>
+                    </sp:KerberosToken>
+                    <sp:KeyValueToken sp:IncludeToken="http://docs.oasis-open.org/ws-sx/ws-securitypolicy/200702/IncludeToken/Never" wsp:Optional="true" />
+                    <sp:SignedParts>
+                        <sp:Header Name="To" Namespace="http://www.w3.org/2005/08/addressing" />
+                    </sp:SignedParts>
+                </wsp:Policy>
+            </sp:EndorsingSupportingTokens>
+            <sp:Wss11 xmlns:sp="http://docs.oasis-open.org/ws-sx/ws-securitypolicy/200702">
+                <wsp:Policy>
+                    <sp:MustSupportRefKeyIdentifier />
+                    <sp:MustSupportRefIssuerSerial />
+                    <sp:MustSupportRefThumbprint />
+                    <sp:MustSupportRefEncryptedKey />
+                </wsp:Policy>
+            </sp:Wss11>
+            <sp:Trust13 xmlns:sp="http://docs.oasis-open.org/ws-sx/ws-securitypolicy/200702">
+                <wsp:Policy>
+                    <sp:MustSupportIssuedTokens />
+                    <sp:RequireClientEntropy />
+                    <sp:RequireServerEntropy />
+                </wsp:Policy>
+            </sp:Trust13>
+            <wsaw:UsingAddressing />
+        </wsp:All>
+    </wsp:ExactlyOne>
+</wsp:Policy>

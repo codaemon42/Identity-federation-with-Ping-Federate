@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+#*
+The server renders this HTML page in an end-user's browser when
+needed authentication credentials may be obtained via HTTP Basic
+Authentication or an HTML form.
+
+Velocity variables (identified by the $ character) are generated
+at runtime by the server.
+
+The following variables are available on this page, but not used by default:
+
+$utils                 - The utility method to display JSON String arrays
+$escape                - The utility class that can be used to escape String variables
+$HttpServletResponse   - The details of HTTP response
+$HttpServletRequest    - The details of HTTP request
+$TrackingId            - The user's session tracking ID
+$TransactionId         - The unique ID for the SSO or SLO transaction.
+$PingFedBaseURL        - The URL containing full hostname and port on which the PingFederate deployment runs on
+$CurrentPingFedBaseURL - The base URL used in the current request. This URL may differ from $PingFedBaseURL when using a virtual host name
+$locale                - The user's country and language
+$templateMessages      - The set of messages that is used to localize messages based on the user's locale
+
+$client_id             - The ID of the OAuth client used in this transaction
+$hiddenFieldValues     - A map of hidden field IDs to their values.
+$extendedProperties    - The extended properties defined on either the connection or OAuth client
+
+Change text or formatting as needed. Modifying Velocity statements
+is not recommended as it may interfere with expected server behavior.
+
+It is recommended to sanitize the values that are displayed using $escape.escape(), for example $escape.escape($client_id).
+
+*#
+
+<!-- template name: local.identity.registration.html -->
+
+#set( $messageKeyPrefix = "local.identity.registration." )
+
+<html lang="$locale.getLanguage()" dir="ltr">
+<head>
+    <title>$templateMessages.getMessage($messageKeyPrefix, "title")</title>
+    <base href="$CurrentPingFedBaseURL"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <meta http-equiv="x-ua-compatible" content="IE=edge" />
+    <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'nonce-$CSPNonce'; style-src 'self'; img-src 'self'; font-src 'self';" />
+    <link rel="stylesheet" type="text/css" href="assets/css/main.css"/>
+    <script src='assets/scripts/captcha/captcha-utils.js'></script>
+    <script src='assets/scripts/captcha/captcha-script-loader.js' defer></script>
+    <script src='assets/scripts/pf-general.js'></script>
+    <script src='assets/scripts/local-identity-profile.js'></script>
+</head>
+
+<body>
+<!-- CAPTCHA settings-->
+<div id="captchaEnabled" hidden>$captchaEnabled</div>
+<div id="captchaScriptName" hidden>"$captchaScriptName"</div>
+<div id="captchaAttributes" hidden>$captchaAttributes</div>
+<div id="captchaCSPNonce" hidden>"$CSPNonce"</div>
+
+#if($messages)
+<div data-id="messages" class="page-messages full">
+    #foreach ($message in $messages.getBannerMessages())
+    <div class="message show $message.getCssString()">
+        $escape.escape($templateMessages.getMessage($message.getMessageKey(), $message.getParams()))<a class="close"></a>
+    </div>
+    #end
+</div>
+#end
+
+<div class="ping-container ping-signin identity-registration">
+    <!--
+    if there is a logo present in the 'company-logo' container,
+    then 'has-logo' class should be added to 'ping-header' container.
+    -->
+    <div class="ping-header">
+        <span class="company-logo"><!-- client company logo here --></span>
+        $templateMessages.getMessage($messageKeyPrefix, "title")
+    </div>
+    <!-- .ping-header -->
+
+    <div class="ping-body-container">
+
+        <div>
+            <form method="POST" action="$url" autocomplete="off">
+                <input type="hidden" name="isRegisterForm" value="true"/>
+
+                #if($altAuthSources && $altAuthSources.size() > 0 && $isLocalRegistration)
+                <div class="columns-2" id ="content-columns">
+                    <div class="content-column column-1">
+
+                        <div class="column-title columns alt-auth-source-column hidden-field">
+                            $templateMessages.getMessage($messageKeyPrefix, "title")
+                        </div>
+                        #end
+
+                        <div class="ping-messages">
+                            #if($messages)
+                            #foreach ($errorMessage in $messages.getStandardMessages())
+                            <div class="ping-error">
+                                $templateMessages.getMessage($errorMessage.getMessageKey(), $errorMessage.getParams())
+                            </div>
+                            #end
+                            #end
+                        </div>
+                        <div class="ping-messages">
+                            <div class="ping-error hidden-field" id="required-field-error">
+                                <span class="icon-alert"></span>
+                                $templateMessages.getMessage($messageKeyPrefix, "required.fields.missing")
+                            </div>
+                            <div class="ping-error hidden-field" id="recaptcha-error">
+                                <span class="icon-alert"></span>
+                                $templateMessages.getMessage($messageKeyPrefix, "recaptcha.failure")
+                            </div>
+                        </div>
+
+                        <div>
+                            #foreach ($field in $fields)
+                            #set( $fieldId = $field.getData().getId() )
+                            #set( $escapedFieldId = $escape.escape($fieldId) )
+                            #set( $fieldValue = $escape.escape($populateValues.get($fieldId)) )
+                            #set( $required = "" )
+                            #set( $validateRequired = "" )
+                            #if( $field.isRequired() )
+                            #set ($required = "required" )
+                            #set ($validateRequired = "required-missing-display" )
+                            #end
+                            #set( $fieldDisabled = "" )
+                            #if( $field.isReadOnly() )
+                            #set ($fieldDisabled = "disabled")
+                            #end
+
+                            #if( $field.getName() == "Checkbox Group" )
+                            #set( $fieldValue = $populateValues.get($fieldId) )
+                            #end
+                            #set( $disabledSelect = "" )
+                            #if( $field.getName() == "Dropdown" && $field.isRequired() )
+                            #set( $disabledSelect = "disabled" )
+                            ## Override the required attribute if there was a default value for a dropdown.
+                            #if( !$field.getData().getDefaultValue().equals("") )
+                            #set( $required = "" )
+                            #end
+                            ## Override required if there is already a value that is a valid option.
+                            #if( $fieldValue && $field.getData().getOptions().contains($fieldValue) )
+                            #set( $required = "" )
+                            #end
+                            #end
+                            #if( $field.getName() == "Date" )
+                            <div class="ping-input-label input-label ">
+                                $templateMessages.getMessageWithDefault($messageKeyPrefix, "$fieldId", "$field.getData().getLabel()")
+                            </div>
+                            <div class="ping-input-container $required" id="container-$escapedFieldId">
+                                <input class="$required $validateRequired ping-field-input" id="$escapedFieldId" autocomplete="user-date" type="date" name="$escapedFieldId" value="$fieldValue" placeholder="yyyy-mm-dd" $fieldDisabled/>
+                            </div>
+
+                            #elseif( $field.getName() == "Text" )
+                            <div class="ping-input-label">
+                                $templateMessages.getMessageWithDefault($messageKeyPrefix, "$fieldId", "$field.getData().getLabel()")
+                            </div>
+                            <div class="ping-input-container $required" id="container-$escapedFieldId">
+                                <input class="$required $validateRequired ping-field-input" id="$escapedFieldId" autocomplete="user-text" type="text" name="$escapedFieldId" value="$fieldValue"  $fieldDisabled/>
+                            </div>
+
+                            #elseif( $field.getName() == "Checkbox" )
+                            <div class="error-text ping-alert" id="required-$escapedFieldId">
+                                <span class="icon-alert"></span>
+                                $templateMessages.getMessage($messageKeyPrefix, "missingCheckbox")
+                            </div>
+                            <label class="ping-input-container">
+                                <div class="ping-checkbox-container stacked $required" id="container-$escapedFieldId">
+                                    #if( $fieldValue.equalsIgnoreCase("true") || $fieldValue.equalsIgnoreCase("on") )
+                                    <input class="$required ping-checkbox-input" id="$escapedFieldId" type="checkbox" name="$escapedFieldId" checked $fieldDisabled/>
+                                    #else
+                                    <input class="$required ping-checkbox-input" id="$escapedFieldId" type="checkbox" name="$escapedFieldId" $fieldDisabled/>
+                                    #end
+                                    $templateMessages.getMessageWithDefault($messageKeyPrefix, "$fieldId", "$field.getData().getLabel()")
+                                    <div class="icon"></div>
+                                </div>
+                            </label>
+
+                            #elseif( $field.getName() == "Checkbox Group" )
+                            <div class="error-text ping-alert" id="required-$escapedFieldId">
+                                <span class="icon-alert"></span>
+                                $templateMessages.getMessage($messageKeyPrefix, "missingCheckboxGroup")
+                            </div>
+                            <div class="ping-input-label detached">
+                                $templateMessages.getMessageWithDefault($messageKeyPrefix, "$fieldId", "$field.getData().getLabel()")
+                            </div>
+                            #foreach( $option in $field.getData().getOptions() )
+                            <label class="ping-checkbox-container-label">
+                                <div class="ping-checkbox-container stacked $required">
+                                    #if( $fieldValue.contains($option) )
+                                    <input class="$required ping-checkbox-input" type="checkbox" name="$escapedFieldId" value="$option" checked $fieldDisabled/>
+                                    #else
+                                    <input class="$required ping-checkbox-input" type="checkbox" name="$escapedFieldId" value="$option" $fieldDisabled/>
+                                    #end
+                                    $option
+                                    <div class="icon"></div>
+                                </div>
+                            </label>
+                            #end
+                            <br/>
+
+                            #elseif( $field.getName() == "Email" )
+                            <div class="ping-input-label">
+                                $templateMessages.getMessageWithDefault($messageKeyPrefix, "$fieldId", "$field.getData().getLabel()")
+                            </div>
+                            <div class="ping-input-container $required" id="container-$escapedFieldId">
+                                <input class="$required $validateRequired ping-field-input" id="$escapedFieldId" autocomplete="user-email" type="email" name="$escapedFieldId" value="$fieldValue" size="36" $fieldDisabled/>
+                            </div>
+
+                            #elseif( $field.getName() == "Phone" )
+                            <div class="ping-input-label">
+                                $templateMessages.getMessageWithDefault($messageKeyPrefix, "$fieldId", "$field.getData().getLabel()")
+                            </div>
+                            <div class="ping-input-container $required" id="container-$escapedFieldId">
+                                <input class="$required $validateRequired ping-field-input" id="$escapedFieldId" autocomplete="user-phone" type="tel"  name="$escapedFieldId" value="$fieldValue" size="36" $fieldDisabled/>
+                            </div>
+
+                            #elseif( $field.getName() == "Dropdown" )
+                            <span class="ping-input-label detached">
+                                        $templateMessages.getMessageWithDefault($messageKeyPrefix, "$fieldId", "$field.getData().getLabel()")
+                                    </span>
+                            <label class="input-select ping-input-container $required" id="container-$escapedFieldId">
+                                <div class="input-container">
+                                    <div class="wrapper">
+                                        <select id="$escapedFieldId" name="$escapedFieldId" class="$required $validateRequired ping-field-input" $fieldDisabled>
+                                            #if($field.getData().getDefaultValue().equals(""))
+                                            <option selected $disabledSelect value="">$templateMessages.getMessage($messageKeyPrefix, "dropDownDefault")</option>
+                                            #end
+                                            #foreach( $option in $field.getData().getOptions() )
+                                            #if( $option.equals($fieldValue)) )
+                                            <option selected value="$option">$option</option>
+                                            #else
+                                            <option value="$option">$option</option>
+                                            #end
+                                            #end
+                                        </select>
+                                    </div>
+                                </div>
+                            </label>
+                            #end
+                            #end
+                        </div>
+
+                        #if($isLocalRegistration)
+                        #set( $passwordRequirementOne = $templateMessages.getMessageWithDefault($messageKeyPrefix, "passwordRequirementOne", "") )
+                        #set( $passwordRequirementTwo =  $templateMessages.getMessageWithDefault($messageKeyPrefix, "passwordRequirementTwo", "") )
+                        #set( $passwordRequirementThree =  $templateMessages.getMessageWithDefault($messageKeyPrefix, "passwordRequirementThree", "") )
+                        #set( $passwordRequirementFour =  $templateMessages.getMessageWithDefault($messageKeyPrefix, "passwordRequirementFour", "") )
+                        #if( $passwordRequirementOne && $passwordRequirementOne.trim() != "" ||
+                        $passwordRequirementTwo && $passwordRequirementTwo.trim() != "" ||
+                        $passwordRequirementThree && $passwordRequirementThree.trim() != "" ||
+                        $passwordRequirementFour && $passwordRequirementFour.trim() != "")
+                        #set( $isShowPasswordRequirements = true )
+                        #else
+                        #set( $isShowPasswordRequirements = false )
+                        #end
+
+                        #if( $isShowPasswordRequirements )
+                        <div class="ping-input-container">
+                            <div class="place-top type-requirements requirements tooltip-text" id="password-requirements">
+                                <div class="title show-hide-requirements-toggle">
+                                    $templateMessages.getMessage($messageKeyPrefix, "passwordRequirementTitle")
+                                </div>
+                                <div class="requirements-text">
+                                    <div class="requirements-contain">
+                                        $templateMessages.getMessage($messageKeyPrefix, "passwordRequirementsContain")
+                                    </div>
+                                    #if( $passwordRequirementOne && $passwordRequirementOne.trim() != "" )
+                                    <div>
+                                        $templateMessages.getMessage($messageKeyPrefix, "passwordRequirementOne")
+                                    </div>
+                                    #end
+                                    #if( $passwordRequirementTwo && $passwordRequirementTwo.trim() != "" )
+                                    <div>
+                                        $templateMessages.getMessage($messageKeyPrefix, "passwordRequirementTwo")
+                                    </div>
+                                    #end
+                                    #if( $passwordRequirementThree && $passwordRequirementThree.trim() != "" )
+                                    <div>
+                                        $templateMessages.getMessage($messageKeyPrefix, "passwordRequirementThree")
+                                    </div>
+                                    #end
+                                    #if( $passwordRequirementFour && $passwordRequirementFour.trim() != "" )
+                                    <div>
+                                        $templateMessages.getMessage($messageKeyPrefix, "passwordRequirementFour")
+                                    </div>
+                                    #end
+                                </div>
+                            </div>
+                        </div>
+                        #end
+
+                        <div>
+                            <div class="ping-input-label">
+                                $templateMessages.getMessage($messageKeyPrefix, "passwordTitle")
+                            </div>
+                            <div class="ping-input-container required" id="container-password">
+                                <input id="password" class="required $validateRequired reveal ping-field-input" autocomplete="user-password" type="password" size="36" name="$pass"/>
+                                #if($altAuthSources && $altAuthSources.size() > 0 && $isLocalRegistration)
+                                <a id="reveal" class="password-show-button icon-view"></a>
+                                #else
+                                <a id="reveal" class="password-show-button icon-view full-field"></a>
+                                #end
+                            </div>
+                        </div>
+                        #end
+
+                        #if($showMyDeviceCheckbox)
+                        <label class="my-computer">
+                            <div class="ping-checkbox-container stacked">
+                                <input id="myDevice" type="checkbox" name="$myDevice" $myDeviceChecked />
+                                $templateMessages.getMessage($messageKeyPrefix, "myDeviceTitle")
+                                <div class="icon"></div>
+                            </div>
+                        </label>
+                        #end
+
+                        <div class="ping-buttons">
+                            <input type="hidden" name="$ok" value=""/>
+                            <input type="hidden" name="$cancel" value=""/>
+                            <input type="hidden" name="$signOn" value=""/>
+                            <input type="hidden" id="field" name="field">
+
+                            <a id="signUpButton" class="ping-button normal allow" title="$templateMessages.getMessage($messageKeyPrefix, "signUpButtonTitle")">
+                            $templateMessages.getMessage($messageKeyPrefix, "signUpButtonTitle")
+                            </a>
+                            #if(!$isDirectLink)
+                            <a id="cancelLink" class="ping-button blue deny" title="$templateMessages.getMessage($messageKeyPrefix, "cancelButtonTitle")">
+                            $templateMessages.getMessage($messageKeyPrefix, "cancelButtonTitle")
+                            </a>
+                            #end
+                        </div>
+
+                        #if(!$isDirectLink)
+                        <div class="account-actions ping-register">
+                            $templateMessages.getMessage($messageKeyPrefix, "accountAlreadyCreated")
+                            <a id="signOnButton" title="$templateMessages.getMessage($messageKeyPrefix, "login")">
+                            $templateMessages.getMessage($messageKeyPrefix, "login")
+                            </a>
+                        </div>
+                        #end
+
+                        #if($altAuthSources && $altAuthSources.size() > 0 && $isLocalRegistration)
+                    </div>
+                    <!-- content-column column-1 -->
+                    <div class="content-column column-2 alt-auth-source-column hidden-field">
+                        <div class="columns-separator">
+                            <span>$templateMessages.getMessage($messageKeyPrefix, "columnsSeparator")</span>
+                        </div>
+
+                        <div class="column-title-2">
+                            $templateMessages.getMessage($messageKeyPrefix, "signUpWithButtonTitle")
+                        </div>
+
+                        #parse("alt-authn-source.template.html")
+
+                    </div>
+                    <!-- content-column column-2 -->
+
+                </div>
+                <!-- content-columns -->
+                #end
+            </form>
+
+        </div>
+        <!-- .ping-body/ blank div -->
+
+    </div>
+    <!-- .ping-body-container -->
+
+
+
+    <div class="ping-footer-container">
+        <div class="ping-footer">
+            <div class="ping-credits"></div>
+            <div class="ping-copyright">$templateMessages.getMessage("global.footerMessage")</div>
+        </div>
+        <!-- .ping-footer -->
+    </div>
+    <!-- .ping-footer-container -->
+
+</div><!-- .ping-container -->
+
+<script type="text/javascript" nonce="$CSPNonce">
+    registerEventHandler('signUpButton', 'click', postOk);
+    registerEventHandler('cancelLink', 'click', postCancel);
+    registerEventHandler('signOnButton', 'click', postSignOn);
+    registerEventHandlerForClass("show-hide-requirements-toggle", 'click', showHideRequirements);
+    registerEventHandler('reveal', 'click', revealPassword);
+
+    registerEventHandlerForClass("ping-field-input", 'keyup', function(event){
+        postOnReturn(event);
+    });
+
+    registerEventHandlerForClass("ping-checkbox-input", 'change', function(event){
+        hideCheckboxRequired(event.target);
+    });
+
+    var formSubmitted = false;
+
+    function submitForm() {
+        document.forms[0]['$ok'].value = 'clicked';
+        document.forms[0].submit();
+        CaptchaManager.cleanup();
+    }
+
+    function postCancel() {
+        document.forms[0]['$cancel'].value = 'clicked';
+        document.forms[0].submit();
+    }
+    function postSignOn() {
+        document.forms[0]['$signOn'].value = 'clicked';
+        document.forms[0].submit();
+    }
+
+    function postOk() {
+        if (formSubmitted)
+            return true;
+
+        formSubmitted = true;
+
+        CaptchaManager.execute(function() {
+            if (!requiredFieldsMissing()) {
+                // run browser validation
+                if (document.forms[0].checkValidity && !document.forms[0].checkValidity() && document.forms[0].reportValidity) {
+                    document.forms[0].reportValidity();
+                    // cleanup
+                    formSubmitted = false;
+                    return false;
+                }
+                submitForm();
+            }
+        });
+    }
+
+    function showCaptchaFailed(errorMessage)
+    {
+    #*
+    Unfortunately, reCAPTCHA always returns an error, even if execute() was successful.
+    However, the only time the failed message should be displayed to the end user is if a bad site key or secret
+    combination is used. In that case errorMessage is null and the recaptcha-error element is displayed.
+    *#
+        if (!errorMessage) {
+            var element = document.getElementById("recaptcha-error");
+            element.style.display = "block";
+            window.scroll(0, element.offsetTop);
+        }
+        else {
+            document.getElementById("recaptcha-error").style.display = "none";
+        }
+    }
+
+    function revealPassword() {
+        var inputType = document.getElementById("password");
+
+        if (document.getElementById('password').type === 'password') {
+            inputType.setAttribute('type', 'text');
+            document.getElementById('reveal').className = 'password-show-button icon-view-hidden';
+        }
+        else {
+            inputType.setAttribute('type', 'password');
+            document.getElementById('reveal').className = 'password-show-button icon-view';
+        }
+    }
+
+    function requiredFieldsMissing() {
+        var requiredFields = document.querySelectorAll("input.required,select.required");
+        var foundMissingField = false;
+
+        for (var i = 0; i < requiredFields.length; i++) {
+            var field = requiredFields[i];
+            if (field.type === "checkbox")
+                foundMissingField = isCheckBoxFieldMissing(field) || foundMissingField;
+            else if (field.tagName === 'SELECT')
+                foundMissingField = isSelectFieldMissing(field) || foundMissingField;
+            else
+                foundMissingField = isStandardFieldMissing(field) || foundMissingField;
+        }
+
+        if (foundMissingField) {
+            var element = document.getElementById("required-field-error");
+            element.style.display = "block";
+            window.scroll(0, element.offsetTop);
+        }
+        else {
+            document.getElementById("required-field-error").style.display = "none";
+        }
+        // cleanup
+        if (foundMissingField) {
+            formSubmitted = false;
+        }
+        return foundMissingField;
+    }
+
+    function postOnReturn(e) {
+        var keycode;
+        if (window.event)
+            keycode = window.event.keyCode;
+        else if (e)
+            keycode = e.which;
+        else
+            return true;
+
+        if (keycode == 13) {
+            postOk();
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    function setMobile(mobile, agent) {
+        var className = ' mobile',
+            agentClass = agent,
+            hasClass = (bodyTag.className.indexOf(className) !== -1),
+            hasAgent = (bodyTag.className.indexOf(agentClass) !== -1);
+
+        if (mobile && !hasClass) {
+            bodyTag.className += className;
+            bodyTag.className += agentClass;
+        } else if (!mobile && hasClass) {
+            bodyTag.className = bodyTag.className.replace(className, '');
+        } else if (!mobile && hasAgent) {
+            bodyTag.className = bodyTag.className.replace(agentClass, '');
+        }
+
+        <!-- Check if this is the PingOne Mobile App -->
+        #if($HttpServletRequest.getHeader('X-Ping-Client-Version'))
+            if (mobile) {
+                bodyTag.className += ' embedded';
+            }
+        #end
+    }
+
+    function setFocus() {
+        if (document.forms[0]) {
+            for (i = 0; i < document.forms[0].elements.length; i++) {
+                var element = document.forms[0].elements[i];
+                if (element.type != "hidden" && element.disabled !== true && (element.value == null || element.value === "")) {
+                    element.focus({});
+                    return;
+                }
+            }
+        }
+    }
+
+    var bodyTag = document.getElementsByTagName('body')[0],
+        width = getScreenWidth(),
+        userAgent = '';
+    if (navigator.userAgent.match(/android/i)) {
+        userAgent = ' device-android';
+    }
+
+    if (/Android|webOS|iPhone|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+        setMobile(true, userAgent);
+    } else {
+        setMobile((width <= 480), userAgent);
+        window.onresize = function() {
+            width = getScreenWidth();
+            setMobile((width <= 480), userAgent);
+        }
+    }
+
+    const requiredElements = document.forms[0].querySelectorAll('.required-missing-display');
+    for (i = 0; i < requiredElements.length; i++) {
+        var requiredElement = requiredElements[i];
+        requiredElement.addEventListener('keyup', function (event) {
+            toggleRequiredDisplay(event.target);
+        });
+        requiredElement.addEventListener('change', function (event) {
+            toggleRequiredDisplay(event.target);
+        });
+
+        // Remove required markers for fields that have been filled in.
+        if (requiredElement.tagName === 'SELECT') {
+            if(requiredElement.tagName === 'SELECT' && requiredElement.selectedIndex !== 0 && !requiredElement.options[0].disabled)
+                removeRequiredDisplay(requiredElement);
+        } else {
+            if(requiredElement.value) {
+                removeRequiredDisplay(requiredElement);
+            }
+        }
+    }
+
+    var passwordField = document.getElementById("password");
+    if(passwordField){
+        passwordField.addEventListener('keyup', function (event) {
+            toggleRequiredDisplay(event.target);
+        });
+        passwordField.addEventListener('change', function (event) {
+            toggleRequiredDisplay(event.target);
+        })
+    }
+
+    window.addEventListener('load', function() {
+        document.body.style.display = "block";
+        // set first field focus
+        setFocus();
+    });    
+
+</script>
+</body>
+</html>

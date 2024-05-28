@@ -1,0 +1,50 @@
+#
+# Create an OU to store all access grants. This is an optional OU to keep
+# all access grants in the same location. If a different location is needed for
+# them, alter the LDIF.
+#
+# Your search base in the
+# "pingfederate/server/default/data/config-store/org.sourceid.oauth20.token.AccessGrantManagerLDAPPingDirectoryImpl.xml"
+# file should point to this OU.
+#
+#     eg.  <c:item name="SearchBase">OU=AccessGrants,DC=4s8i6q,DC=global</c:item>
+#
+# <Your DC Here> should be changed to the location of your full DC.
+#
+#     eg. DC=4s8i6q,DC=global
+#
+# Use the following command to apply the changes to the directory server:
+#
+#     ldapmodify --defaultAdd --filename access-grant-ldap-pingdirectory.ldif
+#
+dn: ou=AccessGrant,<Your DC Here>
+changetype: add
+objectclass: top
+objectclass: organizationalUnit
+ou: AccessGrant
+
+#
+# Defines the actual "accessGrant" objectClass in which the Access Grants will
+# be stored.
+#
+# Any attribute names changed in "access-grant-attributes-ldap-pingdirectory.ldif"
+# must be updated below.
+#
+dn: cn=schema
+changetype: modify
+add: objectClasses
+objectClasses: ( 1.3.6.1.4.1.28867.9.1.1
+  NAME 'accessGrant'
+  DESC 'access grant'
+  STRUCTURAL
+  MUST accessGrantGuid
+  MAY ( accessGrantAttributes
+    $ accessGrantContextualQualifier
+    $ accessGrantClientId
+    $ accessGrantExpires
+    $ accessGrantGrantType
+    $ accessGrantHashedRefreshTokenValue
+    $ accessGrantIssued
+    $ accessGrantScope
+    $ accessGrantUniqueUserIdentifier
+    $ accessGrantUpdated ) )

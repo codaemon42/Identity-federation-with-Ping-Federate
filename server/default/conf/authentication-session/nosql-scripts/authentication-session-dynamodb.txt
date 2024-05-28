@@ -1,0 +1,78 @@
+##
+# NOTE: Make sure to execute these commands one by one
+##
+aws dynamodb create-table \
+    --table-name PingFederateAuthenticationSessionGroup \
+    --attribute-definitions \
+        AttributeName=SessionGroupId,AttributeType=S \
+        AttributeName=HashedSessionId,AttributeType=S \
+    --key-schema \
+        AttributeName=SessionGroupId,KeyType=HASH \
+    --provisioned-throughput \
+        ReadCapacityUnits=10,WriteCapacityUnits=5 \
+    --table-class STANDARD \
+    --global-secondary-indexes \
+             "[
+                 {
+                     \"IndexName\": \"PingFederateAuthenticationSessionHashedSessionId-index\",
+                     \"KeySchema\": [
+                         {
+                             \"AttributeName\": \"HashedSessionId\",
+                             \"KeyType\": \"HASH\"
+                         }
+                     ],
+                     \"ProvisionedThroughput\": {
+                         \"ReadCapacityUnits\": 10,
+                         \"WriteCapacityUnits\": 5
+                     },
+                     \"Projection\": {
+                         \"ProjectionType\": \"INCLUDE\",
+                         \"NonKeyAttributes\": [
+                           \"SessionGroupId\"
+                         ]
+                     }
+                 }
+             ]"
+aws dynamodb create-table \
+    --table-name PingFederateAuthenticationSessionUserId \
+    --attribute-definitions \
+        AttributeName=UserId,AttributeType=S \
+        AttributeName=SessionGroupId,AttributeType=S \
+    --key-schema \
+    	AttributeName=UserId,KeyType=HASH \
+        AttributeName=SessionGroupId,KeyType=RANGE \
+    --provisioned-throughput \
+        ReadCapacityUnits=10,WriteCapacityUnits=5 \
+    --table-class STANDARD \
+    --global-secondary-indexes \
+             "[
+                 {
+                     \"IndexName\": \"PingFederateAuthenticationSessionUserIdGroupId-index\",
+                    \"KeySchema\": [
+                         {
+                             \"AttributeName\": \"SessionGroupId\",
+                             \"KeyType\": \"HASH\"
+                         }
+                     ],
+                     \"ProvisionedThroughput\": {
+                         \"ReadCapacityUnits\": 10,
+                         \"WriteCapacityUnits\": 5
+                     },
+                     \"Projection\": {
+                         \"ProjectionType\": \"INCLUDE\",
+                         \"NonKeyAttributes\": [
+                           \"UserId\"
+                         ]
+                     }
+                  }
+             ]"
+
+aws dynamodb wait table-exists --table-name PingFederateAuthenticationSessionGroup
+aws dynamodb update-time-to-live \
+    --table-name PingFederateAuthenticationSessionGroup \
+    --time-to-live-specification Enabled=true,AttributeName=ExpiryTime
+
+aws dynamodb wait table-exists --table-name PingFederateAuthenticationSessionUserId
+aws dynamodb update-time-to-live \
+        --table-name PingFederateAuthenticationSessionUserId \
+        --time-to-live-specification Enabled=true,AttributeName=ExpiryTime

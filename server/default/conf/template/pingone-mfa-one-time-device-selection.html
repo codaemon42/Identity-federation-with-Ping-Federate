@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+#*
+The server renders this HTML page in an end-user's browser when
+device selection is required to proceed ahead with One-Time
+Device OTP authentication flow.
+
+Velocity variables (identified by the $ character) are generated
+at runtime by the server.
+
+Change text or formatting as needed. Modifying Velocity statements
+is not recommended as it may interfere with expected server behavior.
+*#
+
+<!-- template name: pingone-mfa-one-time-device-selection.html -->
+
+#set( $messageKeyPrefix = "pingone.mfa.one.time.device.selection." )
+
+<html lang="$locale.getLanguage()" dir="ltr">
+<head>
+    <title>$languagePackMessages.getMessage($messageKeyPrefix, "title")</title>
+    <base href="$CurrentPingFedBaseURL"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0,
+    user-scalable=no"/>
+    <meta http-equiv="x-ua-compatible" content="IE=edge"/>
+    <link rel="stylesheet" href="assets/css/end-user/0.36.1/end-user.css">
+    <link rel="stylesheet" href="assets/css/pingone-mfa.css">
+    <script src="assets/scripts/jquery-3.5.1.min.js"></script>
+    <style>
+        .page__content:before {
+            content: none;
+        }
+
+        .page__content {
+            margin-top: 50px;
+        }
+
+        @media (max-width: 480px) {
+            .page__content {
+                margin-top: 0;
+            }
+        }
+
+    </style>
+</head>
+<body>
+<div class="app-container" onClick="handleClick(event)">
+    <div class="page brand-background" data-id="page">
+        <div class="page__content">
+            <div class="card card--no-padding">
+                <div class="card__content">
+                    <div class="org-logo"><img class="org-logo__image"
+                                               src="assets/images/ping-logo.svg"
+                                               alt="Company Logo"/></div>
+                    #if($errorMessage)
+                    <div class="feedback feedback--error" data-id="feedback"><span
+                            class="feedback__icon pingicon-error-triangle"></span>
+                        <div class="feedback__message">$errorMessage</div>
+                    </div>
+                    #if($additionalErrorMessage)
+                    <div class="feedback feedback--error" data-id="feedback" id="additional-error-message-container-id"><span
+                            class="feedback__icon pingicon-error-triangle"></span>
+                        <div class="feedback__message">$additionalErrorMessage
+                        </div>
+                    </div>
+                    #end
+                    #end
+                    <div class="stack stack--large" data-id="stack">
+                        <div>
+                            <h1 id="heading_id" class="heading" data-id="heading">$languagePackMessages.getMessage($messageKeyPrefix,
+                                "header")</h1>
+                            <h4 id="heading_desc_id" class="heading heading--4" data-id="heading">
+                                $languagePackMessages.getMessage($messageKeyPrefix, "message")
+                            </h4>
+                        </div>
+                        <div data-id="tile-selector">
+                            <div class="tile-selector tile-selector--stacked">
+                                #foreach($device in $devices)
+                                    #set ($deviceMessageKey = ${device.type.toString().toLowerCase()})
+                                    #set( $deviceMessageKeyPrefix = "${deviceMessageKey}.$messageKeyPrefix" )
+                                    #set( $deviceIcon = $languagePackMessages.getMessage($deviceMessageKeyPrefix, "icon"))
+
+                                        <div class="tile-button--side-icon tile-button tile-button--stacked-small" data-id="tile-selector-button-pingoneAuth" onclick="selectDevice(this, event, '$device.id')" role="button" tabindex="0">
+
+                                        <div class="tile-button__icon-container" onclick="selectDevice(this, event, '$device.id')">
+
+                                        #if($deviceIcon == "sms")
+                                            <svg viewBox="0 0 24 24" role="presentation" style="width: 32px; height: 32px;">
+                                                <path
+                                                    d="M20,2A2,2 0 0,1 22,4V16A2,2 0 0,1 20,18H6L2,22V4C2,2.89 2.9,2 4,2H20M4,4V17.17L5.17,16H20V4H4M6,7H18V9H6V7M6,11H15V13H6V11Z"
+                                                    style="fill: rgb(61, 69, 77);" />
+                                            </svg>
+                                        #elseif($deviceIcon == "email")
+                                            <svg viewBox="0 0 24 24" role="presentation" style="width: 32px; height: 32px;">
+                                                <path
+                                                    d="M22 6C22 4.9 21.1 4 20 4H4C2.9 4 2 4.9 2 6V18C2 19.1 2.9 20 4 20H20C21.1 20 22 19.1 22 18V6M20 6L12 11L4 6H20M20 18H4V8L12 13L20 8V18Z"
+                                                    style="fill: rgb(61, 69, 77);" />
+                                            </svg>
+                                        #elseif($deviceIcon == "voice")
+                                            <svg viewBox="0 0 24 24" role="presentation" style="width: 32px; height: 32px;">
+                                                <path d="M20,15.5C18.8,15.5 17.5,15.3 16.4,14.9C16.3,14.9 16.2,14.9 16.1,14.9C15.8,14.9 15.6,15 15.4,15.2L13.2,17.4C10.4,15.9 8,13.6 6.6,10.8L8.8,8.6C9.1,8.3 9.2,7.9 9,7.6C8.7,6.5 8.5,5.2 8.5,4C8.5,3.5 8,3 7.5,3H4C3.5,3 3,3.5 3,4C3,13.4 10.6,21 20,21C20.5,21 21,20.5 21,20V16.5C21,16 20.5,15.5 20,15.5M5,5H6.5C6.6,5.9 6.8,6.8 7,7.6L5.8,8.8C5.4,7.6 5.1,6.3 5,5M19,19C17.7,18.9 16.4,18.6 15.2,18.2L16.4,17C17.2,17.2 18.1,17.4 19,17.4V19Z"
+                                                      style="fill: rgb(61, 69, 77);"></path>
+                                            </svg>
+                                        #end
+                                        </div>
+
+                                        <div class="tile-button__content-container" onclick="selectDevice(this, event, '$device.id')">
+                                            <div class="flex-row flex-row--align-stretch flex-row--justify-start flex-row--flex-direction-column flex-row--column-spacing-sm"
+                                                data-id="flex-row">
+                                                <div class="tile-button__title">$languagePackMessages.getMessage($deviceMessageKeyPrefix, "method")</div>
+                                                <div class="tile-button__content">
+                                                    #if($escape.escape($device.target))
+                                                    $escape.escape($device.target)
+                                                    #end
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                #end
+                            </div>
+                        </div>
+                        <div class="text-block" data-id="textblock">
+                            <div class="text-block--overflow-wrap">
+                                <div class="stack" data-id="stack">
+                                    <div>
+                                        <a tabindex="0" data-id="content-link" target="_self" class="anchor"
+                                            onclick="cancelAuthentication()">$languagePackMessages.getMessage($messageKeyPrefix, "cancel.button.title")</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="page__footer">
+            <div class="ping-footer">
+                <div class="ping-credits"></div>
+                <div class="ping-copyright">$templateMessages.getMessage("global.footerMessage")</div>
+            </div>
+        </div>
+    </div>
+    <form id="form" method="post" action="$resumePath" autocomplete="off">
+        <input type="hidden" name="$selectedDeviceId" value=""/>
+        <input type="hidden" name="$defaultDeviceId" value=""/>
+        <input type="hidden" name="$cancelAuthentication" value=""/>
+    </form>
+</div>
+
+<script type="text/javascript">
+    function isWebAuthnSupported () {
+	  if (!window.PublicKeyCredential) {
+		return false;
+	  }
+	  return true;
+	};
+
+    window.IsWebAuthnSupported = function IsWebAuthnSupported()
+	{
+		if (!window.PublicKeyCredential)
+		{
+			console.log("Web Authentication API is not supported on this browser.");
+			return false;
+		}
+		return true;
+	}
+
+	window.isWebAuthnPlatformAuthenticatorAvailable = function isWebAuthnPlatformAuthenticatorAvailable() {
+		var timer;
+		var p1 = new Promise(function(resolve) {
+			timer = setTimeout(function() {
+				resolve(false);
+			}, 1000);
+		});
+		var p2 = new Promise(function(resolve) {
+			if (IsWebAuthnSupported() && window.PublicKeyCredential.isUserVerifyingPlatformAuthenticatorAvailable) {
+				resolve(
+					window.PublicKeyCredential.isUserVerifyingPlatformAuthenticatorAvailable().catch(function(err) {
+						console.log(err);
+						return false;
+					}));
+			}
+			else {
+				resolve(false);
+			}
+		});
+		return Promise.race([p1, p2]).then(function (res) {
+			clearTimeout(timer);
+			return res;
+		});
+	}
+
+	window.WebAuthnPlatformAuthentication = function WebAuthnPlatformAuthentication(publicKeyCredentialRequestOptions) {
+		return new Promise(function(resolve, reject) {
+			isWebAuthnPlatformAuthenticatorAvailable().then(function (result) {
+				if (result) {
+					resolve(Authenticate(publicKeyCredentialRequestOptions));
+				}
+				reject(Error("UnSupportedBrowserError"));
+			});
+		});
+	}
+
+    var compatibilityMode = getCompatibilityMode();
+
+    function hidePlatformDevice()
+    {
+        // Hide all platform devices
+        document.querySelectorAll('#platform_block_id').forEach(function(platform_elem) {
+           platform_elem.style.display = 'none';
+        });
+        document.querySelectorAll('#platform_content_container_id').forEach(function(platform_elem) {
+           platform_elem.style.display = 'none';
+        });
+        document.querySelectorAll('#platform_icon_container_id').forEach(function(platform_elem) {
+           platform_elem.style.display = 'none';
+        });
+
+        other_device_present = false;
+        #foreach($device in $devices)
+            #if($device.type.toLowerCase() != "platform")
+            	other_device_present = true;
+            #end
+        #end
+
+        if(other_device_present)
+        {
+        	document.querySelector('#heading_id').style.display = 'block';
+            document.querySelector('#heading_desc_id').style.display = 'block';
+        }
+        else
+        {
+            document.querySelector('#heading_id').style.display = 'none';
+            document.querySelector('#heading_desc_id').style.display = 'none';
+        }
+    }
+
+    function hidePlatformAndSecurityKeyDevices()
+    {
+        // Hide all security key and platform devices
+        hidePlatformDevice();
+        document.querySelectorAll('#security_key_block_id').forEach(function(security_device_elem) {
+           security_device_elem.style.display = 'none';
+        });
+        document.querySelectorAll('#security_key_content_container_id').forEach(function(security_device_elem) {
+           security_device_elem.style.display = 'none';
+        });
+        document.querySelectorAll('#security_key_icon_container_id').forEach(function(security_device_elem) {
+           security_device_elem.style.display = 'none';
+        });
+
+        other_device_present = false;
+
+        #foreach($device in $devices)
+            #if($device.type.toLowerCase() != "platform" && $device.type.toLowerCase() != "security_key")
+            	other_device_present = true;
+            #end
+        #end
+
+        if(other_device_present)
+        {
+        	document.querySelector('#heading_id').style.display = 'block';
+            document.querySelector('#heading_desc_id').style.display = 'block';
+        }
+        else
+        {
+        	document.querySelector('#heading_id').style.display = 'none';
+            document.querySelector('#heading_desc_id').style.display = 'none';
+        }
+
+    }
+
+    function getCompatibilityMode()
+    {
+        try
+        {
+            var ua = window.navigator.userAgent;
+            var msie = ua.indexOf("MSIE ");
+            if (msie > 0 || !!navigator.userAgent.match(/Trident.*rv\:11\./))
+            {
+                hidePlatformAndSecurityKeyDevices();
+                return 'NONE';
+            }
+
+            return isWebAuthnPlatformAuthenticatorAvailable().then(function (result) {
+                if (result) {
+                    return 'FULL';
+                } else if (isWebAuthnSupported()) {
+                    hidePlatformDevice();
+                    return 'SECURITY_KEY_ONLY';
+                } else {
+                    hidePlatformAndSecurityKeyDevices();
+                    return 'NONE';
+                }})
+                .catch(function () {
+                    if (isWebAuthnSupported()) {
+                        hidePlatformDevice();
+                        return 'SECURITY_KEY_ONLY';
+                    } else {
+                        hidePlatformAndSecurityKeyDevices();
+                        return 'NONE';
+                }});
+        }
+        catch(err)
+        {
+            hidePlatformAndSecurityKeyDevices();
+            return 'NONE';
+        }
+	}
+
+	function handleClick(event) {
+		var target = $(event.target);
+		var popupDivs = document.querySelectorAll("[id^='device-management-popup-frame']");
+		for(i=0; i < popupDivs.length; ++i)
+		{
+			var popupDisplayStatus = popupDivs[i].style.display;
+			if(!target.parents('div#kebab-menu-icon-id').length && popupDisplayStatus === 'block')
+			{
+				popupDivs[i].style.display = 'none';
+			}
+		}
+    }
+
+    function setDefaultDevice(event, deviceId)
+    {
+	    document.forms[0]['$defaultDeviceId'].value = deviceId;
+        form.submit();
+    }
+
+	function showDeviceManagementPopup(deviceId) {
+        // close other popups if any
+        var popupDivs = document.querySelectorAll("[id^='device-management-popup-frame']");
+		for(i=0; i < popupDivs.length; ++i)
+		{
+			var popupDisplayStatus = popupDivs[i].style.display;
+			if(popupDisplayStatus === 'block')
+			{
+				popupDivs[i].style.display = 'none';
+			}
+		}
+        var docId = 'device-management-popup-frame-' + deviceId;
+		document.querySelector("[id='" + docId + "']").style.display = 'block';
+    }
+
+    function selectDevice(element, event, deviceId) {
+    	if(element.id === 'kebab-menu-icon-id')
+        {
+            event.stopPropagation();
+            return showDeviceManagementPopup(deviceId);
+        }
+        document.forms[0]['$selectedDeviceId'].value = deviceId;
+        submit('$selectedDeviceId');
+    }
+
+    function addMethod() {
+        if($isAuthenticationRequiredForNewPairing == false)
+            return setupMfa();
+        if (document.querySelector('#authentication_required_block_id') != null) {
+            document.querySelector('#authentication_required_block_id').style.display = 'block';
+        }
+        document.body.style.overflow = "hidden";
+        document.body.style.height = "100%";
+    }
+
+    function cancelAddMethod() {
+        if (document.querySelector('#authentication_required_block_id') != null) {
+            document.querySelector('#authentication_required_block_id').style.display = 'none';
+        }
+        document.body.style.overflow = "auto";
+        document.body.style.height = "auto";
+    }
+
+    function setupMfa() {
+        document.forms[0]['$setupMfa'].value = 'true';
+        submit('$setupMfa');
+    }
+
+    function cancelAuthentication() {
+        document.forms[0]['$cancelAuthentication'].value = 'true';
+        submit('$cancelAuthentication');
+    }
+
+    function usePasswordAuth() {
+        document.forms[0]['$usePasswordAuth'].value = 'true';
+        submit('$usePasswordAuth');
+    }
+
+    function submit(inputName) {
+        // Prevent unused inputs from being submitted
+        var inputs = document.forms[0].getElementsByTagName("input");
+        for (var i = 0; i < inputs.length; i++) {
+            var input = inputs[i];
+            if (input.name === '$createAuthenticationCode' && input.value === 'true')
+                continue;
+            if (input.name !== inputName) {
+                input.removeAttribute('name');
+            }
+        }
+        var form = jQuery('form');
+        form.submit(function () {
+            jQuery(this).unbind('submit');
+            jQuery(this).submit(function () {
+                return false;
+            });
+        });
+        form.submit();
+    }
+</script>
+</body>
+</html>

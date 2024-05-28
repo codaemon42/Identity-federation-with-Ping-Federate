@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+
+#*
+The server renders this HTML page in an end-user's browser when
+ID verification failed
+
+Velocity variables (identified by the $ character) are generated
+at runtime by the server.
+
+Change text or formatting as needed. Modifying Velocity statements
+is not recommended as it may interfere with expected server behavior.
+*#
+
+<!-- template name: pingone-verify-failed.html -->
+#set( $messageKeyPrefix = "pingone.verify.failed." )
+
+<html lang="$locale.getLanguage()" dir="ltr">
+<head>
+    <title>$languagePackMessages.getMessage($messageKeyPrefix, "title")</title>
+    <base href="$CurrentPingFedBaseURL"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0,
+    user-scalable=no"/>
+    <meta http-equiv="x-ua-compatible" content="IE=edge"/>
+    <script src="assets/scripts/jquery-3.5.1.min.js"></script>
+    <link rel="stylesheet" href="assets/css/end-user/0.36.1/end-user.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/pingone-verify.css"/>
+    <style>
+        .page__content:before {
+            content: none;
+        }
+
+        .page__content {
+            margin-top: 50px;
+        }
+
+        @media (max-width: 480px) {
+            .page__content {
+                margin-top: 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+<div class="app-container">
+    <div class="page brand-background" data-id="page">
+        <div class="page__content">
+            <div class="card card--no-padding">
+                <div class="card__content">
+                    <div class="org-logo"><img class="org-logo__image"
+                                               src="assets/images/ping-logo.svg"
+                                               alt="Company Logo"/></div>
+                    <div class="icon-feedback icon-feedback--timeout  icon-feedback--error" style="margin-bottom:0"><span
+                            class="icon-feedback__icon pingicon-ghost-error" style="margin-bottom:0"></span>
+                    </div>
+                    <h4 id="failedDescription" class="heading heading--4 text-block" style="margin:15px;" data-id="heading">
+                        #if ($id)
+                            $languagePackMessages.getMessage($messageKeyPrefix, "description")
+                        #else
+                            $languagePackMessages.getMessage($messageKeyPrefix, "nocode.description")
+                        #end
+                    </h4>
+                    #if ($id)
+                        <div class="text-block text-block--small" data-id="textblock">
+                            <div class="text-block--overflow-wrap">
+                                $languagePackMessages.getMessage($messageKeyPrefix, "txid") $id<br>
+                            </div>
+                        </div>
+                    #end
+                    <div class="text-block" data-id="textblock">
+                        <a tabindex="0" data-id="content-link" target="_self" class="anchor" onclick="retry()">
+                            $languagePackMessages.getMessage($messageKeyPrefix, "cancel.button.title")</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<form method="post" action="$resumePath" autocomplete="off">
+    <input type="hidden" name="$cancelAuthentication" value="true">
+    <input type="hidden" name="$retryVerification" value=""/>
+</form>
+
+<script type="text/javascript">
+    function retry() {
+        $('a').css("pointer-events", "none");
+        document.forms[0]['$retryVerification'].value = 'true';
+        submit('$retryVerification');
+    }
+
+    function cancelAuthentication() {
+        document.forms[0].submit();
+    }
+    
+    function submit(inputName)
+    {
+        // Prevent unused inputs from being submitted
+        var inputs = document.forms[0].getElementsByTagName("input");
+        for (var i = 0; i < inputs.length; i++) {
+            var input = inputs[i];
+            if (input.name !== inputName) {
+                input.removeAttribute('name');
+            }
+        }
+        document.forms[0].submit();
+    }
+    
+    console.log("verification failed: "+JSON.stringify($errJson));
+</script>
+</body>
+</html>

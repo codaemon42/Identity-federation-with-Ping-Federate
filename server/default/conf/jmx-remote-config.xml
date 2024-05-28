@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config xmlns="http://www.sourceid.org/2004/05/config">
+    <!--  The configuration properties in this file are for remote management of the server via JMX. -->
+
+    <!--
+        To enable remote JMX, set the rmi.registry.port field to the port where the server will
+        host the RMI stub that remote JMX connections need to communicate with the server.
+        The JMX service URL to connect to the server is
+           service:jmx:rmi:///jndi/rmi://[host]:[rmi.registry.port]/jmxrmi
+        To disable remote JMX, set to "0" or omit the item.
+    -->
+    <item name="rmi.registry.port">1099</item>
+
+    <!-- The port that remote jmx communications via RMI take place (0 indicates an ephemeral port) -->
+    <item name="jmx.rmi.port">0</item>
+
+    <!--
+        Indicates if SSL is to be used to secure the remote JMX communication.
+        If enabled, the SSL Server certificate as configured in PingFederate is used for the secure channel.
+    -->
+    <item name="jmx.rmi.ssl">true</item>
+
+    <!-- Indicates if remote JMX connections must authenticate to the server. -->
+    <item name="jmxremote.auth">true</item>
+
+    <!--
+        To secure remote connections to the RMI registry via SSL, set the property below to true.
+        Unfortunately, many existing JMX clients are unable to connect to an SSL-enabled registry.
+
+        If enabled, the runtime SSL server certificate configured in PingFederate is used for the
+        secure channel.
+     -->
+    <item name="rmi.registry.ssl">false</item>
+
+</config>

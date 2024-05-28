@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<c:config xmlns:c="http://www.sourceid.org/2004/05/config">
+
+    <!--
+    The maximum length of jti claim allowed in DPoP proof JWT. The maximum length is enforced when DPoP proof JWT
+    replay prevention is enabled.
+    The default is 50.
+     -->
+    <c:item name="MaxJtiLength">50</c:item>
+
+</c:config>

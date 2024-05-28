@@ -1,0 +1,60 @@
+#*
+Whenever the server POSTs a form, this template is used to auto-submit
+a form using JavaScript. If JavaScript is disabled, the end-user is
+prompted to click a button to POST the form manually.
+
+Velocity variables (identified by the $ character) are generated
+at runtime by the server.
+
+The following variables are available on this page, but not used by default:
+
+$utils                 - The utility method to display JSON String arrays
+$escape                - The utility class that can be used to escape String variables
+$HttpServletResponse   - The details of HTTP response
+$HttpServletRequest    - The details of HTTP request
+$TrackingId            - The user's session tracking ID
+$TransactionId         - The unique ID for the SSO or SLO transaction.
+$PingFedBaseURL        - The URL containing full hostname and port on which the PingFederate deployment runs on
+$CurrentPingFedBaseURL - The base URL used in the current request. This URL may differ from $PingFedBaseURL when using a virtual host name
+$locale                - The user's country and language
+$templateMessages      - The set of messages that is used to localize messages based on the user's locale
+
+Change text or formatting as needed. Modifying Velocity statements
+is not recommended as it may interfere with expected server behavior.
+
+It is recommended to sanitize the values that are displayed using $escape.escape(), for example $escape.escape($client_id).
+
+*#
+
+
+<!-- template name: form.autopost.template.html -->
+
+ #set( $messageKeyPrefix = "form.autopost.template." )
+
+<html>
+    <head>
+        <title>$templateMessages.getMessage($messageKeyPrefix, "title")</title>
+        <meta name="referrer" content="origin"/>
+        <meta http-equiv="x-ua-compatible" content="IE=edge" />
+        <meta http-equiv="Content-Security-Policy" content="default-src 'self' 'nonce-$CSPNonce';" />
+    </head>
+    <body>
+       <noscript>
+            <p>
+                <strong>$templateMessages.getMessage($messageKeyPrefix, "noteTitle"):</strong> $templateMessages.getMessage($messageKeyPrefix, "note")
+            </p>
+        </noscript>
+        <form method="post" action="$escape.escape($action)">
+            #foreach( $name in $formControls.keySet() )
+            <input type="hidden" name="$escape.escape($name)" value="$escape.escape($formControls.get($name))"/>
+            #end
+            <noscript><input type="submit" value="$templateMessages.getMessage($messageKeyPrefix, "resume")"/></noscript>
+        </form>
+    </body>
+    <script type="text/javascript" nonce="$CSPNonce">
+        window.onload = function() {
+            document.forms[0].submit()
+        }
+    </script>
+
+</html>

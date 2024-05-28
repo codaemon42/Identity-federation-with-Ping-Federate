@@ -1,0 +1,39 @@
+.page {
+    background-color: #3d454d;
+    background-image: -webkit-radial-gradient(40% 40%, circle cover, rgba(61, 69, 77, .9) 30%, #3d454d 80%);
+    background-repeat: no-repeat;
+    background-attachment: fixed
+}
+
+@media (max-width: 480px) {
+    .page, .page.brand-background {
+        background: #3d454d !important
+    }
+}
+
+.ping-footer {
+    display: block;
+    font-size: 11px;
+    color: #929aa1;
+}
+
+.ping-credits {
+    display: inline-block;
+    vertical-align: middle;
+    height: 14px;
+    width: 140px;
+    font-size: 0;
+    background: transparent url("../images/powered-by-ping-identity.svg") no-repeat;
+    background-size: contain;
+    color: #fff;
+    margin: 10px 0;
+}
+
+.spinner--margin-bottom-small {
+    margin-bottom: 35px;
+}
+
+.qr-code {
+    display: block;
+    text-align: center;
+}

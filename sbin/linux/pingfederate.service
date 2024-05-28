@@ -1,0 +1,14 @@
+[Unit]
+Description=PingFederate ${PF_VERSION}
+Documentation=https://support.pingidentity.com/s/PingFederate-help
+
+[Install]
+WantedBy=multi-user.target
+
+[Service]
+Type=simple
+User=${PF_USER}
+WorkingDirectory=${PF_HOME}
+Environment='JAVA_HOME=${PF_JAVA_HOME}'
+ExecStart=${PF_HOME}/bin/run.sh
+ExecStop=${PF_HOME}/sbin/pingfederate-shutdown.sh

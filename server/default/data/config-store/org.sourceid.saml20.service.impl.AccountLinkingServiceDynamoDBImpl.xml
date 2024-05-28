@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<c:config xmlns:c="http://www.sourceid.org/2004/05/config">
+
+    <!-- Table names -->
+    <c:item name="AccountLinkingTableName">PingFederateAccountLink</c:item>
+
+    <!-- The endpoint override is for testing with a local DynamoDB instance.
+         Provide the local DynamoDB endpoint here. This configuration should not be set for production environment.
+
+         Example configuration:
+        <c:item name="EndpointOverride">http://localhost:8000</c:item>
+   -->
+    <c:item name="EndpointOverride"/>
+
+    <!--
+        Configure the amount of time(in milliseconds) to allow the client to complete the execution of an API call.
+
+        Default configuration:
+        <c:item name="ApiCallTimeout">10000</c:item>
+    -->
+    <c:item name="ApiCallTimeout">10000</c:item>
+
+    <!--
+        Configure the amount of time(in milliseconds) to wait for the http request to complete before giving up and timing out.
+
+        Default configuration:
+        <c:item name="ApiCallAttemptTimeout">1000</c:item>
+    -->
+    <c:item name="ApiCallAttemptTimeout">1000</c:item>
+
+</c:config>

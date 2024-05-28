@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!--
+  This file defines the log categories that can be referenced by <Logger>
+  configuration elements inside log4j2.xml.
+
+  For each category, the ID, name, description, offLevel and onLevel are
+  specified. The offLevel is the default level for the category, used when
+  logging is disabled for the category. The onLevel is the level for the
+  category when the category is enabled. Categories can be enabled in the
+  administrative console, under Server > Log Settings, as well as through 
+  the administrative API.
+-->
+<log4jCategories>
+    <logCategories>
+        <category id="core" name="Core" offLevel="INFO" onLevel="DEBUG"
+                  description="Debug logging for core components."/>
+        <category id="protocolrequestresponse" name="Protocol Requests and Responses" offLevel="INFO" onLevel="DEBUG"
+                  description="Log protocol request and response messages."/>
+        <category id="policytree" name="Policy Tree" offLevel="INFO" onLevel="DEBUG"
+                  description="Policy tree debug logging."/>
+        <category id="trustedcas" name="Trusted CAs" offLevel="INFO" onLevel="DEBUG"
+                  description="Log PingFederate and JRE trusted CAs when they are loaded."/>
+        <category id="xmlsig" name="XML Signatures" offLevel="INFO" onLevel="DEBUG"
+                  description="Debug logging for XML signature operations."/>
+        <category id="requestheaders" name="HTTP Request Headers" offLevel="INFO" onLevel="TRACE"
+                  description="Log HTTP request headers. Sensitive information, such as passwords, may be logged when this category is enabled."/>
+        <category id="requestparams" name="HTTP Request Parameters" offLevel="INFO" onLevel="TRACE"
+                  description="Log HTTP GET request parameters. Sensitive information, such as passwords, may be logged when this category is enabled."/>
+        <category id="restdatastore" name="REST Data Store Requests and Responses" offLevel="INFO" onLevel="TRACE"
+                  description="Log REST datastore requests and responses. Sensitive information, such as passwords, may be logged when this category is enabled."/>
+    </logCategories>
+</log4jCategories>

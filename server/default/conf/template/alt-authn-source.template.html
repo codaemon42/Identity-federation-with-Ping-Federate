@@ -1,0 +1,251 @@
+#*
+Velocity variables (identified by the $ character) are generated
+at runtime by the server.
+
+The following variables are available on this page, but not used by default:
+
+$utils                 - The utility method to display JSON String arrays
+$escape                - The utility class that can be used to escape String variables
+$HttpServletResponse   - The details of HTTP response
+$HttpServletRequest    - The details of HTTP request
+$TrackingId            - The user's session tracking ID
+$TransactionId         - The unique ID for the SSO or SLO transaction.
+$PingFedBaseURL        - The URL containing full hostname and port on which the PingFederate deployment runs on
+$CurrentPingFedBaseURL - The base URL used in the current request. This URL may differ from $PingFedBaseURL when using a virtual host name
+$locale                - The user's country and language
+$templateMessages      - The set of messages that is used to localize messages based on the user's locale
+
+This template is an embedded template. Therefore, the parameters present in the parent templates will also be passed down to this template.
+The parent templates are:
+1. local.identity.registration.html
+2. local.identity.profile.html
+3. html.form.login.template.html
+
+Change text or formatting as needed. Modifying Velocity statements
+is not recommended as it may interfere with expected server behavior.
+
+It is recommended to sanitize the values that are displayed using $escape.escape(), for example $escape.escape($client_id).
+
+*#
+
+<div class="social-media-container">
+
+    #if ($messageKeyPrefix == "html.form.login.template.")
+        <input type="hidden" name="$alternateAuthnSystem" value=""/>
+        #set ($methodName = "postAlternateAuthnSystem")
+    #elseif ($messageKeyPrefix == "local.identity.registration.")
+        <input type="hidden" name="$alternateThirdPartyRegister" value=""/>
+        #set ($methodName = "postThirdPartyRegister")
+    #end
+
+    #if ($messageKeyPrefix == "html.form.login.template." || $messageKeyPrefix == "local.identity.registration.")
+        #foreach ($authSource in $altAuthSources)
+            #set( $htmlSafeAuthSource = $authSource.replaceAll("[^A-Za-z]+", "").toLowerCase() )
+                <div class="button-container" id='${htmlSafeAuthSource}-div'>
+                    <a id="$htmlSafeAuthSource" class="ping-button social-media $htmlSafeAuthSource" title='$authSource'>$authSource</a>
+                </div>
+            #end
+
+    #elseif ($messageKeyPrefix == "local.identity.profile.")
+        <input type="hidden" name="$connect" value=""/>
+        <input type="hidden" name="$disconnect" value=""/>
+
+        #foreach ($socialConnection in $socialConnections)
+            #set( $authSourceName = $socialConnection.authSourceName )
+            #set( $authSourceId = $socialConnection.getAuthSourceId() )
+            #set( $isConnected = $socialConnection.isConnected() )
+            #set( $htmlSafeAuthSource = $authSourceName.replaceAll("[^A-Za-z]+", "").toLowerCase() )
+            #if($isConnected)
+            <div class="button-container">
+                <span class="details-tooltip top center">
+                    <a id="${htmlSafeAuthSource}-disconnect-popup-button" class="ping-button social-media $htmlSafeAuthSource"
+                        title="$templateMessages.getMessage($messageKeyPrefix, "disconnectButtonTitle") $authSourceName">
+                        $templateMessages.getMessage($messageKeyPrefix, "disconnectButtonTitle") $authSourceName
+                    </a>
+                    <div class="details-content">
+                        <div class="details-content-inner">
+                            <span class="details-close">
+
+                            </span>
+                            <div class="details-title">
+                                $templateMessages.getMessage($messageKeyPrefix, "disconnectButtonTitle") $authSourceName
+                            </div>
+                            <div class="details-body">
+                                <p>$templateMessages.getMessage($messageKeyPrefix, "disconnectWarning", $authSourceName)</p>
+                                <div class="button-group">
+                                    <button id="${htmlSafeAuthSource}-disconnect-button" type="button" class="primary delete">$templateMessages.getMessage($messageKeyPrefix, "disconnectButtonTitle")</button>
+                                    <br>
+                                    <a id="${htmlSafeAuthSource}-disconnect-cancel" class="cancel">$templateMessages.getMessage($messageKeyPrefix, "cancelButtonTitle")</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </span>
+            </div>
+            #else
+            <div class="button-container hidden-field" id="${htmlSafeAuthSource}-div">
+                <a id="${authSourceId}-connect-button" class="ping-button social-media $htmlSafeAuthSource"
+                    title="$templateMessages.getMessage($messageKeyPrefix, "connectButtonTitle") $authSourceName">
+                $templateMessages.getMessage($messageKeyPrefix, "connectButtonTitle") $authSourceName
+                </a>
+            </div>
+            #end
+        #end
+    #end
+</div>
+
+<script type="text/javascript" nonce="$CSPNonce">
+    #foreach ($socialConnection in $socialConnections)
+        #set( $authSourceName = $socialConnection.authSourceName )
+        #set( $authSourceId = $socialConnection.getAuthSourceId() )
+        #set( $isConnected = $socialConnection.isConnected() )
+        #set( $htmlSafeAuthSource = $authSourceName.replaceAll("[^A-Za-z]+", "").toLowerCase() )
+        #if($isConnected)
+            registerEventHandler("${htmlSafeAuthSource}-disconnect-popup-button", 'click', function(event){
+                showTooltip(event.target);
+            });
+            registerEventHandler("${htmlSafeAuthSource}-disconnect-button", 'click', function(event){
+                postDisconnect('$authSourceId');
+            });
+            registerEventHandler("${htmlSafeAuthSource}-disconnect-cancel", 'click', function(event){
+                hideTooltip();
+            });
+        #else
+            registerEventHandler("${authSourceId}-connect-button", 'click', function(event){
+                postConnect('$authSourceId');
+            });
+        #end
+    #end
+
+    #if($altAuthSources && $altAuthSources.size() > 0 || $socialConnections.size() > 0)
+        handleAltAuthnSources();
+    #end
+
+    function handleAltAuthnSources() {
+        var authnSources = [];
+        #foreach ($authSource in $altAuthSources)
+        #set( $htmlSafeAuthSource = $authSource.replaceAll("[^A-Za-z]+", "").toLowerCase() )
+            authnSources.push("$htmlSafeAuthSource");
+            registerEventHandler('$htmlSafeAuthSource', 'click', function(){
+                $methodName("$authSource");
+            });
+        #end
+
+        var fidoSources = ["biometrics", "windowshello", "faceid", "touchid"];
+        var webAuthnSources = fidoSources.slice();
+        webAuthnSources.push("securitykey");
+
+        //if webauthn is not supported, remove webauthn sources
+        if(!IsWebAuthnSupported()) {
+        authnSources = authnSources.filter(function(s) {
+                return webAuthnSources.indexOf(s) < 0;
+            });
+
+        } else {
+            //remove fido sources that require a platform authenticator
+            authnSources = authnSources.filter(function(s) {
+                return fidoSources.indexOf(s) < 0;
+            });
+        }
+
+        if(authnSources.length > 0) {
+            displayAltAuthnSoucesColumn(authnSources);
+        }
+
+        renderWebAuthnPlatformAuthenticatorAuthnSources(fidoSources);
+      }
+
+    function displayAltAuthnSoucesColumn(altAuthSources) {
+        var bodyTag = document.getElementsByTagName('body')[0];
+        if(bodyTag) {
+            bodyTag.className += ' columns-layout';
+        }
+
+        contentColumns = document.getElementById("content-columns");
+        if(contentColumns) {
+            contentColumns.className += " content-columns";
+        }
+
+        socialConnectionsColumn = document.getElementById("social-connections-column");
+        if(socialConnectionsColumn) {
+            socialConnectionsColumn.style.display = "block";
+        }
+
+        var altAuthSourcesColumnElements = document.getElementsByClassName("alt-auth-source-column");
+        for(i = 0; i < altAuthSourcesColumnElements.length; i++) {
+            altAuthSourcesColumnElements[i].style.display = "block";
+        }
+
+        for(i = 0; i < altAuthSources.length; i++) {
+            theElement = document.getElementById(altAuthSources[i] + "-div");
+            if(theElement)
+                theElement.style.display="block";
+        }
+    }
+
+    function renderWebAuthnPlatformAuthenticatorAuthnSources(fidoVarients) {
+        // skip the WebAuthn support check on Internet Explorer as both WebAuthn and Promise are not supported on IE
+        var ua = window.navigator.userAgent;
+        var msie = ua.indexOf("MSIE ");
+        if (msie > 0 || !!navigator.userAgent.match(/Trident.*rv\:11\./)) {
+            return false;
+        }
+
+        var timer;
+
+        var p1 = new Promise(function(resolve) {
+            timer = setTimeout(function() {
+                console.log("isWebAuthnPlatformAuthenticatorAvailable - Timeout");
+                resolve(false);
+            }, 300);
+        });
+
+        var p2 = new Promise(function(resolve) {
+            if (IsWebAuthnSupported() && window.PublicKeyCredential.isUserVerifyingPlatformAuthenticatorAvailable) {
+                resolve(
+                    window.PublicKeyCredential.isUserVerifyingPlatformAuthenticatorAvailable().catch(function(err) {
+                        console.log(err);
+                        return false;
+                    }));
+            }
+            else {
+                resolve(false);
+            }
+        });
+
+        return Promise.race([p1, p2]).then(function (res) {
+            clearTimeout(timer);
+            if(res) {
+                displayAltAuthnSoucesColumn(fidoVarients);
+            }
+            return res;
+        });
+    }
+
+    function IsWebAuthnSupported() {
+        if (!window.PublicKeyCredential) {
+            console.log("Web Authentication API is not supported on this browser.");
+            return false;
+        }
+        return true;
+    }
+
+    function postAlternateAuthnSystem(system) {
+        var variants = ["Biometrics", "Windows Hello", "Face ID",  "Touch ID"];
+        for (i = 0; i < variants.length; i++) {
+            if(variants[i] == system) {
+                system = "FIDO";
+            }
+        }
+        document.forms[0]['$alternateAuthnSystem'].value = system;
+        document.forms[0].submit();
+    }
+
+    function postThirdPartyRegister(system) {
+        var variants = ["Biometrics", "Windows Hello", "Face ID",  "Touch ID"];
+        if(variants.indexOf(system) >= 0) system = "FIDO";
+        document.forms[0]['$alternateThirdPartyRegister'].value = system;
+        document.forms[0].submit();
+    }
+
+</script>

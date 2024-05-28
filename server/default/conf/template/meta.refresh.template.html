@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+#*
+The server renders this page when attempting Kerberos Authentication
+as part of a Composite Adapter.
+
+Velocity variables (identified by the $ character) are generated
+at runtime by the server.
+
+The following variables are available on this page, but not used by default:
+
+$utils                 - The utility method to display JSON String arrays
+$escape                - The utility class that can be used to escape String variables
+$HttpServletResponse   - The details of HTTP response
+$HttpServletRequest    - The details of HTTP request
+$TrackingId            - The user's session tracking ID
+$TransactionId         - The unique ID for the SSO or SLO transaction.
+$PingFedBaseURL        - The URL containing full hostname and port on which the PingFederate deployment runs on
+$CurrentPingFedBaseURL - The base URL used in the current request. This URL may differ from $PingFedBaseURL when using a virtual host name
+$locale                - The user's country and language
+$templateMessages      - The set of messages that is used to localize messages based on the user's locale
+
+Change text or formatting as needed. Modifying Velocity statements
+is not recommended as it may interfere with expected server behavior.
+
+It is recommended to sanitize the values that are displayed using $escape.escape(), for example $escape.escape($client_id).
+
+*#
+
+<!-- template name: meta.refresh.template.html -->
+
+#set( $messageKeyPrefix = "meta.refresh.template.html" )
+
+<html lang="$locale.getLanguage()" dir="ltr">
+<head>
+    <meta name="robots" content="noindex, nofollow" />
+    <meta http-equiv="refresh" content="0" />
+    <meta http-equiv="x-ua-compatible" content="IE=edge" />
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self' 'nonce-$CSPNonce';" />
+</head>
+
+<body>
+
+</body>
+</html>

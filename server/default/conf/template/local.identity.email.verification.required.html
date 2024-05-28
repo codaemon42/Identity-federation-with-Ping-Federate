@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+#*
+The server renders this HTML page in an end-user's browser when
+the user must verify their email address before they can use this
+local identity profile to complete a single sign-on transaction.
+
+Velocity variables (identified by the $ character) are generated
+at runtime by the server.
+
+The following variables are available on this page, but not used by default:
+
+$utils                 - The utility method to display JSON String arrays
+$escape                - The utility class that can be used to escape String variables
+$HttpServletResponse   - The details of HTTP response
+$HttpServletRequest    - The details of HTTP request
+$TrackingId            - The user's session tracking ID
+$TransactionId         - The unique ID for the SSO or SLO transaction.
+$PingFedBaseURL        - The URL containing full hostname and port on which the PingFederate deployment runs on
+$CurrentPingFedBaseURL - The base URL used in the current request. This URL may differ from $PingFedBaseURL when using a virtual host name
+$locale                - The user's country and language
+$templateMessages      - The set of messages that is used to localize messages based on the user's locale
+$userAttributes        - The user attributes associated with the Local Identity Profile used in this transaction
+
+$extendedProperties    - The extended properties defined on either the connection or OAuth client
+
+Change text or formatting as needed. Modifying Velocity statements
+is not recommended as it may interfere with expected server behavior.
+
+It is recommended to sanitize the values that are displayed using $escape.escape(), for example $escape.escape($client_id).
+
+*#
+
+<!-- template name: local.identity.email.verification.required.html -->
+
+#set( $messageKeyPrefix = "local.identity.email.verification.required." )
+
+<html lang="$pluginLocale.getLanguage()" dir="ltr">
+<head>
+    <title>$templateMessages.getMessage($messageKeyPrefix, "title")</title>
+    <base href="$CurrentPingFedBaseURL"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self' 'nonce-$CSPNonce';" />
+    <link rel="stylesheet" type="text/css" href="assets/css/main.css"/>
+    <script src='assets/scripts/pf-general.js'></script>
+    <script src='assets/scripts/local-identity-profile.js'></script>
+</head>
+
+<body>
+
+#if($bannerMessages)
+<div data-id="messages" class="page-messages full">
+    #foreach ($bannerMessage in $bannerMessages.getBannerMessages())
+        <div class="message show $bannerMessage.getCssString()">
+            $templateMessages.getMessage($bannerMessage.getMessageKey(), $bannerMessage.getParams())<a class="close"></a>
+        </div>
+    #end
+</div>
+#end
+
+<div class="ping-container ping-signin ping-large">
+
+    <div class="ping-header">
+        <span class="company-logo"><!-- client company logo here --></span>
+        $templateMessages.getMessage($messageKeyPrefix, "title")
+    </div>
+    <!-- .ping-header -->
+
+    <div class="ping-body-container">
+        <div>
+            <form method="POST" action="$url" autocomplete="off">
+                <input type="hidden" name="isRequireVerifiedEmailForm" value="true"/>
+
+                <div class="ping-messages">
+                    <input type="hidden" name="$resend" value=""/>
+                    <div>
+                        $templateMessages.getMessage($messageKeyPrefix, "description.1")
+                        #if($descriptionMessage)
+                            <!-- description.2 -->
+                            <span class="local-identity-profile__description-messages">$templateMessages.getMessage($descriptionMessage.getMessageKey(), $descriptionMessage.getParams())</span>
+                        #end
+                        $templateMessages.getMessage($messageKeyPrefix, "description.3")
+                    </div>
+
+                    <div>
+                        $templateMessages.getMessage($messageKeyPrefix, "resend.description")
+                        <a id="resend-email-link" title="$templateMessages.getMessage($messageKeyPrefix, "resendLinkTitle")">
+                        $templateMessages.getMessage($messageKeyPrefix, "resendLinkTitle")
+                        </a>
+                    </div>
+                </div>
+                <!-- .ping-messages -->
+
+                <div class="ping-buttons">
+                    <input type="hidden" name="$continue" value=""/>
+                    <input type="hidden" name="$profileManagement" value=""/>
+                    <input type="hidden" name="$cancel" value=""/>
+
+                    <a id="continue-button" class="ping-button normal allow" title="$templateMessages.getMessage($messageKeyPrefix, "continueButtonTitle")">
+                    $templateMessages.getMessage($messageKeyPrefix, "continueButtonTitle")
+                    </a>
+
+                    <a id="cancel-link" class="ping-button blue deny" title="$templateMessages.getMessage($messageKeyPrefix, "cancelLinkTitle")">
+                    $templateMessages.getMessage($messageKeyPrefix, "cancelLinkTitle")
+                    </a>
+
+                    #if($isProfileManagementEnabled)
+                    <a id="manage-profile-link" href="$profileManagementPath" target="_blank" class="ping-button blue deny" title="$templateMessages.getMessage($messageKeyPrefix, "profileManagementLinkTitle")">
+                    $templateMessages.getMessage($messageKeyPrefix, "profileManagementLinkTitle")
+                    </a>
+                    #end
+
+                </div>
+                <!-- .ping-buttons -->
+
+            </form>
+        </div>
+        <!-- .ping-body -->
+    </div>
+    <!-- .ping-body-container -->
+
+    <div class="ping-footer-container">
+        <div class="ping-footer">
+            <div class="ping-credits"></div>
+            <div class="ping-copyright">$templateMessages.getMessage("global.footerMessage")</div>
+        </div>
+        <!-- .ping-footer -->
+    </div>
+    <!-- .ping-footer-container -->
+
+</div>
+<!-- .ping-container -->
+
+<script type="text/javascript" nonce="$CSPNonce">
+
+    window.onload = function(){
+        #if($HttpServletRequest.getHeader('X-Ping-Client-Version'))
+            toggleMobile(true);
+        #else
+            toggleMobile(false);
+        #end
+    }
+
+    registerEventHandler('resend-email-link', 'click', postResend);
+    registerEventHandler('continue-button', 'click', postContinue);
+    registerEventHandler('cancel-link', 'click', postCancel);
+
+    var formSubmitted = false;
+
+    function postResend() {
+        document.forms[0]['$resend'].value = 'clicked';
+        document.forms[0].submit();
+    }
+
+    function postCancel() {
+        document.forms[0]['$cancel'].value = 'clicked';
+        document.forms[0].submit();
+    }
+
+    function postContinue() {
+        if (formSubmitted)
+            return true;
+
+        formSubmitted = true;
+
+        document.forms[0]['$continue'].value = 'clicked';
+        document.forms[0].submit();
+    }
+
+</script>
+
+</body>
+</html>

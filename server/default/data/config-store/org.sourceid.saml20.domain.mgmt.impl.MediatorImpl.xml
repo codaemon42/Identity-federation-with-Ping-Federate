@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<c:config xmlns:c="http://www.sourceid.org/2004/05/config">
+    <!--
+        Determines whether to create and configure plugin instances on PingFederate startup and data archive import
+        rather than waiting until the first request that uses the plugin. Setting this to true ensures that custom
+        endpoints registered by plugins are available as soon as PingFederate starts up. However, in some environments
+        this initialization step can dramatically increase start-up time.
+
+        Default configuration:
+        <c:item name="ConfigurePluginsOnStartup">true</c:item>
+    -->
+    <c:item name="ConfigurePluginsOnStartup">true</c:item>
+</c:config>

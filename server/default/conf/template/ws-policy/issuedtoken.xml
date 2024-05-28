@@ -1,0 +1,58 @@
+<wsp:Policy wsu:Id="issuedtoken" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:sp="http://docs.oasis-open.org/ws-sx/ws-securitypolicy/200702" xmlns:trust="http://docs.oasis-open.org/ws-sx/ws-trust/200512">
+    <wsp:ExactlyOne>
+        <wsp:All>
+            <sp:TransportBinding>
+                <wsp:Policy>
+                    <sp:TransportToken>
+                        <wsp:Policy>
+                            <sp:HttpsToken RequireClientCertificate="false"/>
+                        </wsp:Policy>
+                    </sp:TransportToken>
+                    <sp:AlgorithmSuite>
+                        <wsp:Policy>
+                            <sp:Basic256 />
+                        </wsp:Policy>
+                    </sp:AlgorithmSuite>
+                    <sp:Layout>
+                        <wsp:Policy>
+                            <sp:Strict />
+                        </wsp:Policy>
+                    </sp:Layout>
+                    <sp:IncludeTimestamp />
+                </wsp:Policy>
+            </sp:TransportBinding>
+            <sp:EndorsingSupportingTokens>
+                <wsp:Policy>
+                    <sp:IssuedToken sp:IncludeToken="http://docs.oasis-open.org/ws-sx/ws-securitypolicy/200702/IncludeToken/AlwaysToRecipient">
+                        <sp:RequestSecurityTokenTemplate>
+                        <trust:KeyType>http://docs.oasis-open.org/ws-sx/ws-trust/200512/PublicKey</trust:KeyType>
+</sp:RequestSecurityTokenTemplate>
+                        <wsp:Policy>
+                            <sp:RequireInternalReference />
+                        </wsp:Policy>
+                    </sp:IssuedToken>
+                    <sp:KeyValueToken sp:IncludeToken="http://docs.oasis-open.org/ws-sx/ws-securitypolicy/200702/IncludeToken/Never" wsp:Optional="true" />
+                    <sp:SignedParts>
+                        <sp:Header Name="To" Namespace="http://www.w3.org/2005/08/addressing" />
+                    </sp:SignedParts>
+                </wsp:Policy>
+            </sp:EndorsingSupportingTokens>
+            <sp:Wss11>
+                <wsp:Policy>
+                    <sp:MustSupportRefKeyIdentifier />
+                    <sp:MustSupportRefIssuerSerial />
+                    <sp:MustSupportRefThumbprint />
+                    <sp:MustSupportRefEncryptedKey />
+                </wsp:Policy>
+            </sp:Wss11>
+            <sp:Trust13>
+                <wsp:Policy>
+                    <sp:MustSupportIssuedTokens />
+                    <sp:RequireClientEntropy />
+                    <sp:RequireServerEntropy />
+                </wsp:Policy>
+            </sp:Trust13>
+            <wsaw:UsingAddressing />
+        </wsp:All>
+    </wsp:ExactlyOne>
+</wsp:Policy>

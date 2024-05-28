@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urn:OAuthConfig globalPersistentGrantIdleTimeout="30" globalPersistentGrantIdleTimeoutTimeUnit="d" enableOAuth="false" xmlns:urn="urn:pingidentity.com:pf:oauth:conf">
+    <urn:ReuseExistingPersistentGrantForGrant>implicit</urn:ReuseExistingPersistentGrantForGrant>
+    <urn:AllowAutoAuthzForExistingPersistentGrant>implicit</urn:AllowAutoAuthzForExistingPersistentGrant>
+</urn:OAuthConfig>

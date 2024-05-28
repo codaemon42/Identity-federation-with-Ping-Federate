@@ -1,0 +1,40 @@
+#
+# Defines the actual "accessGrant" objectClass in which the Access Grants will be stored.
+# If any attribute names changed in "access-grant-attributes-ldap-active-directory.ldif", they must be changed below.
+#
+# <Your Location> should be changed to the location of your full DN. eg. CN=Schema,CN=Configuration,DC=4s8i6q,DC=global
+#
+
+dn: CN=accessGrant,<Your Location>
+changetype: add
+objectClass: top
+objectClass: classSchema
+cn: accessGrant
+distinguishedName:
+ CN=accessGrant,<Your Location>
+instanceType: 4
+possSuperiors: container
+possSuperiors: organizationalUnit
+uSNCreated: 13004
+subClassOf: top
+governsID: 1.3.6.1.4.1.28867.9.1.1 
+mustContain: accessGrantGuid
+mayContain: accessGrantAttributes
+mayContain: accessGrantClientId
+mayContain: accessGrantContextualQualifier
+mayContain: accessGrantExpires
+mayContain: accessGrantGrantType
+mayContain: accessGrantHashedRefreshTokenValue
+mayContain: accessGrantIssued
+mayContain: accessGrantScope
+mayContain: accessGrantUniqueUserIdentifier
+mayContain: accessGrantUpdated
+showInAdvancedViewOnly: TRUE
+adminDisplayName: accessGrant
+objectClassCategory: 1
+lDAPDisplayName: accessGrant
+name: accessGrant
+defaultHidingValue: TRUE
+objectCategory: CN=Class-Schema,<Your Location>
+defaultObjectCategory:
+ CN=accessGrant,<Your Location>

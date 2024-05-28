@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+
+#*
+The server renders this HTML page in an end-user's browser when
+ID verification device choice
+
+Velocity variables (identified by the $ character) are generated
+at runtime by the server.
+
+Change text or formatting as needed. Modifying Velocity statements
+is not recommended as it may interfere with expected server behavior.
+*#
+
+<!-- template name: pingone-verify-device.html -->
+#set( $messageKeyPrefix = "pingone.verify.device." )
+
+<html lang="$locale.getLanguage()" dir="ltr">
+<head>
+    <title>$languagePackMessages.getMessage($messageKeyPrefix, "title")</title>
+    <base href="$CurrentPingFedBaseURL"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <meta http-equiv="x-ua-compatible" content="IE=edge"/>
+    <script src="assets/scripts/jquery-3.5.1.min.js"></script>
+    <link rel="icon" href="assets/images/favicon.ico" type="image/x-icon"/>
+    <link rel="shortcut icon" href="assets/images/favicon.ico" type="image/x-icon"/>
+    <link rel="stylesheet" href="assets/css/end-user/0.36.1/end-user.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/pingone-verify.css"/>
+    <style>
+        .page__content:before {
+            content: none;
+        }
+
+        .page__content {
+            margin-top: 50px;
+        }
+
+        @media (max-width: 480px) {
+            .page__content {
+                margin-top: 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+<div class="app-container">
+    <div class="page brand-background" data-id="page">
+        <div class="page__content">
+            <div class="card card--no-padding">
+                <div class="card__content">
+                    <div class="org-logo"><img class="org-logo__image"
+                                               src="assets/images/ping-logo.svg"
+                                               alt="Company Logo"/></div>
+                    <div id="verificationData" class="stack stack--large" style="margin-left:27px;margin-right:27px;" data-id="stack">
+                        <div class="stack stack--small">
+                            <h1 class="heading" data-id="heading">
+                                $languagePackMessages.getMessage($messageKeyPrefix, "header")
+                            </h1>
+                            
+                            <h4 id="description" class="heading heading--4 text-block" data-id="heading">
+                                $languagePackMessages.getMessage($messageKeyPrefix, "description")
+                            </h4>
+
+                            <div class="org-logo" style="margin:30px">
+                                <img class="org-logo__image" src="assets/images/newtab.svg" alt="New Tab"/>
+                            </div>
+
+                            <table style="width:100%;">
+                                <tr>
+                                    <td>
+                                        <button id="other" class="button button--tertiary button--primary" data-id="button" type="button" style="font-size:15px;" onclick="otherDevice()">
+                                            $languagePackMessages.getMessage($messageKeyPrefix, "other.button.title")
+                                        </button>
+                                    </td>
+                                    <td>
+                                        <button id="self" class="button button--tertiary button--primary" data-id="button" type="button" style="font-size:15px;" onclick="thisDevice()">
+                                            $languagePackMessages.getMessage($messageKeyPrefix, "self.button.title")
+                                        </button>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="text-block">
+                            <a tabindex="0" data-id="content-link" target="_self" class="anchor" onclick="cancelAuthentication()">
+                                $languagePackMessages.getMessage($messageKeyPrefix, "cancel.button.title")</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="page__footer">
+            <div class="ping-footer">
+                <div class="ping-credits"></div>
+                <div class="ping-copyright">$templateMessages.getMessage("global.footerMessage")</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<form method="post" action="$resumePath">
+    <input type="hidden" name="$cancelAuthentication" value="">
+    <input type="hidden" name="$deviceAuthentication" value="">
+</form>
+
+<script type="text/javascript">
+
+    function cancelAuthentication()
+    {
+        document.getElementById("verificationData").style.pointerEvents = "none";
+        document.forms[0]['$cancelAuthentication'].value = 'true';
+        submit('$cancelAuthentication');
+    }
+    
+    function otherDevice()
+    {
+        document.getElementById("verificationData").style.pointerEvents = "none";
+        document.forms[0]['$deviceAuthentication'].value = 'other';
+        console.log("selected device: other");
+        document.forms[0].submit();
+    }
+    
+    function thisDevice()
+    {
+        document.getElementById("verificationData").style.pointerEvents = "none";
+        document.forms[0]['$deviceAuthentication'].value = 'self';
+        console.log("selected device: self");
+        document.forms[0].submit();
+    }
+    
+    function submit(inputName)
+    {
+        // Prevent unused inputs from being submitted
+        var inputs = document.forms[0].getElementsByTagName("input");
+        for (var i = 0; i < inputs.length; i++) {
+            var input = inputs[i];
+            if (input.name !== inputName) {
+                input.removeAttribute('name');
+            }
+        }
+        document.forms[0].submit();
+    }
+    
+    onload = function() {
+
+    };
+</script>
+</body>
+</html>

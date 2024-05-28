@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+#*
+The server renders this HTML page in an end-user's browser when
+using authentication API explorer page.
+
+Velocity variables (identified by the $ character) are generated
+at runtime by the server.
+
+The following variables are available on this page, but not used by default:
+
+$utils                 - The utility method to display JSON String arrays
+$escape                - The utility class that can be used to escape String variables
+$HttpServletResponse   - The details of HTTP response
+$HttpServletRequest    - The details of HTTP request
+$TrackingId            - The user's session tracking ID
+$TransactionId         - The unique ID for the SSO or SLO transaction.
+$PingFedBaseURL        - The URL containing full hostname and port on which the PingFederate deployment runs on
+$CurrentPingFedBaseURL - The base URL used in the current request. This URL may differ from $PingFedBaseURL when using a virtual host name
+$locale                - The user's country and language
+$templateMessages      - The set of messages that is used to localize messages based on the user's locale
+
+$flowsUrl              - The url of flows endpoint for Authn API Applications
+$descriptionUrl        - The url of description endpoint for Authn API Applications
+$postmanUrl            - The url of Postman application
+$helpUrl               - The url of help page
+
+Change text or formatting as needed. Modifying Velocity statements
+is not recommended as it may interfere with expected server behavior.
+
+It is recommended to sanitize the values that are displayed using $escape.escape(), for example $escape.escape($client_id).
+
+*#
+
+<!-- template name:pf-ws.authn.api.explorer.template.html -->
+
+#set( $messageKeyPrefix = "pf-ws.authn.api.explorer.template." )
+
+#set ($cssUrl = "assets/apiexplorer/styles.css")
+#set ($vendorjs = "assets/apiexplorer/vendor.bundle.js")
+#set ($mainjs = "assets/apiexplorer/main.bundle.js")
+
+<html lang="$locale.getLanguage()" dir="ltr">
+<head>
+    <base href="$CurrentPingFedBaseURL"/>
+    <title>$templateMessages.getMessage($messageKeyPrefix, "title")</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <meta http-equiv="x-ua-compatible" content="IE=edge"/>
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self' 'nonce-$CSPNonce';" />
+    <link href="$cssUrl" type="text/css" rel="stylesheet">
+    <script id="flowUrl" nonce="$CSPNonce">"$flowsUrl"</script>
+    <script id="descriptionUrl" nonce="$CSPNonce">"$descriptionUrl"</script>
+    <script id="postmanUrl" nonce="$CSPNonce">"$postmanUrl"</script>
+    <script id="helpUrl" nonce="$CSPNonce">"$helpUrl"</script>
+</head>
+
+<body>
+<div id="root"></div>
+<script src="$vendorjs" nonce="$CSPNonce"></script>
+<script src="$mainjs" nonce="$CSPNonce"></script>
+</body>
+</html>

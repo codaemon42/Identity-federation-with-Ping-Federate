@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+
+#*
+The server renders this HTML page in an end-user's browser when
+user is prompted with PingOne DaVinci.
+
+Velocity variables (identified by the $ character) are generated
+at runtime by the server.
+
+Change text or formatting as needed. Modifying Velocity statements
+is not recommended as it may interfere with expected server behavior.
+*#
+
+<!-- template name: pingone-davinci.html -->
+#set( $messageKeyPrefix = "pingone.davinci." )
+
+<html lang="$locale.getLanguage()" dir="ltr">
+<head>
+    <title>$languagePackMessages.getMessage($messageKeyPrefix, "title")</title>
+    <base href="$CurrentPingFedBaseURL"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <meta http-equiv="x-ua-compatible" content="IE=edge"/>
+</head>
+
+<body>
+    <div id="widget"></div>
+
+    <form method="POST" action="$resumePath" autocomplete="off">
+        <input type="hidden" name="$flowResult" value="">
+    </form>
+
+    <script src="$widgetUrl" type="text/javascript"></script>
+    <script type="text/javascript">
+        function submit(inputName)
+        {
+            // Prevent unused inputs from being submitted
+            var inputs = document.forms[0].getElementsByTagName("input");
+            for (var i = 0; i < inputs.length; i++) {
+                var input = inputs[i];
+                if (input.name !== inputName) {
+                    input.removeAttribute('name');
+                }
+            }
+            document.forms[0].submit();
+        }
+
+        function successCallback(response) {
+            let flowResult = JSON.stringify(response);
+            document.forms[0]['$flowResult'].value = flowResult;
+            submit('$flowResult');
+        }
+
+        function errorCallback(error) {
+            let flowResult = JSON.stringify(error);
+            document.forms[0]['$flowResult'].value = flowResult;
+            submit('$flowResult');
+        }
+
+        function closeModal() {
+            console.log('Modal - closed');
+        }
+
+        onload = function() {
+            const props = {
+              'config': {
+                'method': '$method',
+                'apiRoot': '$authUrl',
+                'accessToken': '$accessToken',
+                'companyId': '$companyId',
+                'policyId': '$policyId',
+              },
+              'useModal': false,
+              successCallback, errorCallback, closeModal
+            }
+
+            davinci.renderScreen(document.getElementById("widget"), props);
+        };
+    </script>
+</body>
+</html>
