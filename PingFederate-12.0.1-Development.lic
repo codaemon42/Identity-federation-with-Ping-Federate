@@ -1,0 +1,15 @@
+ID=00671844
+WSTrustSTS=true
+OAuth=true
+SaasProvisioning=true
+Product=PingFederate
+Version=12.0.1
+EnforcementType=3
+Tier=Free
+IssueDate=2024-03-14
+ExpirationDate=2024-04-13
+GracePeriod=1
+DeploymentMethod=Traditional
+Organization=K53tech.COM
+SignCode=FF1F
+Signature=302D0215008B556E20B48DF17B392C3511AF1C6EF3D6102C94021419E053A5ADC162207391F9FCA53DB78F96908331

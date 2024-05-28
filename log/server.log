@@ -352,3 +352,329 @@ No license file was found.
 You do not have a valid license configured. To obtain a valid license, please contact your vendor's Customer Support.
 **********************************************************
 2024-05-28 21:31:14,747  INFO  [org.sourceid.saml20.domain.mgmt.impl.MediatorImpl$ShutdownHook] PingFederate shutdown...
+2024-05-28 21:55:28,985  INFO  [com.pingidentity.appserver.jetty.PingFederateInit] Current Directory: C:\tools\Ping Identity\Identity-federation-with-Ping-Federate\sbin\win-x86-64\.
+2024-05-28 21:55:29,001  INFO  [com.pingidentity.appserver.jetty.PingFederateInit] =========================================================================
+2024-05-28 21:55:29,001  INFO  [com.pingidentity.appserver.jetty.PingFederateInit] 
+2024-05-28 21:55:29,001  INFO  [com.pingidentity.appserver.jetty.PingFederateInit]  PingFederate Bootstrap Environment
+2024-05-28 21:55:29,001  INFO  [com.pingidentity.appserver.jetty.PingFederateInit] 
+2024-05-28 21:55:29,001  INFO  [com.pingidentity.appserver.jetty.PingFederateInit]  PF_HOME: C:\tools\Ping Identity\Identity-federation-with-Ping-Federate\sbin\win-x86-64\..\..
+2024-05-28 21:55:29,001  INFO  [com.pingidentity.appserver.jetty.PingFederateInit] 
+2024-05-28 21:55:29,001  INFO  [com.pingidentity.appserver.jetty.PingFederateInit]  JAVA_PATH: C:\tools\jdk-11.0.14/bin/java
+2024-05-28 21:55:29,001  INFO  [com.pingidentity.appserver.jetty.PingFederateInit] 
+2024-05-28 21:55:29,001  INFO  [com.pingidentity.appserver.jetty.PingFederateInit]  JAVA_OPTS: See sbin/wrapper/PingFederateService.conf
+2024-05-28 21:55:29,001  INFO  [com.pingidentity.appserver.jetty.PingFederateInit] 
+2024-05-28 21:55:29,001  INFO  [com.pingidentity.appserver.jetty.PingFederateInit]  CLASSPATH: ../wrapper/wrapper.jar;../../bin/pf-startup.jar;../../startup/jetty-start.jar;../../server/default/lib/xmlbeans.jar;../../server/default/lib/pf-xml.jar;C:\tools\jdk-11.0.14/lib/tools.jar
+2024-05-28 21:55:29,001  INFO  [com.pingidentity.appserver.jetty.PingFederateInit] 
+2024-05-28 21:55:29,001  INFO  [com.pingidentity.appserver.jetty.PingFederateInit]  Operating System: Windows 11 amd64 10.0
+2024-05-28 21:55:29,001  INFO  [com.pingidentity.appserver.jetty.PingFederateInit] 
+2024-05-28 21:55:29,001  INFO  [com.pingidentity.appserver.jetty.PingFederateInit]  Java Version: 11.0.14 (Java HotSpot(TM) 64-Bit Server VM)
+2024-05-28 21:55:29,001  INFO  [com.pingidentity.appserver.jetty.PingFederateInit] 
+2024-05-28 21:55:29,001  INFO  [com.pingidentity.appserver.jetty.PingFederateInit]  PingFederate Version: 12.0.2.2
+2024-05-28 21:55:29,001  INFO  [com.pingidentity.appserver.jetty.PingFederateInit] 
+2024-05-28 21:55:29,001  INFO  [com.pingidentity.appserver.jetty.PingFederateInit]  JVM Maximum Heap Size: 6.00 GB
+2024-05-28 21:55:29,001  INFO  [com.pingidentity.appserver.jetty.PingFederateInit] =========================================================================
+2024-05-28 21:55:29,096  INFO  [com.pingidentity.crypto.JCEManagerBase] Using cipher suites defined in com.pingidentity.crypto.SunJCEManager.xml
+2024-05-28 21:55:29,817  INFO  [com.pingidentity.crypto.CertificateServiceImpl] Loaded 89 trust anchors from C:\tools\jdk-11.0.14\lib\security\cacerts
+2024-05-28 21:55:29,864  INFO  [com.pingidentity.crypto.CertificateServiceImpl] RSA key size 1024 is supported
+2024-05-28 21:55:29,864  INFO  [com.pingidentity.crypto.CertificateServiceImpl] RSA key size 2048 is supported
+2024-05-28 21:55:29,864  INFO  [com.pingidentity.crypto.CertificateServiceImpl] RSA key size 4096 is supported
+2024-05-28 21:55:29,864  INFO  [com.pingidentity.crypto.CertificateServiceImpl] Signature algorithm SHA256withRSA is supported
+2024-05-28 21:55:29,864  INFO  [com.pingidentity.crypto.CertificateServiceImpl] Signature algorithm SHA384withRSA is supported
+2024-05-28 21:55:29,864  INFO  [com.pingidentity.crypto.CertificateServiceImpl] Signature algorithm SHA512withRSA is supported
+2024-05-28 21:55:29,864  INFO  [com.pingidentity.crypto.CertificateServiceImpl] Selected 2048 as default key size for RSA
+2024-05-28 21:55:29,864  INFO  [com.pingidentity.crypto.CertificateServiceImpl] Selected SHA256withRSA as default signature algorithm for RSA
+2024-05-28 21:55:29,864  INFO  [com.pingidentity.crypto.CertificateServiceImpl] EC key size 256 is supported
+2024-05-28 21:55:29,864  INFO  [com.pingidentity.crypto.CertificateServiceImpl] EC key size 384 is supported
+2024-05-28 21:55:29,864  INFO  [com.pingidentity.crypto.CertificateServiceImpl] EC key size 521 is supported
+2024-05-28 21:55:29,864  INFO  [com.pingidentity.crypto.CertificateServiceImpl] Signature algorithm SHA256withECDSA is supported
+2024-05-28 21:55:29,864  INFO  [com.pingidentity.crypto.CertificateServiceImpl] Signature algorithm SHA384withECDSA is supported
+2024-05-28 21:55:29,864  INFO  [com.pingidentity.crypto.CertificateServiceImpl] Signature algorithm SHA512withECDSA is supported
+2024-05-28 21:55:29,864  INFO  [com.pingidentity.crypto.CertificateServiceImpl] Selected 256 as default key size for EC
+2024-05-28 21:55:29,864  INFO  [com.pingidentity.crypto.CertificateServiceImpl] Selected SHA256withECDSA as default signature algorithm for EC
+2024-05-28 21:55:29,880  INFO  [org.sourceid.saml20.domain.mgmt.impl.MediatorImpl] Server is standalone.
+2024-05-28 21:55:29,927  INFO  [org.sourceid.saml20.domain.mgmt.impl.DataSourceManagerImpl] Initializing JNDI lookup
+2024-05-28 21:55:29,990  INFO  [org.eclipse.jetty.util.log] Logging initialized @15237ms to org.eclipse.jetty.util.log.Slf4jLog
+2024-05-28 21:55:30,053  INFO  [org.sourceid.saml20.domain.mgmt.impl.DataSourceManagerImpl] No Custom Attribute sources are loaded. Input file does not exist: C:\tools\Ping Identity\Identity-federation-with-Ping-Federate\sbin\win-x86-64\..\..\server\default\data\pingfederate-custom-ds.xml
+2024-05-28 21:55:31,092  INFO  [io.micrometer.core.instrument.push.PushMeterRegistry] publishing metrics for  every 5m
+2024-05-28 21:55:31,561  INFO  [org.sourceid.websso.servlet.adapter.HandlerRegistry] Registering com.pingidentity.adapters.pingid.handler.PingIDResetAuthenticationHandler@667a67fb at /pingid-reset-primary-auth
+2024-05-28 21:55:31,561  INFO  [org.sourceid.websso.servlet.adapter.HandlerRegistry] Registering com.pingidentity.adapters.pingid.handler.PingIDResetAuthenticationHandler@667a67fb at /pingid-reset-primary-auth/
+2024-05-28 21:55:31,746  INFO  [org.sourceid.websso.servlet.adapter.HandlerRegistry] Registering com.pingidentity.pf.adapters.referenceid.DropoffHandler@41681cc1 at /ref/dropoff
+2024-05-28 21:55:31,746  INFO  [org.sourceid.websso.servlet.adapter.HandlerRegistry] Registering com.pingidentity.pf.adapters.referenceid.PickupHandler@71990623 at /ref/pickup
+2024-05-28 21:55:31,891  INFO  [com.pingidentity.appserver.jetty.PingFederateInit] =========================================================================
+2024-05-28 21:55:31,891  INFO  [com.pingidentity.appserver.jetty.PingFederateInit] 
+2024-05-28 21:55:31,891  INFO  [com.pingidentity.appserver.jetty.PingFederateInit]  IdP Adapters
+2024-05-28 21:55:31,891  INFO  [com.pingidentity.appserver.jetty.PingFederateInit] 
+2024-05-28 21:55:31,891  INFO  [com.pingidentity.appserver.jetty.PingFederateInit]  None Configured
+2024-05-28 21:55:31,891  INFO  [com.pingidentity.appserver.jetty.PingFederateInit] 
+2024-05-28 21:55:31,891  INFO  [com.pingidentity.appserver.jetty.PingFederateInit] 
+2024-05-28 21:55:31,891  INFO  [com.pingidentity.appserver.jetty.PingFederateInit]  SP Adapters
+2024-05-28 21:55:31,891  INFO  [com.pingidentity.appserver.jetty.PingFederateInit] 
+2024-05-28 21:55:31,891  INFO  [com.pingidentity.appserver.jetty.PingFederateInit]  None Configured
+2024-05-28 21:55:31,891  INFO  [com.pingidentity.appserver.jetty.PingFederateInit] 
+2024-05-28 21:55:31,891  INFO  [com.pingidentity.appserver.jetty.PingFederateInit] 
+2024-05-28 21:55:31,891  INFO  [com.pingidentity.appserver.jetty.PingFederateInit]  IdP Token Processors
+2024-05-28 21:55:31,891  INFO  [com.pingidentity.appserver.jetty.PingFederateInit] 
+2024-05-28 21:55:31,891  INFO  [com.pingidentity.appserver.jetty.PingFederateInit]  None Configured
+2024-05-28 21:55:31,891  INFO  [com.pingidentity.appserver.jetty.PingFederateInit] 
+2024-05-28 21:55:31,891  INFO  [com.pingidentity.appserver.jetty.PingFederateInit] 
+2024-05-28 21:55:31,891  INFO  [com.pingidentity.appserver.jetty.PingFederateInit]  SP Token Generators
+2024-05-28 21:55:31,891  INFO  [com.pingidentity.appserver.jetty.PingFederateInit] 
+2024-05-28 21:55:31,891  INFO  [com.pingidentity.appserver.jetty.PingFederateInit]  None Configured
+2024-05-28 21:55:31,891  INFO  [com.pingidentity.appserver.jetty.PingFederateInit] 
+2024-05-28 21:55:31,891  INFO  [com.pingidentity.appserver.jetty.PingFederateInit] 
+2024-05-28 21:55:31,891  INFO  [com.pingidentity.appserver.jetty.PingFederateInit]  PasswordCredentialValidators
+2024-05-28 21:55:31,891  INFO  [com.pingidentity.appserver.jetty.PingFederateInit] 
+2024-05-28 21:55:31,891  INFO  [com.pingidentity.appserver.jetty.PingFederateInit] =========================================================================
+2024-05-28 21:55:32,284  INFO  [com.pingidentity.crypto.jwk.JwkFacilitator] Using JwkFacilitator() com.pingidentity.crypto.jwk.JwkFacilitator@5ab91cd with com.pingidentity.crypto.jwk.DirectJsonWebKeysAdder@b61caf6
+2024-05-28 21:55:32,394  INFO  [com.pingidentity.crypto.jwk.JwkState] Added new key to JSON Web Key Set: org.jose4j.jwk.EllipticCurveJsonWebKey{kty=EC, kid=sbV-bP54ouyrDMG0dnZP1e9t6GI, use=enc, x=AHl9Avok7XYLZl4nmf2G5l72Kzsd0XxfbT1eA6NRsJmGrTEChY-uiw366ACCw3_jSarkro7e4zyyk8XhsPS3tQ7q, y=AZmLSznGde0vyZztP8dW4jXcJYIy00VM74zMTkbeyqGutVum7C9AE-FFx1oDhtYPqenZh2j4_frqRwOl9Rl6rNVa, crv=P-521}
+2024-05-28 21:55:32,394  INFO  [com.pingidentity.crypto.jwk.JwkState] Added new key to JSON Web Key Set: org.jose4j.jwk.EllipticCurveJsonWebKey{kty=EC, kid=c2b6B6Np5pulWDfh0aVZi_n244o, use=enc, x=QAq56uGQQqQEXSoQyT1HVC8KTXYe-MtId3y6j3mwH94nNDivq7D3Zgf07ZdAVTz8, y=KkvF9C5SfICBtU4kWO3Bx8sxbqEwipE8sf8OLQPYkgBy9S-Pj5Nq_RTFshSWXFXs, crv=P-384}
+2024-05-28 21:55:32,394  INFO  [com.pingidentity.crypto.jwk.JwkState] Added new key to JSON Web Key Set: org.jose4j.jwk.EllipticCurveJsonWebKey{kty=EC, kid=oelC5w14N-HxuiD8xs0qNU__R_U, use=enc, x=0acYtBYvtT_LuC0XR_dkXId3TJTa3XOGufBPJup2ST4, y=p5_c5Qc-HK8Lg9vTO-niMoL7kTlLYYYeSz2vnkeXTv8, crv=P-256}
+2024-05-28 21:55:32,394  INFO  [com.pingidentity.crypto.jwk.JwkState] Added new key to JSON Web Key Set: org.jose4j.jwk.RsaJsonWebKey{kty=RSA, kid=49nQFx2mdzHT384PjyvxaF33vek, use=enc, n=qcnTvl_0Q07m7t0MwzWbYBLDI0LjoQbAxGSGBvbVu_tK5isOafrHG4QNFzwJDzDLikBK3QSboFtbQt-reyK3UeadP-4VG8yxPehBub-xXvDRqVu1G6fpxFtbx-5U4PaU0qTDje6BqXE5Mp2u60Pk4RvefBeo9M7vNMSB6oe2dfg3idU4ImAfKv1aUH-mkdtIpyUTHCF7inVrBaASpNBGWbLdECVaA0nk0Ir-zn1tbvi3Edj0j5aYXqyjrnOPuyillnNC2hz5L90qAKbt5FDuZ3ZE8FCyHtWGLKzEoqz08aXUKblThXKi5IeUQ5cwgmR4iw9wTL0xR3sG7Q7avUQZQw, e=AQAB}
+2024-05-28 21:55:32,394  INFO  [com.pingidentity.crypto.jwk.JwkState] Added new key to JSON Web Key Set: org.jose4j.jwk.RsaJsonWebKey{kty=RSA, kid=EtzqGbHuvV9ZBwKfeETbrY6t1sI, use=enc, n=jabCaBAKgbFlPKMuPH56vS61YsB1NoQ-BfaZZf1wITCpsCfWor4KQ5bpTIWu0kSgweU_KmY1c7AddSJs7PugYulXlgrYHfccUXdMSTAfmiGANmb_nAdBUidSm8KBqaRFEKOWq8PefdawnCjwiMzMeEhqgvTtomCKOtYPBr1CUtAj07YlJKkuDZ9ZYLT6BHfBG7Hicou6QhERwITY0RcUpAyPsyxYmOa8pmvk2QW6qXFc964wNHfzj4Rjpub-gEYYl1QbYnbJZnMk1SeEYV3yqD6cJKkIxbECNL6q2ASgrVnhd7Y3q-A7Jndx97kqDr6ZkpoRuYfACgh68V2FCgy6CQ, e=AQAB}
+2024-05-28 21:55:32,394  INFO  [com.pingidentity.crypto.jwk.JwkState] Added new key to JSON Web Key Set: org.jose4j.jwk.EllipticCurveJsonWebKey{kty=EC, kid=RqyjWUR1oZbrAo7lv_Z0NYQuLfA, use=enc, x=dgkKmDB10szLnzTktYMwnkdn3ghDlpXxRnqloJYgw5c, y=0P_YorlLOas510gxZExkEiM2km3GOywAfIz88eJRflE, crv=P-256}
+2024-05-28 21:55:32,394  INFO  [com.pingidentity.crypto.jwk.JwkState] Added new key to JSON Web Key Set: org.jose4j.jwk.EllipticCurveJsonWebKey{kty=EC, kid=3zWtwDD85yu1PD7dT14B_Z0MFFU, use=enc, x=NMX0mqCnXYIa4KXxAcWKzqGesjzgG86Nil3R06QJPW5A52l_XI0pO_MyLAdrEkJN, y=VwMlKXBtTkV7Q81lhEZCoaXZC05ZHR70YrcP1a1VRb2VxERBlzyCTKbJsTa4K4Iy, crv=P-384}
+2024-05-28 21:55:32,394  INFO  [com.pingidentity.crypto.jwk.JwkState] Added new key to JSON Web Key Set: org.jose4j.jwk.EllipticCurveJsonWebKey{kty=EC, kid=5SNlhH7rcG7CrQ3JfB1k_Q3gFzw, use=enc, x=ACgOdpcaOZNHoffviwrG9-ERxkhJIZV4mVmUYb9lA_bZO08-eFTjzp0O7iisIl4kdF0xsP4MyWQDS8nQztUjzgsP, y=AZa9ING8Q7cA-U2mno63Xk0q6iufznk_PGDkJ9WCAO5hb43Vw_b4_hNsRYTOq3wOGJMWnwjUV8r7QfeqUUj4QY0g, crv=P-521}
+2024-05-28 21:55:32,960  INFO  [com.pingidentity.crypto.jwk.JwkState] Created new JSON Web Key with key id: Nlg2vtmLM2r9NRht6FAmMk5IyIs_RS256
+2024-05-28 21:55:32,960  INFO  [com.pingidentity.crypto.jwk.JwkState] Added new key to JSON Web Key Set: org.jose4j.jwk.RsaJsonWebKey{kty=RSA, kid=Nlg2vtmLM2r9NRht6FAmMk5IyIs, use=sig, n=tRhmz8Xg1xcE9kVGXXJooMsouSeUrYriV0z47DgrQzbNiA_rCai8raaypqz9uEKM0msjcfWmm3xGqw3_C5xvd0rRQ8SVSVhMXV1V2yE-tZ8qi7IzxuJp_IPBpzpho9WKxAV7ytP1iw41vNv2qHl1vO52LwivgkVoV9pU6ZzheMAS6X3Z5NhBbb8dVU1NeVgGFEjGSxqU7LWmiPPtkz4VJ-ABVCNGVWY70NC0HFqnCr_WKqBveoan4l6GxZQsuG99qg1Nifp2ymWeTpvyO9ApTp3ticzdsGadvfSTRog2sPKTqBs6M00uO51VFk3a429JW3DOlehM0jmSteTKRYCF2w, e=AQAB}
+2024-05-28 21:55:32,977  INFO  [com.pingidentity.crypto.jwk.JwkState] Added new key to JSON Web Key Set: org.jose4j.jwk.EllipticCurveJsonWebKey{kty=EC, kid=LFrX-BK_yeDobP_TlJ157nBQeDs, use=sig, alg=ES256, x=opJ3mVaLFFKHP4AYf10VzWXnoRLtLley0rF_b9ZgX0w, y=Jt0Z6_uqN7yv7Ely3eYD6VyvMZqc8Bj1jWWL08p9n84, crv=P-256}
+2024-05-28 21:55:32,977  INFO  [com.pingidentity.crypto.jwk.JwkState] Added new key to JSON Web Key Set: org.jose4j.jwk.EllipticCurveJsonWebKey{kty=EC, kid=vbsBBGSJIRUf0R3PGo5GfryaYO0, use=sig, alg=ES384, x=ywvsneX40nAMyjYQaDPvxdj3PCYbcMfREk-3JRfGGfg9ktwD040Y2ZZb5Wct5uQT, y=yNCEgQvMMRlQ-yq4Ic_gE-dhIcf77QSgsXoqBT-b9E26ByXW9x5UdiZYynLCYLhc, crv=P-384}
+2024-05-28 21:55:32,977  INFO  [com.pingidentity.crypto.jwk.JwkState] Added new key to JSON Web Key Set: org.jose4j.jwk.EllipticCurveJsonWebKey{kty=EC, kid=YPAWmAjEPPuJ0Dy0oRXGlNU7Xjc, use=sig, alg=ES512, x=AOMkxBHNLI84CRcm9RWdZcG8c4qCxgOzcl1iz6if1J-y-vKa2eGgQrBrum8AeNuNscpurtVWZwnBanSME6WAvHGr, y=AV2k7cQm27uTQ32IcU7oeeWfMGkSzRzd_p8C3A9W9qa8fvpnISRjMx-9q1LYhnXC7Kiaq22b-MBdynYG4HTzndHC, crv=P-521}
+2024-05-28 21:55:32,977  INFO  [com.pingidentity.crypto.jwk.JwkState] Added new key to JSON Web Key Set: org.jose4j.jwk.RsaJsonWebKey{kty=RSA, kid=u9zpS63-P4Fd-wsfC-OnpOyLStU, use=enc, n=za38JyeiqSTVXcIqLfsUsm0y1yFVZwDvddYv-1xVZkbvSzmkpePLQtjnZ9WydzG8rvFBfzHkZhA28nJQDA9xAdiHEDmugl0LVarOvC9wrSKzfskR3X8kBFILfMl9y3PRlE-5bzxxRC0ziXwFrdiZeG_bGklj19uRs9o5K4FENsYRBWwKNo3EuHxJpbhRdk5KvysSdbPx0nZOP_m9DrAMKNQkl1ZFFkLphY8LJ8THUQ5ZcMGu52cnwVr-j4LK0wL3RJdI6ouPYl3j0DU8c_KjTdhgFmoYOBJUrETzcZFCpJF9iXXqumyCrC7N7J3nPsJI8ss3xrztgf7ii3JQtqCliQ, e=AQAB}
+2024-05-28 21:55:32,977  INFO  [com.pingidentity.crypto.jwk.JwkState] Added new key to JSON Web Key Set: org.jose4j.jwk.EllipticCurveJsonWebKey{kty=EC, kid=QS2F83WFzLHKhgPmKmCyssa-Dy4, use=enc, x=GgNMfQDUciqRYUE0M8GaoqOVGCzv_-iFzfsJjcOoNHQ, y=U0aP6Nlg10gq1pK-Yt9nABSrqaO1wE5Hv0XXyFI_Etw, crv=P-256}
+2024-05-28 21:55:32,977  INFO  [com.pingidentity.crypto.jwk.JwkState] Added new key to JSON Web Key Set: org.jose4j.jwk.EllipticCurveJsonWebKey{kty=EC, kid=w4GnXOmM2cfK-B85BXcMAfkSKp0, use=enc, x=3msHXP_FlPvu9loHqoE0J4xVw2FhyK2cjD1jsfC-9gyA2z7Y-rol_dWoyrWlM6uX, y=GrWYZcB8wmapAi58JuZfkQspuWf4M9kjIVS8IfNaA_lZG8tlUqnKqaS25DKf4dNo, crv=P-384}
+2024-05-28 21:55:32,977  INFO  [com.pingidentity.crypto.jwk.JwkState] Added new key to JSON Web Key Set: org.jose4j.jwk.EllipticCurveJsonWebKey{kty=EC, kid=J6Gd3RDagPmog0UbPuL9CLgCI4w, use=enc, x=AKwZIMG0zEXdRY0oeGeDgprlyQ8YbHfw9aBuz4iLVzyw8rpHfUULf3bytUZIabvZlduNCbIdprtdhZ4CdNpOW9pG, y=APkEqqff6w5c_Jt4kMqSxvU27eSTwFoB1w8sQN1yIZ0RNG44vFwRDHx0r67oelEJgsn2_5jqsnaM_lcbmDwkLQlS, crv=P-521}
+2024-05-28 21:55:33,149  INFO  [com.pingidentity.crypto.jwk.JwkState] Created new JSON Web Key with key id: cN2Je4-8OAa-SSROhXBrls-pHdM_RS256
+2024-05-28 21:55:33,149  INFO  [com.pingidentity.crypto.jwk.JwkState] Added new key to JSON Web Key Set: org.jose4j.jwk.RsaJsonWebKey{kty=RSA, kid=cN2Je4-8OAa-SSROhXBrls-pHdM, use=sig, n=tJZFkGVDPx745iXOvRDrhrE4tiqyCkDmE8e5PlF-yHYMI5YlcGj_ZqtgLztynCFy1czK4uHX5QyLcW472NbWWfS0RwTz7FDuvHvGAlWyFBLeamVAlDjiNbLjO1_kYOWXYqqB5s53TXxK2y6wXRSguR7LRBWa4DWdr9ZahskE8nDJzyuiupwfJ9dJQJgo01iJ2-x58nZtSfWfL_fnoFSXLlFcg3C8QhgZLQ4npc54MDwDO-GX6DX-n_S_Tq-6Cbg22pykCGj_oE8UfOdmdvgdtTjvN02e2LpLrdN31Up5MExQIMGg7lZJ-ZS_7D5gML7_RvvWjJ9OO4ofnkIqmQR1MQ, e=AQAB}
+2024-05-28 21:55:33,149  INFO  [com.pingidentity.crypto.jwk.JwkState] Added new key to JSON Web Key Set: org.jose4j.jwk.EllipticCurveJsonWebKey{kty=EC, kid=jq7GxEJl-596_w60xKKJufUQVsQ, use=sig, alg=ES256, x=y6nKceesuqIcu_hx17iWeBhwZaMDwaYj5eLwZHIKF0w, y=IFv_bnnKgl0mfiSSmYLUTTSdw5I2kNOq8pr3hyBIcMA, crv=P-256}
+2024-05-28 21:55:33,149  INFO  [com.pingidentity.crypto.jwk.JwkState] Added new key to JSON Web Key Set: org.jose4j.jwk.EllipticCurveJsonWebKey{kty=EC, kid=_Du8FQqSbPTjbk6Sws3oVmNPe-A, use=sig, alg=ES384, x=NnAXfvbq9iffLlOWVxj2mTWFdc2PeQJqz1S9WGy3ZtIVxpE9R2dGb_MCFxAsNg6R, y=Xw_6o5fdCdBwMP_ev8ALlmgpWMI6ILTvrapQZ_9Z9QG8SWocy75sLjfW3nnRnPGg, crv=P-384}
+2024-05-28 21:55:33,149  INFO  [com.pingidentity.crypto.jwk.JwkState] Added new key to JSON Web Key Set: org.jose4j.jwk.EllipticCurveJsonWebKey{kty=EC, kid=g-aR6z8jjwV2u_BO4CNtbQZGroc, use=sig, alg=ES512, x=Ab7qeHKPkkFnqEw9627he36_kzx0rCryItu-LytYtuxDjAQ4w8FGx6s3GmI2-y7r4ZR5ruL3M_nC9EdfvR1T5-Wr, y=AZdlsMrtzP4UZsjz3TotZAtRrxZoMz6-gFPtN9hwaARmMnJfQP7Zz8L_Z_VeIKjhRj8zOYvTMdunpk0m4CCm2HCp, crv=P-521}
+2024-05-28 21:55:33,149  INFO  [com.pingidentity.crypto.jwk.JwkState] Added new key to JSON Web Key Set: org.jose4j.jwk.RsaJsonWebKey{kty=RSA, kid=U_tX7aTEyGg0bMHcjr-krTeFBKE, use=enc, n=i7vVtz72AiHhBZlXQiKO7p6gohCL6ZbRfjljpMPAyKL535ETPrq17BpBfKYbTNNH3wVlPgTHi4jURrgs2eowsqJeRKssuoamjFP0wsfZjDCwbXoUu5kwIKD7CCuorSbxVAqcZciHAsFkfv9Ec5GQj28wayqzOQ1yb6lyC8pZeQpg_PTpyzjc92asHXu7o1lDKetLNzsxGXOpEPrpVftx8wTATzP3nm2v1-i0l3DuVEFgTqBslQBlh7gaQ9gWX4vZxoae0UUgiyDGuo6L8HZTHuc5jacItBojii1xo1MkJghi59jD-Ck5wY6n-pUTdMHaBJv0AVfE_-_jY0Jf1Wuthw, e=AQAB}
+2024-05-28 21:55:33,149  INFO  [com.pingidentity.crypto.jwk.JwkState] Added new key to JSON Web Key Set: org.jose4j.jwk.EllipticCurveJsonWebKey{kty=EC, kid=G1xCaX8V3T1yn32hAspOuscpPVU, use=enc, x=kH09aw8YEV6ezJ5AZ3msb7U5pVJUpkjguwvah-7btOI, y=eW5W6YBBTLKgGcN4mH0AmOuHsk3taTNtVPLFzA6JOT4, crv=P-256}
+2024-05-28 21:55:33,149  INFO  [com.pingidentity.crypto.jwk.JwkState] Added new key to JSON Web Key Set: org.jose4j.jwk.EllipticCurveJsonWebKey{kty=EC, kid=vR9KBpvrvQ5aaQbbb0TLRu9cI7A, use=enc, x=NbFOU_qEsCpWJ2fjf56Q8tW4qY5ZiX-_yjqxUHI7MOMpOywcBbdOzFrLtaldiv9t, y=DSAO9zI6MFkJ4-ews5FdrNnbs9NENbYx0gs9OruZ5s6iFT0z3ci_0tOZqiP2ugCG, crv=P-384}
+2024-05-28 21:55:33,149  INFO  [com.pingidentity.crypto.jwk.JwkState] Added new key to JSON Web Key Set: org.jose4j.jwk.EllipticCurveJsonWebKey{kty=EC, kid=80u3Oc_DFAr9b5QhYoE1cI2qq2Y, use=enc, x=AMhJUctVSs6DR6snezKTV0ZY28P7kam4-bsFM4PJQTRvSS2rNmDPMbniCELZJUJBUlw8Hj6QmzlGC8oj9zzCWv3g, y=AWpPqQ_cGIPSBIi-U2OTpWh2B5gXo03OWXbH8bYs9t5SEBFRJ71CMeHRl3upxiyu8l1J2e6vaizQM5Ol8KjZJVoV, crv=P-521}
+2024-05-28 21:55:33,248  WARN  [org.eclipse.jetty.server.AbstractConnector] Ignoring deprecated socket close linger time
+2024-05-28 21:55:33,259  WARN  [org.eclipse.jetty.server.AbstractConnector] Ignoring deprecated socket close linger time
+2024-05-28 21:55:33,259  WARN  [org.eclipse.jetty.server.AbstractConnector] Ignoring deprecated socket close linger time
+2024-05-28 21:55:33,449  WARN  [org.eclipse.jetty.server.AbstractConnector] Ignoring deprecated socket close linger time
+2024-05-28 21:55:33,463  INFO  [org.eclipse.jetty.server.Server] jetty-9.4.54.v20240208patch1; built: 2024-02-28T17:35:18.254Z; git: cef3fbd6d736a21e7d541a5db490381d95a2047d; jvm 11.0.14+8-LTS-263
+2024-05-28 21:55:33,809  INFO  [org.sourceid.websso.servlet.InitServlet] Initializing...
+2024-05-28 21:55:33,998  INFO  [com.pingidentity.jmx.JmxBootstrapper] isActive=false and registry port is 1099
+2024-05-28 21:55:33,998  INFO  [com.pingidentity.jmx.JmxBootstrapper] Not starting Jmx Connector Server because rmi.registry.port config field is not set or service not active in application auth.
+2024-05-28 21:55:34,076  INFO  [org.sourceid.saml20.domain.mgmt.AbstractAuthManager] pf.console.authentication Authentication: native
+2024-05-28 21:55:34,550  INFO  [org.sourceid.saml20.domain.util.InitMigrationUtil] No default SMTP notification publisher created. No previous SMTP settings (Email Configuration) exist.
+2024-05-28 21:55:34,565  INFO  [org.sourceid.saml20.domain.util.InitMigrationUtil] No default reCAPTCHA v2 Invisible CAPTCHA provider created. No previous CAPTCHA settings exist.
+2024-05-28 21:55:34,816  INFO  [org.sourceid.saml20.domain.mgmt.impl.TimerTaskManagerImpl] Starting com.pingidentity.crypto.ExpirationNotifier@51022530 at interval of 43200000ms as indicated by CertExpirationNotifierTimerInterval in timer-intervals.xml
+2024-05-28 21:55:34,816  INFO  [org.sourceid.saml20.domain.mgmt.impl.TimerTaskManagerImpl] Starting org.sourceid.saml20.metadata.IndexDbConsistencyChecker@174009b7 at interval of 300000ms as indicated by IndexDbConsistencyCheckInterval in timer-intervals.xml
+2024-05-28 21:55:34,816  INFO  [org.sourceid.saml20.domain.mgmt.impl.TimerTaskManagerImpl] Starting org.sourceid.oauth20.token.AccessGrantCleaner@69c77c61 at interval of 86400000ms as indicated by AccessGrantCleanerInterval in timer-intervals.xml
+2024-05-28 21:55:34,816  INFO  [org.sourceid.saml20.domain.mgmt.impl.TimerTaskManagerImpl] Starting org.sourceid.saml20.domain.mgmt.impl.MediatorImpl$2@7cf4f9ee at interval of 5000ms as indicated by ConfigArchiveDeployTimerInterval in timer-intervals.xml
+2024-05-28 21:55:34,816  INFO  [org.sourceid.saml20.domain.mgmt.impl.TimerTaskManagerImpl] Starting org.sourceid.saml20.domain.util.api.filesystem.ConnectionImporter@605ecd1e at interval of 5000ms as indicated by ConnectionImportTimerInterval in timer-intervals.xml
+2024-05-28 21:55:34,957  INFO  [org.sourceid.websso.servlet.DeferredInitServlet] Initializing...
+2024-05-28 21:55:34,957  INFO  [org.eclipse.jetty.server.handler.ContextHandler] Started o.e.j.w.WebAppContext@63ec6f37{/,file:///C:/tools/Ping%20Identity/Identity-federation-with-Ping-Federate/work/jetty-0_0_0_0-9031-pf-runtime_war-_-any-3699443153662307075/webapp/,AVAILABLE}{C:\tools\Ping Identity\Identity-federation-with-Ping-Federate\sbin\win-x86-64\..\../server/default/deploy/pf-runtime.war}
+2024-05-28 21:55:34,957  INFO  [org.eclipse.jetty.server.RequestLogWriter] Opened C:\tools\Ping Identity\Identity-federation-with-Ping-Federate\log\2024_05_28.request.log
+2024-05-28 21:55:34,973  INFO  [org.eclipse.jetty.deploy.providers.ScanningAppProvider] Deployment monitor [file:///C:/tools/Ping%20Identity/Identity-federation-with-Ping-Federate/server/default/deploy/] at interval 1
+2024-05-28 21:55:36,686  INFO  [org.eclipse.jetty.annotations.AnnotationConfiguration] Scanning elapsed time=954ms
+2024-05-28 21:55:36,702  INFO  [org.eclipse.jetty.server.handler.ContextHandler._pf_ws] No Spring WebApplicationInitializer types detected on classpath
+2024-05-28 21:55:36,796  INFO  [org.eclipse.jetty.server.handler.ContextHandler] Started o.e.j.w.WebAppContext@3e2bdda7{PF Runtime Webservices,/pf-ws,file:///C:/tools/Ping%20Identity/Identity-federation-with-Ping-Federate/work/jetty-0_0_0_0-9031-pf-ws_war-_pf-ws-any-2664487713614182748/webapp/,AVAILABLE}{C:\tools\Ping Identity\Identity-federation-with-Ping-Federate\server\default\deploy\pf-ws.war}
+2024-05-28 21:55:38,822  INFO  [org.eclipse.jetty.annotations.AnnotationConfiguration] Scanning elapsed time=1407ms
+2024-05-28 21:55:38,839  INFO  [org.eclipse.jetty.server.handler.ContextHandler._pf_scim] No Spring WebApplicationInitializer types detected on classpath
+2024-05-28 21:55:38,856  INFO  [org.eclipse.jetty.server.handler.ContextHandler] Started o.e.j.w.WebAppContext@19c6ab9d{PF-SCIM,/pf-scim,file:///C:/tools/Ping%20Identity/Identity-federation-with-Ping-Federate/work/jetty-0_0_0_0-9031-pf-scim_war-_pf-scim-any-15562672729384788611/webapp/,AVAILABLE}{C:\tools\Ping Identity\Identity-federation-with-Ping-Federate\server\default\deploy\pf-scim.war}
+2024-05-28 21:55:38,885  INFO  [org.eclipse.jetty.annotations.AnnotationConfiguration] Scanning elapsed time=2ms
+2024-05-28 21:55:38,885  INFO  [org.eclipse.jetty.server.handler.ContextHandler._provisioner_runtime] No Spring WebApplicationInitializer types detected on classpath
+2024-05-28 21:55:38,901  INFO  [org.eclipse.jetty.server.handler.ContextHandler._provisioner_runtime] Initializing Spring root WebApplicationContext
+2024-05-28 21:55:38,901  INFO  [org.springframework.web.context.ContextLoader] Root WebApplicationContext: initialization started
+2024-05-28 21:55:39,156  INFO  [org.springframework.web.context.ContextLoader] Root WebApplicationContext initialized in 255 ms
+2024-05-28 21:55:39,169  INFO  [org.eclipse.jetty.server.handler.ContextHandler] Started o.e.j.w.WebAppContext@60683c6c{Provisioner,/provisioner-runtime,file:///C:/tools/Ping%20Identity/Identity-federation-with-Ping-Federate/work/jetty-0_0_0_0-9031-provisioner-runtime_war-_provisioner-runtime-any-196654182654280714/webapp/,AVAILABLE}{C:\tools\Ping Identity\Identity-federation-with-Ping-Federate\server\default\deploy\provisioner-runtime.war}
+2024-05-28 21:55:39,231  INFO  [org.eclipse.jetty.annotations.AnnotationConfiguration] Scanning elapsed time=3ms
+2024-05-28 21:55:39,231  INFO  [org.eclipse.jetty.server.handler.ContextHandler._pingid_web] No Spring WebApplicationInitializer types detected on classpath
+2024-05-28 21:55:39,231  INFO  [org.eclipse.jetty.server.handler.ContextHandler] Started o.e.j.w.WebAppContext@59f16c2e{PingID Offline Authentication,/pingid-web,file:///C:/tools/Ping%20Identity/Identity-federation-with-Ping-Federate/work/jetty-0_0_0_0-9031-pingid-web_war-_pingid-web-any-12854922574762747567/webapp/,AVAILABLE}{C:\tools\Ping Identity\Identity-federation-with-Ping-Federate\server\default\deploy\pingid-web.war}
+2024-05-28 21:55:39,231  INFO  [com.pingidentity.appserver.jetty.server.connector.ServerConnector] Starting listener class com.pingidentity.appserver.jetty.server.connector.ServerConnector 9031
+2024-05-28 21:55:39,263  INFO  [org.eclipse.jetty.util.ssl.SslContextFactory] x509=X509@43dbc8dd(onem0hhwzeqv09vobtef07nla,h=[localhost],a=[],w=[]) for RuntimeSslContextFactory@15d953d8[provider=null,keyStore=null,trustStore=null]
+2024-05-28 21:55:39,294  INFO  [org.eclipse.jetty.server.AbstractConnector] Started ServerConnector@3af39450{SSL, (ssl, alpn, h2, http/1.1)}{0.0.0.0:9031}
+2024-05-28 21:55:39,294  INFO  [com.pingidentity.appserver.jetty.server.connector.ServerConnector] Not starting listener class com.pingidentity.appserver.jetty.server.connector.ServerConnector because port was set to -1
+2024-05-28 21:55:39,294  INFO  [com.pingidentity.appserver.jetty.server.connector.ServerConnector] Not starting listener class com.pingidentity.appserver.jetty.server.connector.ServerConnector because port was set to -1
+2024-05-28 21:55:39,294  INFO  [org.eclipse.jetty.server.Server] Started @24548ms
+2024-05-28 21:55:39,294  INFO  [org.eclipse.jetty.server.Server] jetty-9.4.54.v20240208patch1; built: 2024-02-28T17:35:18.254Z; git: cef3fbd6d736a21e7d541a5db490381d95a2047d; jvm 11.0.14+8-LTS-263
+2024-05-28 21:55:39,294  INFO  [org.eclipse.jetty.server.RequestLogWriter] Opened C:\tools\Ping Identity\Identity-federation-with-Ping-Federate\log\2024_05_28.request2.log
+2024-05-28 21:55:39,294  INFO  [org.eclipse.jetty.deploy.providers.ScanningAppProvider] Deployment monitor [file:///C:/tools/Ping%20Identity/Identity-federation-with-Ping-Federate/server/default/deploy2/] at interval 1
+2024-05-28 21:55:39,498  INFO  [org.eclipse.jetty.annotations.AnnotationConfiguration] Scanning elapsed time=45ms
+2024-05-28 21:55:39,498  INFO  [org.eclipse.jetty.server.handler.ContextHandler.pf_mgmt_ws] No Spring WebApplicationInitializer types detected on classpath
+2024-05-28 21:55:39,513  INFO  [org.eclipse.jetty.server.handler.ContextHandler] Started o.e.j.w.WebAppContext@2829b267{PF,/pf-mgmt-ws,file:///C:/tools/Ping%20Identity/Identity-federation-with-Ping-Federate/work/jetty-0_0_0_0-9999-pf-mgmt-ws_war-_pf-mgmt-ws-any-14464630873332387133/webapp/,AVAILABLE}{C:\tools\Ping Identity\Identity-federation-with-Ping-Federate\server\default\deploy2\pf-mgmt-ws.war}
+2024-05-28 21:55:39,781  INFO  [org.eclipse.jetty.annotations.AnnotationConfiguration] Scanning elapsed time=14ms
+2024-05-28 21:55:39,860  INFO  [org.eclipse.jetty.server.handler.ContextHandler.pingfederate] No Spring WebApplicationInitializer types detected on classpath
+2024-05-28 21:55:39,875  INFO  [org.eclipse.jetty.server.handler.ContextHandler] Started o.e.j.w.WebAppContext@11674234{HuronPeak,/pingfederate,file:///C:/tools/Ping%20Identity/Identity-federation-with-Ping-Federate/work/jetty-0_0_0_0-9999-pingfederate_war-_pingfederate-any-14295677349353363482/webapp/,AVAILABLE}{C:\tools\Ping Identity\Identity-federation-with-Ping-Federate\server\default\deploy2\pingfederate.war}
+2024-05-28 21:55:43,965  INFO  [org.eclipse.jetty.annotations.AnnotationConfiguration] Scanning elapsed time=3051ms
+2024-05-28 21:55:44,025  INFO  [org.eclipse.jetty.server.handler.ContextHandler.pf_admin_api] No Spring WebApplicationInitializer types detected on classpath
+2024-05-28 21:55:44,056  INFO  [com.pingidentity.pf.admin.rest.servlet.SwaggerConfig] The external facing admin API Host path is DESKTOP-NAIM:9999
+2024-05-28 21:55:44,056  INFO  [com.pingidentity.pf.admin.rest.servlet.SwaggerConfig] The external facing admin API Base path is /pf-admin-api/v1
+2024-05-28 21:55:44,056  INFO  [com.pingidentity.pf.admin.rest.servlet.SwaggerConfig] The external facing admin API URL is https://DESKTOP-NAIM:9999/pf-admin-api/v1
+2024-05-28 21:55:44,056  INFO  [org.eclipse.jetty.server.handler.ContextHandler] Started o.e.j.w.WebAppContext@6fd37198{PF ADMIN CONSOLE API,/pf-admin-api,file:///C:/tools/Ping%20Identity/Identity-federation-with-Ping-Federate/work/jetty-0_0_0_0-9999-pf-admin-api_war-_pf-admin-api-any-16581164482965363107/webapp/,AVAILABLE}{C:\tools\Ping Identity\Identity-federation-with-Ping-Federate\server\default\deploy2\pf-admin-api.war}
+2024-05-28 21:55:44,135  INFO  [org.eclipse.jetty.annotations.AnnotationConfiguration] Scanning elapsed time=16ms
+2024-05-28 21:55:44,182  INFO  [org.eclipse.jetty.server.handler.ContextHandler.ROOT] No Spring WebApplicationInitializer types detected on classpath
+2024-05-28 21:55:44,198  INFO  [org.eclipse.jetty.server.handler.ContextHandler] Started o.e.j.w.WebAppContext@434f3fc5{ROOT,/,file:///C:/tools/Ping%20Identity/Identity-federation-with-Ping-Federate/work/jetty-0_0_0_0-9999-ROOT_war-_-any-15608378844170482872/webapp/,AVAILABLE}{C:\tools\Ping Identity\Identity-federation-with-Ping-Federate\server\default\deploy2\ROOT.war}
+2024-05-28 21:55:44,465  INFO  [org.eclipse.jetty.annotations.AnnotationConfiguration] Scanning elapsed time=3ms
+2024-05-28 21:55:44,465  INFO  [org.eclipse.jetty.server.handler.ContextHandler.render] No Spring WebApplicationInitializer types detected on classpath
+2024-05-28 21:55:44,670  INFO  [org.eclipse.jetty.server.handler.ContextHandler] Started o.e.j.w.WebAppContext@3f8be419{HuronPeak,/render,file:///C:/tools/Ping%20Identity/Identity-federation-with-Ping-Federate/work/jetty-0_0_0_0-9999-render_war-_render-any-5382554643682790873/webapp/,AVAILABLE}{C:\tools\Ping Identity\Identity-federation-with-Ping-Federate\server\default\deploy2\render.war}
+2024-05-28 21:55:44,670  INFO  [com.pingidentity.appserver.jetty.server.connector.ServerConnector] Starting listener class com.pingidentity.appserver.jetty.server.connector.ServerConnector 9999
+2024-05-28 21:55:44,685  INFO  [org.eclipse.jetty.util.ssl.SslContextFactory] x509=X509@ab1818(onem0hhwzeqv09vobtef07nla,h=[localhost],a=[],w=[]) for AdminSslContextFactory@140c85f0[provider=null,keyStore=null,trustStore=null]
+2024-05-28 21:55:44,685  INFO  [org.eclipse.jetty.server.AbstractConnector] Started ServerConnector@6ddbcd0b{SSL, (ssl, alpn, h2, http/1.1)}{0.0.0.0:9999}
+2024-05-28 21:55:44,685  INFO  [org.eclipse.jetty.server.Server] Started @29935ms
+2024-05-28 21:55:44,685  INFO  [com.pingidentity.appserver.jetty.PingFederateInit] PingFederate started in 16s:674ms
+2024-05-28 21:55:59,111  INFO  [com.pingidentity.fsm.SessionTimeout] Application '/render' session timeout is 30 minutes.
+2024-05-28 21:55:59,426  INFO  [org.sourceid.saml20.domain.mgmt.AbstractAuthManager] pf.admin.api.authentication Authentication: native
+2024-05-28 21:56:00,404  WARN  [org.sourceid.util.license.PingLicense] 
+**********************************************************
+No license found for this server (C:\tools\Ping Identity\Identity-federation-with-Ping-Federate\sbin\win-x86-64\..\..\server\default\conf\pingfederate.lic)
+You do not have a valid license configured. To obtain a valid license, please contact your vendor's Customer Support.
+**********************************************************
+2024-05-28 21:56:00,404  INFO  [org.sourceid.util.license.LicenseManager] License loaded:
+No license file.
+2024-05-28 21:56:00,419  INFO  [org.sourceid.util.license.Watcher] Server licensing status is now: OK
+2024-05-28 21:56:00,419  WARN  [org.sourceid.util.license.PingLicense] 
+**********************************************************
+No license file was found.
+You do not have a valid license configured. To obtain a valid license, please contact your vendor's Customer Support.
+**********************************************************
+2024-05-28 21:56:00,466  WARN  [org.sourceid.util.license.PingLicense] 
+**********************************************************
+No license file was found.
+You do not have a valid license configured. To obtain a valid license, please contact your vendor's Customer Support.
+**********************************************************
+2024-05-28 21:56:07,153  WARN  [org.sourceid.util.license.PingLicense] 
+**********************************************************
+No license file was found.
+You do not have a valid license configured. To obtain a valid license, please contact your vendor's Customer Support.
+**********************************************************
+2024-05-28 21:56:07,247  WARN  [org.sourceid.util.license.PingLicense] 
+**********************************************************
+No license file was found.
+You do not have a valid license configured. To obtain a valid license, please contact your vendor's Customer Support.
+**********************************************************
+2024-05-28 21:56:11,886  WARN  [org.sourceid.util.license.PingLicense] 
+**********************************************************
+No license file was found.
+You do not have a valid license configured. To obtain a valid license, please contact your vendor's Customer Support.
+**********************************************************
+2024-05-28 21:56:11,886  WARN  [org.sourceid.util.license.PingLicense] 
+**********************************************************
+No license file was found.
+You do not have a valid license configured. To obtain a valid license, please contact your vendor's Customer Support.
+**********************************************************
+2024-05-28 21:56:11,902  WARN  [org.sourceid.util.license.PingLicense] 
+**********************************************************
+No license file was found.
+You do not have a valid license configured. To obtain a valid license, please contact your vendor's Customer Support.
+**********************************************************
+2024-05-28 21:57:06,471  WARN  [org.sourceid.util.license.PingLicense] 
+**********************************************************
+No license file was found.
+You do not have a valid license configured. To obtain a valid license, please contact your vendor's Customer Support.
+**********************************************************
+2024-05-28 21:58:31,342  WARN  [org.sourceid.util.license.PingLicense] 
+**********************************************************
+No license file was found.
+You do not have a valid license configured. To obtain a valid license, please contact your vendor's Customer Support.
+**********************************************************
+2024-05-28 21:58:36,067  WARN  [org.sourceid.util.license.PingLicense] 
+**********************************************************
+No license file was found.
+You do not have a valid license configured. To obtain a valid license, please contact your vendor's Customer Support.
+**********************************************************
+2024-05-28 21:58:54,478  WARN  [org.sourceid.util.license.PingLicense] 
+**********************************************************
+No license file was found.
+You do not have a valid license configured. To obtain a valid license, please contact your vendor's Customer Support.
+**********************************************************
+2024-05-28 21:59:54,066  WARN  [org.sourceid.util.license.PingLicense] 
+**********************************************************
+No license file was found.
+You do not have a valid license configured. To obtain a valid license, please contact your vendor's Customer Support.
+**********************************************************
+2024-05-28 22:00:03,455  WARN  [org.sourceid.util.license.PingLicense] 
+**********************************************************
+No license file was found.
+You do not have a valid license configured. To obtain a valid license, please contact your vendor's Customer Support.
+**********************************************************
+2024-05-28 22:00:07,746  WARN  [org.sourceid.util.license.PingLicense] 
+**********************************************************
+No license file was found.
+You do not have a valid license configured. To obtain a valid license, please contact your vendor's Customer Support.
+**********************************************************
+2024-05-28 22:00:07,764  WARN  [org.sourceid.util.license.PingLicense] 
+**********************************************************
+No license file was found.
+You do not have a valid license configured. To obtain a valid license, please contact your vendor's Customer Support.
+**********************************************************
+2024-05-28 22:00:07,777  WARN  [org.sourceid.util.license.PingLicense] 
+**********************************************************
+No license file was found.
+You do not have a valid license configured. To obtain a valid license, please contact your vendor's Customer Support.
+**********************************************************
+2024-05-28 22:00:14,293  WARN  [org.sourceid.util.license.PingLicense] 
+**********************************************************
+No license file was found.
+You do not have a valid license configured. To obtain a valid license, please contact your vendor's Customer Support.
+**********************************************************
+2024-05-28 22:01:08,155  WARN  [org.sourceid.util.license.PingLicense] 
+**********************************************************
+No license file was found.
+You do not have a valid license configured. To obtain a valid license, please contact your vendor's Customer Support.
+**********************************************************
+2024-05-28 22:01:14,990  WARN  [org.sourceid.util.license.PingLicense] 
+**********************************************************
+No license file was found.
+You do not have a valid license configured. To obtain a valid license, please contact your vendor's Customer Support.
+**********************************************************
+2024-05-28 22:01:14,998  WARN  [com.pingidentity.admin.api.validator.LicenseValidator] The new license may cause any existing connections that use the unlicensed features to fail.
+2024-05-28 22:01:14,998  WARN  [com.pingidentity.admin.api.validator.LicenseValidator] The new license has an earlier expiration date than the existing license.
+2024-05-28 22:01:19,948  WARN  [org.sourceid.util.license.PingLicense] 
+**********************************************************
+No license file was found.
+You do not have a valid license configured. To obtain a valid license, please contact your vendor's Customer Support.
+**********************************************************
+2024-05-28 22:05:51,005  WARN  [org.sourceid.util.license.PingLicense] 
+**********************************************************
+No license file was found.
+You do not have a valid license configured. To obtain a valid license, please contact your vendor's Customer Support.
+**********************************************************
+2024-05-28 23:07:05,482  WARN  [org.sourceid.util.license.PingLicense] 
+**********************************************************
+No license file was found.
+You do not have a valid license configured. To obtain a valid license, please contact your vendor's Customer Support.
+**********************************************************
+2024-05-28 23:07:05,482  WARN  [com.pingidentity.admin.api.validator.LicenseValidator] The new license may cause any existing connections that use the unlicensed features to fail.
+2024-05-28 23:07:05,482  WARN  [com.pingidentity.admin.api.validator.LicenseValidator] The new license has an earlier expiration date than the existing license.
+2024-05-28 23:07:05,498  INFO  [org.sourceid.util.license.LicenseManager] License loaded:
+License Edition: Free
+License ID: 00671845
+Issue Date: 5/28/24
+Product: PingFederate
+Version: 12.0.1
+Issued To: unspecified
+Org: K53tech.COM
+Node Limit: unlimited
+Connection Limit: unlimited
+Expiration Date: 6/27/24
+WS-Trust STS: true
+OAuth: true
+Outbound Provisioning: true
+GracePeriod: 1
+DeploymentMethod: Traditional
+2024-05-28 23:07:05,498  INFO  [org.sourceid.util.license.Watcher] Server licensing status is now: WARN
+2024-05-28 23:07:05,517  WARN  [org.sourceid.util.license.NotificationSupport$1] You are approaching the limit for your PingFederate license.
+License Edition: Free
+License ID: 00671845
+Issue Date: 5/28/24
+Product: PingFederate
+Version: 12.0.1
+Issued To: unspecified
+Org: K53tech.COM
+Node Limit: unlimited
+Connection Limit: unlimited
+Expiration Date: 6/27/24
+WS-Trust STS: true
+OAuth: true
+Outbound Provisioning: true
+GracePeriod: 1
+DeploymentMethod: Traditional
+2024-05-28 23:07:06,048  INFO  [com.pingidentity.fsm.SessionTimeout] Application '/render' session timeout is 30 minutes.
+2024-05-28 23:09:00,955  INFO  [org.sourceid.saml20.domain.mgmt.impl.MediatorImpl$ShutdownHook] PingFederate shutdown...

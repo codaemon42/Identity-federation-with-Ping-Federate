@@ -3,3 +3,5 @@
 2024-05-28 21:16:56,110 Creating temp directory: C:\tools\Ping Identity\Identity-federation-with-Ping-Federate\pingfederate-12.0.2\pingfederate\server\default\tmp
 2024-05-28 21:20:20,738 pf.operational.mode: STANDALONE
 2024-05-28 21:20:20,754 Set 86 system properties from ../../bin/run.properties
+2024-05-28 21:55:15,484 pf.operational.mode: STANDALONE
+2024-05-28 21:55:15,484 Set 86 system properties from ../../bin/run.properties
