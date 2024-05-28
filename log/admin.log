@@ -1,1 +1,6 @@
 2024-05-28 21:17:05,293 |  |  |  |  | SYSTEM_KEYS | ROTATE |  | 
+2024-05-28 21:56:07,200 |  |  | [0:0:0:0:0:0:0:1] |  | LICENSE | MODIFY |  | License agreement
+2024-05-28 23:07:05,482 |  |  | [0:0:0:0:0:0:0:1] |  | LICENSE | IMPORT |  | 
+2024-05-28 23:07:05,781 | Administrator | UserAdmin,Admin,CryptoAdmin,ExpressionAdmin | [0:0:0:0:0:0:0:1] |  | SERVER_SETTINGS | MODIFY |  | 
+2024-05-28 23:07:06,032 | Administrator | UserAdmin,Admin,CryptoAdmin,ExpressionAdmin | [0:0:0:0:0:0:0:1] |  | NOTIFICATION_SETTINGS | MODIFY |  | 
+2024-05-28 23:07:06,063 | Administrator | UserAdmin,Admin,CryptoAdmin,ExpressionAdmin | [0:0:0:0:0:0:0:1] | gRuZiW8zudRKEmej63f01gYilo_dOAxjgrRSVz-fb5A | USER | LOGIN_ATTEMPT |  | Login was successful
