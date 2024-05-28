@@ -1,0 +1,79 @@
+# For more in depth information on these properties please
+# see the PF Admin Manual and the online help in the PF
+# UI.
+
+# template.name specifies the name of this template
+# in the LDAP type selection list in the PF UI.  If the
+# value is set to "example" it will *not* be processed
+# and will not appear in the selection list.
+template.name=Active Directory
+
+# template.type defines the type of template this is.
+# The available type values are: "ActiveDirectory", "SunDirectoryServer", "PingDirectory" and "Generic"
+# Any other template.type will be set to "Custom" within the system.
+template.type=ActiveDirectory
+
+# Represents the "Entry GUID Attribute" field on the
+# Source Settings page in the PF UI
+guid.attribute.name=objectGUID
+
+# Represents the "GUID Type" selection list on the
+# Source Settings page in the PF UI.
+# Must be either true or false. Default is false.
+guid.is.binary=true
+
+# Represents the "Member of Group Attribute" field on the
+# Source Settings page in the PF UI. This property is not required
+# and may not be used for some data sources.
+member.of.group.attribute.name=memberof
+
+# Represents the "Group Member Attribute" field on the
+# Source Settings page in the PF UI.
+group.member.attribute.name=member
+
+# Represents the "User objectClass" field on the
+# Source Settings page in the PF UI.
+user.object.class=user
+
+# Represents the "Group objectClass" field on the
+# Source Settings page in the PF UI.
+group.object.class=group
+
+# Represents the "Changed Users Algorithm" selection list on the
+# Source Settings page in the PF UI.
+# Must be "Active Directory USN", "Timestamp" or "Timestamp No Negation"
+# to set this value.
+changed.users.algorithm=Active Directory USN
+
+# Represents the "USN Attribute" field on the
+# Source Settings page in the PF UI.
+usn.attribute.name=uSNChanged
+
+# Represents the "Timestamp Attribute" field on the
+# Source Settings page in the PF UI.
+time.stamp.attribute.name=modifyTimestamp
+
+# Represents the "Account Status Attribute" field on the
+# Source Settings page in the PF UI.
+account.status.attribute.name=userAccountControl
+
+# Represents the "Account Status Algorithm" selection list on the
+# Source Settings page in the PF UI.
+# Must be "Active Directory Bitmap" or "Flag". Default is "Flag"
+account.status.algorithm=Active Directory Bitmap
+
+# Represents the "Default Status" selection list on the
+# Source Settings page in the PF UI.
+# Must be either true or false. Default is false.
+default.status=true
+
+# Represents the "Flag Comparison Value" field on the
+# Source Settings page in the PF UI.
+#flag.comparision.value=TRUE
+
+# Represents the "Flag Comparison Status" selection list on the
+# Source Settings page in the PF UI.
+# Must be either true or false.  Default is false.
+#flag.comparision.status=true
+
+

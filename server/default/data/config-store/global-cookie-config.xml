@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<c:config xmlns:c="http://www.sourceid.org/2004/05/config">
+  <c:item name="enable-partitioned-cookies">false</c:item>
+  <!--
+    Partitioned cookie incompatible User-Agent exclusion list
+    each listItem must be regex targeting specific User-Agent(s)
+  -->
+  <c:list name="partitioned-cookies-user-agent-exclusion">
+  </c:list>
+</c:config>

@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+
+#*
+Tell the browser not to render this page if it's contained within a frame.
+This is to prevent Clickjacking attack.
+
+Velocity variables (identified by the $ character) are generated
+at runtime by the server.
+
+The following variables are available on this page, but not used by default:
+
+$utils                 - The utility method to display JSON String arrays
+$escape                - The utility class that can be used to escape String variables
+$HttpServletResponse   - The details of HTTP response
+$HttpServletRequest    - The details of HTTP request
+$TrackingId            - The user's session tracking ID
+$TransactionId         - The unique ID for the SSO or SLO transaction.
+$PingFedBaseURL        - The URL containing full hostname and port on which the PingFederate deployment runs on
+$CurrentPingFedBaseURL - The base URL used in the current request. This URL may differ from $PingFedBaseURL when using a virtual host name
+$locale                - The user's country and language
+$templateMessages      - The set of messages that is used to localize messages based on the user's locale
+
+Change text or formatting as needed. Modifying Velocity statements
+is not recommended as it may interfere with expected server behavior.
+
+It is recommended to sanitize the values that are displayed using $escape.escape(), for example $escape.escape($client_id).
+
+*#
+
+$HttpServletResponse.setHeader("X-Frame-Options", "DENY")
+
+<!-- template name: oauth.access.grants.page.template.html -->
+
+#set( $messageKeyPrefix = "oauth.access.grants.page.template." )
+
+<html lang="$locale.getLanguage()" dir="ltr">
+<head>
+	<title>$templateMessages.getMessage($messageKeyPrefix, "title")</title>
+	<base href="$CurrentPingFedBaseURL"/>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta name="viewport" content="initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+	<meta http-equiv="x-ua-compatible" content="IE=edge" />
+	<meta http-equiv="Content-Security-Policy" content="default-src 'self' 'nonce-$CSPNonce';" />
+	<link rel="stylesheet" media="all" type="text/css" href="assets/css/main.css" />
+	<script src='assets/scripts/pf-general.js'></script>
+</head>
+
+<body>
+
+<div class="ping-container ping-large">
+
+	<!--
+    if there is a logo present in the 'company-logo' container,
+    then 'has-logo' class should be added to 'ping-header' container.
+    -->
+	<div class="ping-header">
+		<span class="company-logo"><!-- client company logo here --></span>
+		$templateMessages.getMessage($messageKeyPrefix, "title")
+	</div><!-- .ping-header -->
+
+	<div class="ping-body-container">
+
+		<div class="user-name">
+			$templateMessages.getMessage($messageKeyPrefix, "info.1") <strong>$userName</strong>
+		</div>
+
+		<form action="$action" method="POST" name="grants">
+			<input type="hidden" name="cSRFToken" value="$cSRFToken"/>
+			<input type="hidden" name="guid"/>
+
+			<table class="ping-tabular">
+
+				<thead>
+				<tr>
+					<th width="38%">$templateMessages.getMessage($messageKeyPrefix, "client")</th>
+					<th width="38%">$templateMessages.getMessage($messageKeyPrefix, "issued")</th>
+					<th width="19%">
+						<a class="ping-input-link refresh-link" href="$action">
+							$templateMessages.getMessage($messageKeyPrefix, "refresh")
+						</a>
+					</th>
+				</tr>
+				</thead>
+
+
+				<tbody>
+				#foreach($grant in $grants)
+				<tr >
+					<td width="38%">
+						#set( $localClient = "" )
+						#set( $localClient = $grant.client )
+
+						#if (( $localClient.logoUrl ) && ( "$localClient.logoUrl" != "" ))
+						<img src="$escape.escape($localClient.logoUrl)"/><br/>
+						#end
+
+						<dl>
+							<dt>
+
+								$templateMessages.getMessage($messageKeyPrefix, "client"):
+							</dt>
+							<dd>
+								#if(($localClient.name) && ($localClient.name != ""))
+								$templateMessages.getMessage($escape.escape($escape.escape($localClient.name)))
+								#{else}
+								$templateMessages.getMessage($messageKeyPrefix, "unknown")
+								#end
+							</dd>
+							</br>
+							<dt>
+								$templateMessages.getMessage($messageKeyPrefix, "description"):
+							</dt>
+							<dd>
+								#if($localClient == "")
+								$templateMessages.getMessage($messageKeyPrefix, "unknown")
+								#{else}
+								#if (($localClient.description) && ($localClient.description != ""))
+								$templateMessages.getMessage($escape.escape($localClient.description))
+								#end
+								#end
+							</dd>
+							</br>
+						</dl>
+					</td>
+					<td width="38%">
+						<dl>
+							<dt>$templateMessages.getMessage($messageKeyPrefix, "grant.type"):</dt>
+							<dd>$grant.grantType</dd> </br>
+
+							<dt>$templateMessages.getMessage($messageKeyPrefix, "scope"):</dt>
+							<dd>$grant.scope.scopeStr</dd> </br>
+
+							<dt>$templateMessages.getMessage($messageKeyPrefix, "issued"):</dt>
+							<dd>$dateformat.format($grant.issued)</dd> </br>
+
+							<dt>$templateMessages.getMessage($messageKeyPrefix, "updated"):</dt>
+							<dd>$dateformat.format($grant.updated)</dd> </br>
+						</dl>
+					</td>
+					<td width ="19%">
+						<a id="revoke-${grant.guid}" class = "button inline">$templateMessages.getMessage($messageKeyPrefix, "revokeAccess")</a>
+					</td>
+				</tr>
+				#end
+				</tbody>
+			</table>
+		</form>
+	</div><!-- .ping-body-container -->
+
+	<div class="ping-footer-container">
+		<div class="ping-footer">
+			<div class="ping-credits"></div>
+			<div class="ping-copyright">$templateMessages.getMessage("global.footerMessage")</div>
+		</div> <!-- .ping-footer -->
+	</div> <!-- .ping-footer-container -->
+
+</div><!-- .ping-container -->
+
+<script type="text/javascript" nonce="$CSPNonce">
+			#foreach ($grant in $grants)
+				registerEventHandler("revoke-${grant.guid}", 'click', function() {
+					revokeAccess("$grant.guid");
+				});
+			#end
+			function revokeAccess(guid)
+			{
+				document.grants.guid.value=guid;
+				document.grants.submit();
+			}
+		</script>
+</body>
+</html>

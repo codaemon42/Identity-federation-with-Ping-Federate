@@ -1,0 +1,12 @@
+# Default JVM memory options for PingFederate
+#
+# Each non-commented and non-empty line will be added as a Java option when PingFederate is started.
+# Comments can be added to this file by starting a line with the # character.
+#
+
+#Minimum heap size
+-Xms512m
+#Maximum heap size
+-Xmx1024m
+#Use G1GC
+-XX:+UseG1GC

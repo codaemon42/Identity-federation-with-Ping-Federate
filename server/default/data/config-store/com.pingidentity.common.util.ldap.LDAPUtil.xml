@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:config xmlns:con="http://www.sourceid.org/2004/05/config">
+    <con:item name="CacheSchema">false</con:item>
+    <con:item name="CacheSchemaTimeoutMillis">3600000</con:item>
+    <!-- The max number of entries to retrieve from the LDAP server.
+         This value must be equal to or less than the max page size limit of the LDAP server. -->
+    <con:item name="ResultSetSize">1000</con:item>
+    <con:item name="IncludeClientIpInICRC">true</con:item>
+    <!-- Whether to include a server sort control when performing an outbound provisioning filter.
+         setting this to false can improve performance in some scenarios-->
+    <con:item name="ProvisionWithServerSort">true</con:item>
+    <!-- The cleanup thread execution interval in seconds -->
+    <!-- Default value is 60 seconds -->
+    <con:item name="ConnectionPoolCleanupIntervalSeconds">60</con:item>
+    <!-- Indicates how long a connection pool should be unused to be scheduled for cleanup after a replication event -->
+    <!-- Default value is 30 seconds -->
+    <con:item name="ConnectionPoolCleanupAfterSeconds">30</con:item>
+</con:config>

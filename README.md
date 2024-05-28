@@ -1,1 +1,0 @@
-# Identity-federation-with-Ping-Federate

@@ -1,0 +1,74 @@
+#
+# Create an OU to store all the clients. This is an optional OU to keep all OAuth 2.0 clients in
+# the same location. If a different location is needed to store the clients, alter the LDIF.
+# SearchBase in the "pingfederate/server/default/data/config-store/org.sourceid.oauth20.domain.ClientManagerLdapImpl.xml"
+# file should point to this OU. eg. <c:item name="SearchBase">OU=Clients,DC=example,DC=global</c:item>
+#
+# <Your Location> should be changed to the location of your full DN for schemas. eg. CN=Schema,CN=Configuration,DC=example,DC=global
+# <Your DC Here> should be changed to the location of your full DC. eg. DC=example,DC=global
+
+dn: OU=Clients,<Your DC Here>
+changetype: add
+objectClass: top
+objectClass: organizationalUnit
+ou: Clients
+distinguishedName: OU=Clients,<Your DC Here>
+instanceType: 4
+name: Clients
+objectCategory: CN=Organizational-Unit,<Your Location>
+
+
+# Defines the "pf-oauth-client" objectClass which the OAuth 2.0 Client will be stored.
+#
+# If any changes are made to the objectClass names, the corresponding "pingfederate/server/default/data/config-store/org.sourceid.oauth20.domain.ClientManagerLdapImpl.xml"
+# must also be altered to reflect these changes.
+#
+# <Your Location> should be changed to the location of your full DN for schemas. eg. CN=Schema,CN=Configuration,DC=example,DC=global
+#
+# IMPORTANT NOTICE: make user all the attribute types are created first before creating "pf-oauth-client" objectClass
+#
+
+dn: CN=pf-oauth-client,<Your Location>
+changetype: add
+objectClass: top
+objectClass: classSchema
+cn: pf-oauth-client
+distinguishedName: CN=pf-oauth-client,<Your Location>
+instanceType: 4
+possSuperiors: container
+possSuperiors: organizationalUnit
+uSNCreated: 13004
+subClassOf: top
+governsID: 1.3.6.1.4.1.28867.9.1.2
+mustContain: pf-oauth-client-id
+mayContain: pf-oauth-client-name
+mayContain: pf-oauth-client-refresh-rolling
+mayContain: pf-oauth-client-logo-url
+mayContain: pf-oauth-client-hashed-secret
+mayContain: pf-oauth-client-description
+mayContain: pf-oauth-client-persistent-grant-exp-type
+mayContain: pf-oauth-client-persistent-grant-exp-time
+mayContain: pf-oauth-client-persistent-grant-exp-time-unit
+mayContain: pf-oauth-client-bypass-approval-page
+mayContain: pf-oauth-client-grant-type
+mayContain: pf-oauth-client-redirect-uri
+mayContain: pf-oauth-client-restrict-scopes
+mayContain: pf-oauth-client-restricted-scopes
+mayContain: pf-oauth-client-logout-uri
+mayContain: pf-oauth-client-authn-type
+mayContain: pf-oauth-client-client-cert-issuer-dn
+mayContain: pf-oauth-client-client-cert-subject-dn
+mayContain: pf-oauth-client-jwks-url
+mayContain: pf-oauth-client-jwks
+mayContain: pf-oauth-client-enforce-replay-prevention
+mayContain: pf-oauth-client-require-signed-requests
+mayContain: pf-oauth-client-supplemental-info
+mayContain: pf-oauth-client-last-modified
+showInAdvancedViewOnly: TRUE
+adminDisplayName: pf-oauth-client
+objectClassCategory: 1
+lDAPDisplayName: pf-oauth-client
+name: pf-oauth-client
+defaultHidingValue: TRUE
+objectCategory: CN=Class-Schema,<Your Location>
+defaultObjectCategory: CN=pf-oauth-client,<Your Location>

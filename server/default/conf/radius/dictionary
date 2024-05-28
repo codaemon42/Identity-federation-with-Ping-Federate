@@ -1,0 +1,12 @@
+#
+#	Include the RFC dictionaries next.
+#
+#	For a complete list of the standard attributes and values,
+#	see:
+#		http://www.iana.org/assignments/radius-types
+#
+$INCLUDE		dictionary.rfc2865
+
+#
+#	Include vendor dictionaries after the standard ones.
+#

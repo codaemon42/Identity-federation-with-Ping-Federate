@@ -1,0 +1,80 @@
+##
+# NOTE: Make sure to execute these commands one by one
+##
+aws dynamodb create-table \
+    --table-name PingFederateAccessGrants \
+    --attribute-definitions \
+        AttributeName=GUID,AttributeType=S \
+        AttributeName=UniqueUserId,AttributeType=S \
+        AttributeName=HashedRefreshToken,AttributeType=S \
+        AttributeName=ClientId,AttributeType=S \
+    --key-schema \
+        AttributeName=GUID,KeyType=HASH \
+    --provisioned-throughput \
+        ReadCapacityUnits=10,WriteCapacityUnits=5 \
+    --table-class STANDARD \
+    --global-secondary-indexes \
+             "[
+                 {
+                     \"IndexName\": \"AccessGrantsHashedRefreshToken-index\",
+                     \"KeySchema\": [
+                         {
+                             \"AttributeName\": \"HashedRefreshToken\",
+                             \"KeyType\": \"HASH\"
+                         }
+                     ],
+                     \"ProvisionedThroughput\": {
+                         \"ReadCapacityUnits\": 10,
+                         \"WriteCapacityUnits\": 5
+                     },
+                     \"Projection\": {
+                         \"ProjectionType\": \"KEYS_ONLY\"
+                     }
+                 },
+                 {
+                     \"IndexName\": \"AccessGrantsClientId-index\",
+                     \"KeySchema\": [
+                         {
+                             \"AttributeName\": \"ClientId\",
+                             \"KeyType\": \"HASH\"
+                         }
+                     ],
+                     \"ProvisionedThroughput\": {
+                         \"ReadCapacityUnits\": 10,
+                         \"WriteCapacityUnits\": 5
+                     },
+                     \"Projection\": {
+                         \"ProjectionType\": \"KEYS_ONLY\"
+                     }
+                 },
+                 {
+                     \"IndexName\": \"AccessGrantsUniqueUserIdClientId-index\",
+                     \"KeySchema\": [
+                         {
+                             \"AttributeName\": \"UniqueUserId\",
+                             \"KeyType\": \"HASH\"
+                         },
+                         {
+                             \"AttributeName\": \"ClientId\",
+                             \"KeyType\": \"RANGE\"
+                         }
+                     ],
+                     \"ProvisionedThroughput\": {
+                         \"ReadCapacityUnits\": 10,
+                         \"WriteCapacityUnits\": 5
+                     },
+                     \"Projection\": {
+                         \"ProjectionType\": \"INCLUDE\",
+                         \"NonKeyAttributes\": [
+                           \"GrantType\",
+                           \"ContextualQualifier\",
+                           \"Scope\",
+                           \"Updated\"
+                         ]
+                     }
+                 }
+             ]"
+aws dynamodb wait table-exists --table-name PingFederateAccessGrants
+aws dynamodb update-time-to-live \
+    --table-name PingFederateAccessGrants \
+    --time-to-live-specification Enabled=true,AttributeName=Expires

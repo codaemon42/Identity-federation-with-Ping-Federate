@@ -1,0 +1,52 @@
+#!/bin/sh
+### BEGIN INIT INFO
+# Provides:
+# Required-Start:    $remote_fs $syslog
+# Required-Stop:     $remote_fs $syslog
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Short-Description: Start daemon at boot time
+# Description:       Enable service provided by daemon.
+### END INIT INFO
+PF_HOME=$PF_HOME
+DIR="$PF_HOME/sbin"
+USER="pingfederate"
+
+#clean print to console
+print() {
+    echo "$*"
+}
+
+check_configuration() {
+  if [ -z "$PF_HOME"  ]; then
+    print "PF_HOME is not set"
+    print "Set PF_HOME to the location of your PingFederate installation."
+    die
+  fi
+}
+
+case "$1" in
+    start)
+        check_configuration
+        su - $USER -c $DIR/pingfederate-run.sh
+    ;;
+    stop)
+        check_configuration
+        su - $USER -c $DIR/pingfederate-shutdown.sh
+    ;;
+    status)
+        check_configuration
+        su - $USER -c $DIR/pingfederate-status.sh
+    ;;
+    restart)
+        check_configuration
+        $0 stop
+        $0 start
+    ;;
+    *)
+        echo "Usage: $0 {start|stop|status|restart}"
+        exit 1
+    ;;
+esac
+
+exit 0

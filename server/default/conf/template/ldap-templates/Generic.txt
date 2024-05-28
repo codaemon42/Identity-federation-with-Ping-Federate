@@ -1,0 +1,14 @@
+# For more in depth information on these properties please
+# see the PF Admin Manual and the online help in the PF
+# UI.
+
+# template.name specifies the name of this template
+# in the LDAP type selection list in the PF UI.  If the
+# value is set to "example" it will *not* be processed
+# and will not appear in the selection list.
+template.name=Generic
+
+# template.type defines the type of template this is.
+# The available type values are: "ActiveDirectory", "SunDirectoryServer", "PingDirectory" and "Generic"
+# Any other template.type will be set to "Custom" within the system.
+template.type=Generic

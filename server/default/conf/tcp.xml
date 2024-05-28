@@ -1,0 +1,40 @@
+<config>
+    <TCP_NIO2
+            recv_buf_size="5M"
+            send_buf_size="5M"
+            max_bundle_size="64K"
+            bind_port="${pf.cluster.bind.port}"
+            port_range="0"
+            sock_conn_timeout="300"
+            max_send_buffers="1000"
+
+            enable_diagnostics="${pf.cluster.diagnostics.enabled}"
+            diagnostics_addr="${pf.cluster.diagnostics.addr}"
+            diagnostics_port="${pf.cluster.diagnostics.port}"
+
+            thread_pool.enabled="true"
+            thread_pool.min_threads="4"
+            thread_pool.max_threads="40"
+            thread_pool.keep_alive_time="8000"
+
+            logical_addr_cache_expiration="1000"
+            logical_addr_cache_reaper_interval="10000"
+
+            bind_addr="${pf.cluster.bind.address}"
+            log_discard_msgs="false"/>
+    ${DISCOVERY_TAG}
+    <MERGE3 min_interval="30000" max_interval="60000" />
+    <FD_SOCK start_port="${pf.cluster.failure.detection.bind.port}" bind_addr="${pf.cluster.bind.address}"/>
+    <FD_ALL3 timeout="50000" interval="10000"/>
+    <VERIFY_SUSPECT timeout="1500"/>
+    <BARRIER/>
+    ${ENCRYPT_TAG}
+    <pbcast.NAKACK2
+                   use_mcast_xmit="false"
+                   discard_delivered_msgs="false"/>
+    <pbcast.STABLE desired_avg_gossip="50000"  max_bytes="400000"/>
+    <pbcast.GMS print_local_addr="true" join_timeout="3000" view_ack_collection_timeout="5000"/>
+    <FRAG2 frag_size="60000"/>
+    <pbcast.STATE_TRANSFER/>
+</config>
+

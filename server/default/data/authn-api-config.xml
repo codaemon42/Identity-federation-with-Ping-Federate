@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<authnApiConfig>
+    <apiSettings apiEnabled="false" defaultApplicationId="" restrictAccessToRedirectlessMode="true" includeRequestContext="false"/>
+    <apiApplications>
+    </apiApplications>
+</authnApiConfig>

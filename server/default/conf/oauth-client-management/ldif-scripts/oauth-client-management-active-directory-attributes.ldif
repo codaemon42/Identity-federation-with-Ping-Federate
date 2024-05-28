@@ -1,0 +1,439 @@
+#
+# Defines the attribute types used by "pf-oauth-client" objectClass which the OAuth 2.0 Client will be stored.
+#
+# If any changes are made to the attribute names, the corresponding "pingfederate/server/default/data/config-store/org.sourceid.oauth20.domain.ClientManagerLdapImpl.xml"
+# must also be altered to reflect these changes.
+#
+# <Your Location> should be changed to the location of your full DN for schemas. eg. CN=Schema,CN=Configuration,DC=example,DC=global
+#
+
+dn: CN=pf-oauth-client-id,<Your Location>
+changetype: add
+objectClass: top
+objectClass: attributeSchema
+cn: pf-oauth-client-id
+name: pf-oauth-client-id
+adminDisplayName: pf-oauth-client-id
+LDAPDisplayName: pf-oauth-client-id
+distinguishedName: CN=pf-oauth-client-id,<Your Location>
+instanceType: 4
+attributeID: 1.3.6.1.4.1.28867.9.2.12
+searchFlags: 1
+attributeSyntax: 2.5.5.12
+isSingleValued: TRUE
+rangeLower: 0
+rangeUpper: 256
+showInAdvancedViewOnly: TRUE
+oMSyntax: 64
+
+dn: CN=pf-oauth-client-name,<Your Location>
+changetype: add
+objectClass: top
+objectClass: attributeSchema
+cn: pf-oauth-client-name
+name: pf-oauth-client-name
+adminDisplayName: pf-oauth-client-name
+LDAPDisplayName: pf-oauth-client-name
+distinguishedName: CN=pf-oauth-client-name,<Your Location>
+instanceType: 4
+attributeID: 1.3.6.1.4.1.28867.9.2.13
+searchFlags: 1
+attributeSyntax: 2.5.5.12
+isSingleValued: TRUE
+rangeLower: 0
+rangeUpper: 128
+showInAdvancedViewOnly: TRUE
+oMSyntax: 64
+
+dn: CN=pf-oauth-client-refresh-rolling,<Your Location>
+changetype: add
+objectClass: top
+objectClass: attributeSchema
+cn: pf-oauth-client-refresh-rolling
+name: pf-oauth-client-refresh-rolling
+adminDisplayName: pf-oauth-client-refresh-rolling
+LDAPDisplayName: pf-oauth-client-refresh-rolling
+distinguishedName: CN=pf-oauth-client-refresh-rolling,<Your Location>
+instanceType: 4
+attributeID: 1.3.6.1.4.1.28867.9.2.14
+attributeSyntax: 2.5.5.12
+isSingleValued: TRUE
+rangeLower: 0
+rangeUpper: 64
+showInAdvancedViewOnly: TRUE
+oMSyntax: 64
+
+dn: CN=pf-oauth-client-logo-url,<Your Location>
+changetype: add
+objectClass: top
+objectClass: attributeSchema
+cn: pf-oauth-client-logo-url
+name: pf-oauth-client-logo-url
+adminDisplayName: pf-oauth-client-logo-url
+LDAPDisplayName: pf-oauth-client-logo-url
+distinguishedName: CN=pf-oauth-client-logo-url,<Your Location>
+instanceType: 4
+attributeID: 1.3.6.1.4.1.28867.9.2.15
+attributeSyntax: 2.5.5.12
+isSingleValued: TRUE
+rangeLower: 0
+rangeUpper: 1024
+showInAdvancedViewOnly: TRUE
+oMSyntax: 64
+
+dn: CN=pf-oauth-client-hashed-secret,<Your Location>
+changetype: add
+objectClass: top
+objectClass: attributeSchema
+cn: pf-oauth-client-hashed-secret
+name: pf-oauth-client-hashed-secret
+adminDisplayName: pf-oauth-client-hashed-secret
+LDAPDisplayName: pf-oauth-client-hashed-secret
+distinguishedName: CN=pf-oauth-client-hashed-secret,<Your Location>
+instanceType: 4
+attributeID: 1.3.6.1.4.1.28867.9.2.16
+attributeSyntax: 2.5.5.12
+isSingleValued: TRUE
+rangeLower: 0
+rangeUpper: 512
+showInAdvancedViewOnly: TRUE
+oMSyntax: 64
+
+dn: CN=pf-oauth-client-description,<Your Location>
+changetype: add
+objectClass: top
+objectClass: attributeSchema
+cn: pf-oauth-client-description
+name: pf-oauth-client-description
+adminDisplayName: pf-oauth-client-description
+LDAPDisplayName: pf-oauth-client-description
+distinguishedName: CN=pf-oauth-client-description,<Your Location>
+instanceType: 4
+attributeID: 1.3.6.1.4.1.28867.9.2.17
+attributeSyntax: 2.5.5.12
+isSingleValued: TRUE
+rangeLower: 0
+rangeUpper: 2048
+showInAdvancedViewOnly: TRUE
+oMSyntax: 64
+
+dn: CN=pf-oauth-client-persistent-grant-exp-type,<Your Location>
+changetype: add
+objectClass: top
+objectClass: attributeSchema
+cn: pf-oauth-client-persistent-grant-exp-type
+name: pf-oauth-client-persistent-grant-exp-type
+adminDisplayName: pf-oauth-client-persistent-grant-exp-type
+LDAPDisplayName: pf-oauth-client-persistent-grant-exp-type
+distinguishedName: CN=pf-oauth-client-persistent-grant-exp-type,<Your Location>
+instanceType: 4
+attributeID: 1.3.6.1.4.1.28867.9.2.18
+attributeSyntax: 2.5.5.12
+isSingleValued: TRUE
+rangeLower: 0
+rangeUpper: 128
+showInAdvancedViewOnly: TRUE
+oMSyntax: 64
+
+dn: CN=pf-oauth-client-persistent-grant-exp-time,<Your Location>
+changetype: add
+objectClass: top
+objectClass: attributeSchema
+cn: pf-oauth-client-persistent-grant-exp-time
+name: pf-oauth-client-persistent-grant-exp-time
+adminDisplayName: pf-oauth-client-persistent-grant-exp-time
+LDAPDisplayName: pf-oauth-client-persistent-grant-exp-time
+distinguishedName: CN=pf-oauth-client-persistent-grant-exp-time,<Your Location>
+instanceType: 4
+attributeID: 1.3.6.1.4.1.28867.9.2.19
+attributeSyntax: 2.5.5.12
+isSingleValued: TRUE
+rangeLower: 0
+rangeUpper: 128
+showInAdvancedViewOnly: TRUE
+oMSyntax: 64
+
+dn: CN=pf-oauth-client-persistent-grant-exp-time-unit,<Your Location>
+changetype: add
+objectClass: top
+objectClass: attributeSchema
+cn: pf-oauth-client-persistent-grant-exp-time-unit
+name: pf-oauth-client-persistent-grant-exp-time-unit
+adminDisplayName: pf-oauth-client-persistent-grant-exp-time-unit
+LDAPDisplayName: pf-oauth-client-persistent-grant-exp-time-unit
+distinguishedName: CN=pf-oauth-client-persistent-grant-exp-time-unit,<Your Location>
+instanceType: 4
+attributeID: 1.3.6.1.4.1.28867.9.2.20
+attributeSyntax: 2.5.5.12
+isSingleValued: TRUE
+rangeLower: 0
+rangeUpper: 1
+showInAdvancedViewOnly: TRUE
+oMSyntax: 64
+
+dn: CN=pf-oauth-client-bypass-approval-page,<Your Location>
+changetype: add
+objectClass: top
+objectClass: attributeSchema
+cn: pf-oauth-client-bypass-approval-page
+name: pf-oauth-client-bypass-approval-page
+adminDisplayName: pf-oauth-client-bypass-approval-page
+LDAPDisplayName: pf-oauth-client-bypass-approval-page
+distinguishedName: CN=pf-oauth-client-bypass-approval-page,<Your Location>
+instanceType: 4
+attributeID: 1.3.6.1.4.1.28867.9.2.21
+attributeSyntax: 2.5.5.8
+isSingleValued: TRUE
+uSNChanged: 12812
+showInAdvancedViewOnly: TRUE
+oMSyntax: 1
+
+dn: CN=pf-oauth-client-grant-type,<Your Location>
+changetype: add
+objectClass: top
+objectClass: attributeSchema
+cn: pf-oauth-client-grant-type
+name: pf-oauth-client-grant-type
+adminDisplayName: pf-oauth-client-grant-type
+LDAPDisplayName: pf-oauth-client-grant-type
+distinguishedName: CN=pf-oauth-client-grant-type,<Your Location>
+instanceType: 4
+attributeID: 1.3.6.1.4.1.28867.9.2.22
+searchFlags: 1
+attributeSyntax: 2.5.5.12
+isSingleValued: FALSE
+rangeLower: 0
+rangeUpper: 128
+showInAdvancedViewOnly: TRUE
+oMSyntax: 64
+
+dn: CN=pf-oauth-client-redirect-uri,<Your Location>
+changetype: add
+objectClass: top
+objectClass: attributeSchema
+cn: pf-oauth-client-redirect-uri
+name: pf-oauth-client-redirect-uri
+adminDisplayName: pf-oauth-client-redirect-uri
+LDAPDisplayName: pf-oauth-client-redirect-uri
+distinguishedName: CN=pf-oauth-client-redirect-uri,<Your Location>
+instanceType: 4
+attributeID: 1.3.6.1.4.1.28867.9.2.23
+attributeSyntax: 2.5.5.12
+isSingleValued: FALSE
+rangeLower: 0
+rangeUpper: 512
+showInAdvancedViewOnly: TRUE
+oMSyntax: 64
+
+dn: CN=pf-oauth-client-restrict-scopes,<Your Location>
+changetype: add
+objectClass: top
+objectClass: attributeSchema
+cn: pf-oauth-client-restrict-scopes
+name: pf-oauth-client-restrict-scopes
+adminDisplayName: pf-oauth-client-restrict-scopes
+LDAPDisplayName: pf-oauth-client-restrict-scopes
+distinguishedName: CN=pf-oauth-client-restrict-scopes,<Your Location>
+instanceType: 4
+attributeID: 1.3.6.1.4.1.28867.9.2.24
+attributeSyntax: 2.5.5.8
+isSingleValued: TRUE
+uSNChanged: 12812
+showInAdvancedViewOnly: TRUE
+oMSyntax: 1
+
+dn: CN=pf-oauth-client-restricted-scopes,<Your Location>
+changetype: add
+objectClass: top
+objectClass: attributeSchema
+cn: pf-oauth-client-restricted-scopes
+name: pf-oauth-client-restricted-scopes
+adminDisplayName: pf-oauth-client-restricted-scopes
+LDAPDisplayName: pf-oauth-client-restricted-scopes
+distinguishedName: CN=pf-oauth-client-restricted-scopes,<Your Location>
+instanceType: 4
+attributeID: 1.3.6.1.4.1.28867.9.2.25
+attributeSyntax: 2.5.5.12
+isSingleValued: FALSE
+rangeLower: 0
+rangeUpper: 256
+showInAdvancedViewOnly: TRUE
+oMSyntax: 64
+
+dn: CN=pf-oauth-client-logout-uri,<Your Location>
+changetype: add
+objectClass: top
+objectClass: attributeSchema
+cn: pf-oauth-client-logout-uri
+name: pf-oauth-client-logout-uri
+adminDisplayName: pf-oauth-client-logout-uri
+LDAPDisplayName: pf-oauth-client-logout-uri
+distinguishedName: CN=pf-oauth-client-logout-uri,<Your Location>
+instanceType: 4
+attributeID: 1.3.6.1.4.1.28867.9.2.26
+attributeSyntax: 2.5.5.12
+isSingleValued: TRUE
+rangeLower: 0
+rangeUpper: 128
+showInAdvancedViewOnly: TRUE
+oMSyntax: 64
+
+dn: CN=pf-oauth-client-authn-type,<Your Location>
+changetype: add
+objectClass: top
+objectClass: attributeSchema
+cn: pf-oauth-client-authn-type
+name: pf-oauth-client-authn-type
+adminDisplayName: pf-oauth-client-authn-type
+LDAPDisplayName: pf-oauth-client-authn-type
+distinguishedName: CN=pf-oauth-client-authn-type,<Your Location>
+instanceType: 4
+attributeID: 1.3.6.1.4.1.28867.9.2.27
+attributeSyntax: 2.5.5.12
+isSingleValued: TRUE
+rangeLower: 0
+rangeUpper: 32
+showInAdvancedViewOnly: TRUE
+oMSyntax: 64
+
+dn: CN=pf-oauth-client-client-cert-issuer-dn,<Your Location>
+changetype: add
+objectClass: top
+objectClass: attributeSchema
+cn: pf-oauth-client-client-cert-issuer-dn
+name: pf-oauth-client-client-cert-issuer-dn
+adminDisplayName: pf-oauth-client-client-cert-issuer-dn
+LDAPDisplayName: pf-oauth-client-client-cert-issuer-dn
+distinguishedName: CN=pf-oauth-client-client-cert-issuer-dn,<Your Location>
+instanceType: 4
+attributeID: 1.3.6.1.4.1.28867.9.2.28
+attributeSyntax: 2.5.5.12
+isSingleValued: TRUE
+rangeLower: 0
+rangeUpper: 1024
+showInAdvancedViewOnly: TRUE
+oMSyntax: 64
+
+dn: CN=pf-oauth-client-client-cert-subject-dn,<Your Location>
+changetype: add
+objectClass: top
+objectClass: attributeSchema
+cn: pf-oauth-client-client-cert-subject-dn
+name: pf-oauth-client-client-cert-subject-dn
+adminDisplayName: pf-oauth-client-client-cert-subject-dn
+LDAPDisplayName: pf-oauth-client-client-cert-subject-dn
+distinguishedName: CN=pf-oauth-client-client-cert-subject-dn,<Your Location>
+instanceType: 4
+attributeID: 1.3.6.1.4.1.28867.9.2.29
+attributeSyntax: 2.5.5.12
+isSingleValued: TRUE
+rangeLower: 0
+rangeUpper: 1024
+showInAdvancedViewOnly: TRUE
+oMSyntax: 64
+
+dn: CN=pf-oauth-client-jwks-url,<Your Location>
+changetype: add
+objectClass: top
+objectClass: attributeSchema
+cn: pf-oauth-client-jwks-url
+name: pf-oauth-client-jwks-url
+adminDisplayName: pf-oauth-client-jwks-url
+LDAPDisplayName: pf-oauth-client-jwks-url
+distinguishedName: CN=pf-oauth-client-jwks-url,<Your Location>
+instanceType: 4
+attributeID: 1.3.6.1.4.1.28867.9.2.30
+attributeSyntax: 2.5.5.12
+isSingleValued: TRUE
+rangeLower: 0
+rangeUpper: 128
+showInAdvancedViewOnly: TRUE
+oMSyntax: 64
+
+dn: CN=pf-oauth-client-jwks,<Your Location>
+changetype: add
+objectClass: top
+objectClass: attributeSchema
+cn: pf-oauth-client-jwks
+name: pf-oauth-client-jwks
+adminDisplayName: pf-oauth-client-jwks
+LDAPDisplayName: pf-oauth-client-jwks
+distinguishedName: CN=pf-oauth-client-jwks,<Your Location>
+instanceType: 4
+attributeID: 1.3.6.1.4.1.28867.9.2.31
+attributeSyntax: 2.5.5.12
+isSingleValued: FALSE
+rangeLower: 0
+rangeUpper: 8192
+showInAdvancedViewOnly: TRUE
+oMSyntax: 64
+
+dn: CN=pf-oauth-client-enforce-replay-prevention,<Your Location>
+changetype: add
+objectClass: top
+objectClass: attributeSchema
+cn: pf-oauth-client-enforce-replay-prevention
+name: pf-oauth-client-enforce-replay-prevention
+adminDisplayName: pf-oauth-client-enforce-replay-prevention
+LDAPDisplayName: pf-oauth-client-enforce-replay-prevention
+distinguishedName: CN=pf-oauth-client-enforce-replay-prevention,<Your Location>
+instanceType: 4
+attributeID: 1.3.6.1.4.1.28867.9.2.32
+attributeSyntax: 2.5.5.8
+isSingleValued: TRUE
+uSNChanged: 12812
+showInAdvancedViewOnly: TRUE
+oMSyntax: 1
+
+dn: CN=pf-oauth-client-require-signed-requests,<Your Location>
+changetype: add
+objectClass: top
+objectClass: attributeSchema
+cn: pf-oauth-client-require-signed-requests
+name: pf-oauth-client-require-signed-requests
+adminDisplayName: pf-oauth-client-require-signed-requests
+LDAPDisplayName: pf-oauth-client-require-signed-requests
+distinguishedName: CN=pf-oauth-client-require-signed-requests,<Your Location>
+instanceType: 4
+attributeID: 1.3.6.1.4.1.28867.9.2.33
+attributeSyntax: 2.5.5.8
+isSingleValued: TRUE
+uSNChanged: 12812
+showInAdvancedViewOnly: TRUE
+oMSyntax: 1
+
+dn: CN=pf-oauth-client-supplemental-info,<Your Location>
+changetype: add
+objectClass: top
+objectClass: attributeSchema
+cn: pf-oauth-client-supplemental-info
+name: pf-oauth-client-supplemental-info
+adminDisplayName: pf-oauth-client-supplemental-info
+LDAPDisplayName: pf-oauth-client-supplemental-info
+distinguishedName: CN=pf-oauth-client-supplemental-info,<Your Location>
+instanceType: 4
+attributeID: 1.3.6.1.4.1.28867.9.2.34
+attributeSyntax: 2.5.5.12
+isSingleValued: FALSE
+rangeLower: 0
+rangeUpper: 8192
+showInAdvancedViewOnly: TRUE
+oMSyntax: 64
+
+dn: CN=pf-oauth-client-last-modified,<Your Location>
+changetype: add
+objectClass: top
+objectClass: attributeSchema
+cn: pf-oauth-client-last-modified
+name: pf-oauth-client-last-modified
+adminDisplayName: pf-oauth-client-last-modified
+LDAPDisplayName: pf-oauth-client-last-modified
+distinguishedName: CN=pf-oauth-client-last-modified,<Your Location>
+instanceType: 4
+attributeID: 1.3.6.1.4.1.28867.9.2.35
+searchFlags: 1
+attributeSyntax: 2.5.5.16
+isSingleValued: TRUE
+uSNChanged: 12812
+showInAdvancedViewOnly: TRUE
+oMSyntax: 65

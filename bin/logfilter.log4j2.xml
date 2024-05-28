@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration>
+    <Appenders>
+        <RollingFile name="FILE"
+            fileName="${sys:pingfederate.log.dir}/logfilter.log"
+            filePattern="${sys:pingfederate.log.dir}/logfilter.log.%i">
+            <PatternLayout>
+                <pattern>%p %t %c - %m%n</pattern>
+            </PatternLayout>
+            <Policies>
+                <SizeBasedTriggeringPolicy
+                    size="100 KB" />
+            </Policies>
+            <DefaultRolloverStrategy max="1" />
+        </RollingFile>
+    </Appenders>
+
+    <Loggers>
+        <Root level="INFO">
+            <AppenderRef ref="FILE" />
+        </Root>
+    </Loggers>
+</Configuration>

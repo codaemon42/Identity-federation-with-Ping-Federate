@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+#*
+The server renders this HTML page in an end-user's browser
+to display the username and list of core and extended attributes
+
+Velocity variables (identified by the $ character) are generated
+at runtime by the server.
+
+Change text or formatting as needed. Modifying Velocity statements
+is not recommended as it may interfere with expected server behavior.
+*#
+
+<html lang="$locale.getLanguage()" dir="ltr">
+<head>
+    <script type="text/javascript">
+        function postSubmit()
+        {
+            document.forms[0]['$submit'].value = 'clicked';
+            document.forms[0].submit();
+        }
+
+        function postCancel()
+        {
+            document.forms[0]['$cancel'].value = 'clicked';
+            document.forms[0].submit();
+        }
+
+        function postOnReturn(e)
+        {
+            var keycode;
+            if (window.event) keycode = window.event.keyCode;
+            else if (e) keycode = e.which;
+            else return true;
+
+            if (keycode == 13)
+            {
+                document.forms[0].submit();
+                return false;
+            }
+            else
+                return true;
+         }
+
+         function setFocus()
+         {
+            var platform = navigator.platform;
+            if(platform != null && platform.indexOf("iPhone") == -1)
+            {
+                document.getElementById('username').focus();
+            }
+         }
+
+    </script>
+    <base href="$CurrentPingFedBaseURL"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <title>$pluginTemplateMessages.getMessage("title")</title>
+    <link rel="stylesheet" media="all" type="text/css" href="assets/css/main.css"/>
+</head>
+<body onload="setFocus()">
+<div class="ping-container ping-signin">
+    <div class="ping-header">
+        $pluginTemplateMessages.getMessage("title")
+    </div>
+    <div class="ping-body-container">
+        <div class="section-title">
+            $pluginTemplateMessages.getMessage("headerMessage")
+        </div>
+        <div>
+            <form method="POST" action="$resumePath" autocomplete="off">
+
+                <div class="ping-input-label">
+                    $pluginTemplateMessages.getMessage("usernameTitle")
+                </div>
+                <div><input id="username" type="text" size="10" name="username" value="joe" autocorrect="off" autocapitalize="off" autocompete="off" onKeyPress="return postOnReturn(event)" /></div>
+                <br><br>
+
+                #if(!($extendedAttr.isEmpty()))
+                    <div class="ping-input-label">$pluginTemplateMessages.getMessage("extendedAttributes")</div>
+                    <table>
+                        #foreach($attribute in $extendedAttr)
+                            <tr>
+                                <!-- Escape user input to prevent cross site scripting -->
+                                #set($escapedAttr = $escape.escape($attribute))
+                                <td><div class="ping-input-label">$escapedAttr &nbsp;&nbsp;</div><br></td>
+                                <td><input type="text" size="10" name="$escapedAttr" value="" autocorrect="off" autocapitalize="off" autocompete="off" onKeyPress="return postOnReturn(event)" /></td>
+                            <tr>
+                        #end
+                    </table>
+                #end
+
+                <div class="ping-buttons">
+                    <input type="hidden" name="$submit" value=""/>
+                    <input type="hidden" name="$cancel" value=""/>
+
+                    <a href="javascript:void(0)" onclick="postSubmit();" class="ping-button normal allow" title="$pluginTemplateMessages.getMessage("submitButtonTitle")">
+                        $pluginTemplateMessages.getMessage("submitButtonTitle")
+                    </a>
+                    <a href="javascript:void(0)" onclick="postCancel();" class="ping-button blue deny" title="$pluginTemplateMessages.getMessage("cancelButtonTitle")">
+                        $pluginTemplateMessages.getMessage("cancelButtonTitle")
+                    </a>
+                </div>
+
+            </form>
+        </div>
+    </div>
+    <div class="ping-footer-container">
+        <div class="ping-footer">
+            <div class="ping-credits"></div>
+            <div class="ping-copyright">$templateMessages.getMessage("global.footerMessage")</div>
+        </div> <!-- .ping-footer -->
+    </div> <!-- .ping-footer-container -->
+</div> <!-- .ping-container -->
+</body>
+</html>

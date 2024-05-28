@@ -1,0 +1,6 @@
+<saasProvisioner version="1.0" 
+	enableSaasProvisionerGUI="false"      
+        internalDataSourceId="ProvisionerDS"
+        syncInterval="60"
+        xmlns="http://pingidentity.com/2008/06/saas-provisioner" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+</saasProvisioner>

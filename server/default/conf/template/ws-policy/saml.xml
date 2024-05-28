@@ -1,0 +1,63 @@
+<wsp:Policy wsu:Id="saml" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:trust="http://docs.oasis-open.org/ws-sx/ws-trust/200512" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl">
+    <wsp:ExactlyOne>
+        <wsp:All>
+            <sp:TransportBinding xmlns:sp="http://docs.oasis-open.org/ws-sx/ws-securitypolicy/200702">
+                <wsp:Policy>
+                    <sp:TransportToken>
+                        <wsp:Policy>
+                            <sp:HttpsToken RequireClientCertificate="false"/>
+                        </wsp:Policy>
+                    </sp:TransportToken>
+                    <sp:AlgorithmSuite>
+                        <wsp:Policy>
+                            <sp:Basic256 />
+                        </wsp:Policy>
+                    </sp:AlgorithmSuite>
+                    <sp:Layout>
+                        <wsp:Policy>
+                            <sp:Strict />
+                        </wsp:Policy>
+                    </sp:Layout>
+                    <sp:IncludeTimestamp />
+                </wsp:Policy>
+            </sp:TransportBinding>
+            <sp:EndorsingSupportingTokens xmlns:sp="http://docs.oasis-open.org/ws-sx/ws-securitypolicy/200702">
+                <wsp:Policy>
+                    <sp:IssuedToken sp:IncludeToken="http://docs.oasis-open.org/ws-sx/ws-securitypolicy/200702/IncludeToken/AlwaysToRecipient">
+                        <sp:RequestSecurityTokenTemplate>
+                            <trust:KeyType>http://docs.oasis-open.org/ws-sx/ws-trust/200512/PublicKey</trust:KeyType>
+                            <trust:KeyWrapAlgorithm>http://www.w3.org/2001/04/xmlenc#rsa-oaep-mgf1p</trust:KeyWrapAlgorithm>
+                            <trust:EncryptWith>http://www.w3.org/2001/04/xmlenc#rsa-oaep-mgf1p</trust:EncryptWith>
+                            <trust:SignatureAlgorithm>http://www.w3.org/2000/09/xmldsig#rsa-sha1</trust:SignatureAlgorithm>
+                            <trust:CanonicalizationAlgorithm>http://www.w3.org/2001/10/xml-exc-c14n#</trust:CanonicalizationAlgorithm>
+                            <trust:EncryptionAlgorithm>http://www.w3.org/2001/04/xmlenc#aes256-cbc</trust:EncryptionAlgorithm>
+                        </sp:RequestSecurityTokenTemplate>
+                        <wsp:Policy>
+                            <sp:RequireInternalReference />
+                        </wsp:Policy>
+                    </sp:IssuedToken>
+                    <sp:KeyValueToken sp:IncludeToken="http://docs.oasis-open.org/ws-sx/ws-securitypolicy/200702/IncludeToken/Never" wsp:Optional="true" />
+                    <sp:SignedParts>
+                        <sp:Header Name="To" Namespace="http://www.w3.org/2005/08/addressing" />
+                    </sp:SignedParts>
+                </wsp:Policy>
+            </sp:EndorsingSupportingTokens>
+            <sp:Wss11 xmlns:sp="http://docs.oasis-open.org/ws-sx/ws-securitypolicy/200702">
+                <wsp:Policy>
+                    <sp:MustSupportRefKeyIdentifier />
+                    <sp:MustSupportRefIssuerSerial />
+                    <sp:MustSupportRefThumbprint />
+                    <sp:MustSupportRefEncryptedKey />
+                </wsp:Policy>
+            </sp:Wss11>
+            <sp:Trust13 xmlns:sp="http://docs.oasis-open.org/ws-sx/ws-securitypolicy/200702">
+                <wsp:Policy>
+                    <sp:MustSupportIssuedTokens />
+                    <sp:RequireClientEntropy />
+                    <sp:RequireServerEntropy />
+                </wsp:Policy>
+            </sp:Trust13>
+            <wsaw:UsingAddressing />
+        </wsp:All>
+    </wsp:ExactlyOne>
+</wsp:Policy>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+#*
+The server renders this HTML page in an end-user's browser only when
+auto-submit is not available because JavaScript is disabled in
+the end-user's browser.
+
+Velocity variables (identified by the $ character) are generated
+at runtime by the server.
+
+The following variables are available on this page, but not used by default:
+
+$utils                 - The utility method to display JSON String arrays
+$escape                - The utility class that can be used to escape String variables
+$HttpServletResponse   - The details of HTTP response
+$HttpServletRequest    - The details of HTTP request
+$TrackingId            - The user's session tracking ID
+$TransactionId         - The unique ID for the SSO or SLO transaction.
+$PingFedBaseURL        - The URL containing full hostname and port on which the PingFederate deployment runs on
+$CurrentPingFedBaseURL - The base URL used in the current request. This URL may differ from $PingFedBaseURL when using a virtual host name
+$locale                - The user's country and language
+$templateMessages      - The set of messages that is used to localize messages based on the user's locale
+
+Change text or formatting as needed. Modifying Velocity statements
+is not recommended as it may interfere with expected server behavior.
+
+It is recommended to sanitize the values that are displayed using $escape.escape(), for example $escape.escape($client_id).
+
+*#
+
+<!-- template name: sourceid-wsfed-http-post-template.html -->
+
+ #set( $messageKeyPrefix = "sourceid-wsfed-http-post-template." )
+
+<html>
+<head>
+ <title>$templateMessages.getMessage($messageKeyPrefix, "title")</title>
+ <meta http-equiv="Content-Security-Policy" content="default-src 'self' 'nonce-$CSPNonce';" />
+</head>
+<body>
+<form method="POST" action="$action">
+<input type="hidden" name="wa" value="wsignin1.0" />
+<input type="hidden" name="wresult" value="$escape.escape($rstrdoc)" />
+#if( $wctx )
+<input type="hidden" name="wctx" value="$escape.escape($wctx)" />
+#end
+<noscript><p>$templateMessages.getMessage($messageKeyPrefix, "note")</p><input type="submit" value="$templateMessages.getMessage($messageKeyPrefix, "submitButton")" /></noscript>
+</form>
+<script language="javascript" nonce="$CSPNonce">
+    window.setTimeout(submitForm, 0);
+
+    function submitForm() {
+        document.forms[0].submit();
+    }
+</script>
+</body>
+</html>

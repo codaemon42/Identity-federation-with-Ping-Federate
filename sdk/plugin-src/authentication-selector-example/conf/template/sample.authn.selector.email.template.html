@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+#*
+
+The server renders this HTML page whenever the Domain Authentication Selector is invoked.
+In such a event, the authentication selector logic will be invoked to evaluate which
+authentication source. This HTML page will prompt the user to input an email address or
+complete domain name. From the provided domain name or email address, PingFederate can
+determine what authentication source to send their request to.
+
+Velocity variables (identified by the $ character) are generated at runtime by the server.
+
+*#
+
+<!-- template name: sample.authn.selector.email.template.html -->
+
+#set( $messageKeyPrefix = "sample.authn.selector.email.template." )
+<html lang="$locale.getLanguage()" dir="ltr">
+<head>
+    <title>$pluginTemplateMessages.getMessage("title")</title>
+    <base href="$CurrentPingFedBaseURL"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <link rel="stylesheet" media="all" type="text/css" href="assets/css/main.css"/>
+    <script type="text/javascript">
+        function postOk()
+        {
+            document.forms[0]['$ok'].value = 'clicked';
+            document.forms[0].submit();
+        }
+
+        function postCancel()
+        {
+            document.forms[0]['$cancel'].value = 'clicked';
+            document.forms[0].submit();
+        }
+
+        function postOnReturn(e)
+        {
+            var keycode;
+            if (window.event) keycode = window.event.keyCode;
+            else if (e) keycode = e.which;
+            else return true;
+
+            if (keycode == 13)
+            {
+                document.forms[0].submit();
+                return false;
+            }
+            else
+                return true;
+         }
+
+         function setFocus()
+         {
+            var platform = navigator.platform;
+            if(platform != null)
+            {
+                document.getElementById('inputEmailAddress').focus();
+            }
+         }
+    </script>
+</head>
+<body onload="setFocus()">
+<div class="ping-container">
+    <div class="ping-header">
+        $pluginTemplateMessages.getMessage("title")
+    </div>
+    <div class="ping-body-container">
+        <div class="section-title">
+            $pluginTemplateMessages.getMessage("emailMessage")
+        </div>
+        <div>
+            <form method="POST" action="$url" autocomplete="off">
+
+                #if($errorMessageKey)
+                    <div class="ping-messages">
+                        <div class="ping-error">
+                            $errorMessageKey
+                        </div>
+                    </div>
+                #end
+
+                <div class="ping-input-label">
+                   $pluginTemplateMessages.getMessage("emailTitle")
+                </div>
+
+                <div class="ping-input-container">
+                    <input id="inputEmailAddress" type="text" size="50" name="domainAuthnSelectorInputEmail" autocorrect="off" autocapitalize="off" onKeyPress="return postOnReturn(event)" />
+                </div>
+
+                <div class="ping-buttons">
+                    <input type="hidden" name="$ok" value=""/>
+                    <input type="hidden" name="$cancel" value=""/>
+                    <a href="javascript:void(0)" onclick="postOk();" class="ping-button normal allow" title="$pluginTemplateMessages.getMessage("submitEmailButtonTitle")">
+                        $pluginTemplateMessages.getMessage("submitEmailButtonTitle")
+                    </a>
+                    <a href="javascript:void(0)" onclick="postCancel();" class="ping-button blue deny" title="$pluginTemplateMessages.getMessage("cancelButtonTitle")">
+                        $pluginTemplateMessages.getMessage("cancelButtonTitle")
+                    </a>
+                </div>
+
+            </form>
+        </div>
+    </div>
+    <div class="ping-footer-container">
+        <div class="ping-footer">
+            <div class="ping-credits"></div>
+            <div class="ping-copyright">$templateMessages.getMessage("global.footerMessage")</div>
+        </div> <!-- .ping-footer -->
+    </div> <!-- .ping-footer-container -->
+</div>
+</body>
+</html>

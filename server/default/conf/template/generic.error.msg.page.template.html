@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+#*
+The server renders this HTML page in an end-user's browser when an
+Auto-Connect error occurs.
+
+Velocity variables (identified by the $ character) are generated
+at runtime by the server.
+
+The following variables are available on this page, but not used by default:
+
+$utils                 - The utility method to display JSON String arrays
+$escape                - The utility class that can be used to escape String variables
+$HttpServletResponse   - The details of HTTP response
+$HttpServletRequest    - The details of HTTP request
+$TrackingId            - The user's session tracking ID
+$TransactionId         - The unique ID for the SSO or SLO transaction.
+$PingFedBaseURL        - The URL containing full hostname and port on which the PingFederate deployment runs on
+$CurrentPingFedBaseURL - The base URL used in the current request. This URL may differ from $PingFedBaseURL when using a virtual host name
+$locale                - The user's country and language
+$templateMessages      - The set of messages that is used to localize messages based on the user's locale
+
+Change text or formatting as needed. Modifying Velocity statements
+is not recommended as it may interfere with expected server behavior.
+
+It is recommended to sanitize the values that are displayed using $escape.escape(), for example $escape.escape($client_id).
+
+*#
+
+<!-- template name: generic.error.msg.page.template.html -->
+
+#set( $messageKeyPrefix = "generic.error.msg.page.template." )
+
+<html lang="$locale.getLanguage()" dir="ltr">
+<head>
+    <title>$templateMessages.getMessage($messageKeyPrefix, "title")</title>
+    <base href="$CurrentPingFedBaseURL"/>
+    <meta name="robots" content="noindex, nofollow" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta http-equiv="x-ua-compatible" content="IE=edge" />
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self' 'nonce-$CSPNonce';" />
+    <link rel="stylesheet" media="all" type="text/css" href="assets/css/main.css" />
+</head>
+<body>
+
+<div class="ping-container">
+
+    <!--
+     if there is a logo present in the 'company-logo' container,
+     then 'has-logo' class should be added to 'ping-header' container.
+     -->
+    <div class="ping-header">
+        <span class="company-logo"><!-- client company logo here --></span>
+        $templateMessages.getMessage($messageKeyPrefix, "title")
+    </div><!-- .ping-header -->
+
+    <div class="ping-body-container">
+
+        #if ($errorCode)
+            #if ($errorCode.equals("DYNAFED_DOMAIN_NOT_IN_WHITE_LIST"))
+                #set($msg = $templateMessages.getMessage($messageKeyPrefix, "error.notInWhitelist"))
+            #elseif ($errorCode.equals("DYNAFED_METADATA_ERROR"))
+                #set($msg = $templateMessages.getMessage($messageKeyPrefix, "error.metadataError"))
+            #elseif ($errorCode.equals("DYNAFED_NOT_CONFIGURED"))
+                #set($msg = $templateMessages.getMessage($messageKeyPrefix, "error.notEnabled"))
+            #else
+                #set($msg = $templateMessages.getMessage($messageKeyPrefix, "systemError") + ": " + $templateMessages.getMessage($errorCode))
+            #end
+        #end
+
+        <div class="ping-messages">
+            <div class="ping-error">$escape.escape($msg)</div>
+
+            ## Uncomment below to display additional dynamic content to user:
+            #*
+            <div>
+                $templateMessages.getMessage("global.trackingId"): <strong>$TrackingId</strong>
+            </div>
+            *#
+        </div>
+
+    </div><!-- .ping-body-container -->
+
+</div><!-- .ping-container -->
+
+</body>
+</html>

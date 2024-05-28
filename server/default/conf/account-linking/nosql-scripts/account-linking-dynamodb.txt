@@ -1,0 +1,23 @@
+##
+# Table name : PingFederateAccountLink
+#
+# Primary Key:
+#   Partition key: Id (String)
+#   Sort key: N/A
+#
+# Attributes:
+#  IdPEntityId (String)
+#  ExternalUserId (String)
+#  AdapterId (String)
+#  LocalUserId (String)
+#  DateCreated (String)
+##
+aws dynamodb create-table \
+    --table-name PingFederateAccountLink \
+    --attribute-definitions \
+        AttributeName=Id,AttributeType=S \
+    --key-schema \
+        AttributeName=Id,KeyType=HASH \
+    --provisioned-throughput \
+        ReadCapacityUnits=10,WriteCapacityUnits=5 \
+    --table-class STANDARD

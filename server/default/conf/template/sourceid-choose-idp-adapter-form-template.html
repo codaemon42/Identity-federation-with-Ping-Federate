@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+#*
+The server renders this HTML page in an end-user's browser when an
+end-user must choose from several security domains. Based on the
+selection, the server redirects the end-user's browser to the
+appropriate adapter instance for authentication.
+
+Velocity variables (identified by the $ character) are generated
+at runtime by the server.
+
+The following variables are available on this page, but not used by default:
+
+$utils                 - The utility method to display JSON String arrays
+$escape                - The utility class that can be used to escape String variables
+$HttpServletResponse   - The details of HTTP response
+$HttpServletRequest    - The details of HTTP request
+$TrackingId            - The user's session tracking ID
+$TransactionId         - The unique ID for the SSO or SLO transaction.
+$PingFedBaseURL        - The URL containing full hostname and port on which the PingFederate deployment runs on
+$CurrentPingFedBaseURL - The base URL used in the current request. This URL may differ from $PingFedBaseURL when using a virtual host name
+$locale                - The user's country and language
+$templateMessages      - The set of messages that is used to localize messages based on the user's locale
+
+$client_id             - The ID of the OAuth client used in this transaction
+$entityId              - The entity ID (connection ID) of the SP Connection used in this SSO transaction
+$spAdapterId           - The SP Adapter ID used in this transaction
+$connectionName        - The name of the SP Connection used in this SSO transaction
+$extendedProperties    - The extended properties defined on either the connection or OAuth client
+
+Change text or formatting as needed. Modifying Velocity statements
+is not recommended as it may interfere with expected server behavior.
+
+It is recommended to sanitize the values that are displayed using $escape.escape() for example $escape.escape($client_id).
+
+*#
+
+<!-- template name: sourceid-choose-idp-adapter-form-template.html -->
+
+#set( $messageKeyPrefix = "sourceid-choose-idp-adapter-form-template." )
+
+<html lang="$locale.getLanguage()" dir="ltr">
+<head>
+    <title>$templateMessages.getMessage($messageKeyPrefix, "title")</title>
+    <meta name="robots" content="noindex, nofollow" />
+    <base href="$CurrentPingFedBaseURL"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta http-equiv="x-ua-compatible" content="IE=edge" />
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self' 'nonce-$CSPNonce';" />
+    <link rel="stylesheet" media="all" type="text/css" href="assets/css/main.css" />
+</head>
+
+<body>
+    
+    <div class="ping-container">
+        
+        <!-- 
+        if there is a logo present in the 'company-logo' container,
+        then 'has-logo' class should be added to 'ping-header' container.
+        -->
+        <div class="ping-header">
+            <span class="company-logo"><!-- client company logo here --></span>
+            $templateMessages.getMessage($messageKeyPrefix, "title")
+        </div><!-- .ping-header -->
+        
+        <div class="ping-body-container">
+            <form method="GET" action="$action">
+
+                <div class="firstcut">
+                    <div class="ping-messages">
+                        <div>
+                            $templateMessages.getMessage($messageKeyPrefix, "info")
+                        </div>
+                    </div>
+                    <div class="ping-input-container ping-input-label">
+                        <label class="input-select">
+                            <span class="label-text">
+                                $templateMessages.getMessage($messageKeyPrefix, "selectSystem"):
+                            </span>
+                            <div class="input-container">
+                                <div class="wrapper">
+                                    <select name="$adapterIdParamName">
+                                        #foreach( $adapterId in $adapterMap.keySet() )
+                                            <option value="$adapterId">$adapterMap.get($adapterId)</option>
+                                        #end
+                                    </select>
+                                </div>
+                        </div>
+                        </label>
+                    </div>
+                    <label class="remember-selection">
+                        <div class="ping-checkbox-container stacked">
+                            <input type="checkbox" name="$rememberParamName" value="true" checked />
+                            <div class="icon"> </div>
+                            $templateMessages.getMessage($messageKeyPrefix, "rememberSelection")
+                        </div>
+                    </label>
+                </div>
+                <div class="ping-buttons">
+                    <input type="submit" class="ping-button normal" value="$templateMessages.getMessage($messageKeyPrefix, "submitButtonName")" title="$templateMessages.getMessage($messageKeyPrefix, "submitButtonName")"/>
+                </div>
+                <div class="hidden-field">
+                    #if ($changePassword)
+                        <input type="text" name="$changePasswordParamName" value="true"/>
+                    #end
+                </div>
+            </form>
+        </div><!-- .ping-body-container -->
+        
+        <div class="ping-footer-container">
+            <div class="ping-footer">
+                <div class="ping-credits"></div>
+            <div class="ping-copyright">$templateMessages.getMessage("global.footerMessage")</div>
+            </div> <!-- .ping-footer -->
+        </div> <!-- .ping-footer-container -->
+        
+    </div><!-- .ping-container -->
+    
+</body>
+</html>

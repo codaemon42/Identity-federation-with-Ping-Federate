@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+#*
+Login Challenge Question Template Form
+
+Velocity variables (identified by the $ character) are generated
+at runtime by the server.
+
+The following variables are available on this page, but not used by default:
+
+$utils                 - The utility method to display JSON String arrays
+$escape                - The utility class that can be used to escape String variables
+$HttpServletResponse   - The details of HTTP response
+$HttpServletRequest    - The details of HTTP request
+$TrackingId            - The user's session tracking ID
+$TransactionId         - The unique ID for the SSO or SLO transaction.
+$PingFedBaseURL        - The URL containing full hostname and port on which the PingFederate deployment runs on
+$CurrentPingFedBaseURL - The base URL used in the current request. This URL may differ from $PingFedBaseURL when using a virtual host name
+$locale                - The user's country and language
+$templateMessages      - The set of messages that is used to localize messages based on the user's locale
+
+$entityId              - The entity ID (connection ID) of the SP Connection used in this SSO transaction
+$connectionName        - The name of the SP Connection used in this SSO transaction
+$client_id             - The ID of the OAuth client used in this transaction
+$spAdapterId           - The SP Adapter ID used in this transaction
+$baseUrl               - The base URL of PingFederate instance
+$adapterId             - The IdP Adapter ID used in this transaction
+$oidcUiLocales         - The OIDC ui_locales
+$extendedProperties    - The extended properties defined on either the connection or OAuth client
+
+Change text or formatting as needed. Modifying Velocity statements
+is not recommended as it may interfere with expected server behavior.
+
+It is recommended to sanitize the values that are displayed using $escape.escape(), for example $escape.escape($client_id).
+
+*#
+
+<!-- template name: html.form.login.challenge.template.html -->
+
+#set( $messageKeyPrefix = "html.form.login.challenge.template." )
+
+<html lang="$locale.getLanguage()" dir="ltr">
+<head>
+    <title>$templateMessages.getMessage($messageKeyPrefix, "title")</title>
+    <base href="$CurrentPingFedBaseURL"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <meta http-equiv="x-ua-compatible" content="IE=edge" />
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self' 'nonce-$CSPNonce';" />
+    <link rel="stylesheet" media="all" type="text/css" href="assets/css/main.css"/>
+    <script src='assets/scripts/pf-general.js'></script>
+</head>
+<body>
+    
+<div class="ping-container">
+    
+    <!-- 
+     if there is a logo present in the 'company-logo' container,
+     then 'has-logo' class should be added to 'ping-header' container.
+     -->
+    <div class="ping-header">
+        <span class="company-logo"><!-- client company logo here --></span>
+        $templateMessages.getMessage($messageKeyPrefix, "title")
+    </div>
+    
+    <div class="ping-body-container">
+        <div class="section-title">
+            $challengeQuestion
+        </div>
+        <div>
+            <form method="POST" action="$url" autocomplete="off">
+
+                #if($errorMessageKey)
+                    <div class="ping-messages">
+                        <div class="ping-error">
+                            $templateMessages.getMessage($messageKeyPrefix, $errorMessageKey)
+                        </div>
+                    </div>
+                #end
+
+                <div class="ping-input-container">
+                    <input id="challengeResponse" type="password" name="$challengeResponse"/>
+                    <a id="reveal" class="password-show-button icon-view"></a>
+                </div>
+
+                <div class="ping-buttons">
+                    <input type="hidden" name="$ok" value=""/>
+                    <input type="hidden" name="$cancel" value=""/>
+
+
+                    <a id="signOnButton" class="ping-button normal allow" title="$templateMessages.getMessage($messageKeyPrefix, "signInButtonTitle")">
+                        $templateMessages.getMessage($messageKeyPrefix, "signInButtonTitle")
+                    </a>
+                    <a id="cancelButton" class="ping-button blue deny" title="$templateMessages.getMessage($messageKeyPrefix, "cancelButtonTitle")">
+                        $templateMessages.getMessage($messageKeyPrefix, "cancelButtonTitle")
+                    </a>
+
+                </div><!-- .ping-buttons -->
+            </form>
+        </div><!-- .ping-body -->
+    </div><!-- .ping-body-container -->
+    
+    <div class="ping-footer-container">
+        <div class="ping-footer">
+            <div class="ping-credits"></div>
+            <div class="ping-copyright">$templateMessages.getMessage("global.footerMessage")</div>
+        </div> <!-- .ping-footer -->
+    </div> <!-- .ping-footer-container -->
+    
+</div><!-- .ping-container -->
+
+<script type="text/javascript" nonce="$CSPNonce">
+
+    window.onload = function() {
+        var isPingOneApp = false;
+        #if($HttpServletRequest.getHeader('X-Ping-Client-Version'))
+            toggleMobile(true);
+        #else
+            toggleMobile(false);
+        #end
+
+        setFocus('challengeResponse');
+    }
+
+    handleReturnPress('challengeResponse', postOk);
+    registerEventHandler('signOnButton', 'click', postOk);
+    registerEventHandler('cancelButton', 'click', postCancel);
+    registerEventHandler('reveal', 'click', function() {
+        revealPassword('challengeResponse', 'reveal');
+    });
+
+    var formSubmitted = false;
+
+    function postOk() {
+        if (formSubmitted)
+            return true;
+
+        formSubmitted = true;
+
+        document.forms[0]['$ok'].value = 'clicked';
+        document.forms[0].submit();
+    }
+
+    function postCancel() {
+        document.forms[0]['$cancel'].value = 'clicked';
+        document.forms[0].submit();
+    }
+
+    </script>
+
+</body>
+</html>
